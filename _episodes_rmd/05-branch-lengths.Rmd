@@ -1,0 +1,37 @@
+---
+source: Rmd
+title: "Get branch length information (proportional to time) for you taxa"
+teaching: 5
+exercises: 5
+questions:
+- "How do I do this?"
+objectives:
+- "Understand the difference between find studies and datelife"
+keypoints:
+- "..."
+---
+```{r, eval = TRUE, echo = FALSE}
+source("../bin/chunk-options.R")
+```
+
+You can explore the studies supporting the synthetic tree, and find out which ones have branch lengths.
+
+In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
+It only works at the species level.
+
+```{r, eval = TRUE}
+apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
+resolved_names <- rotl::tnrs_match_names(apes)
+```
+
+```{r, eval = TRUE, results = 'hide'}
+apes_dr <- datelife::get_datelife_result(resolved_names$unique_name, get_spp_from_taxon = TRUE)
+```
+```{r, eval = TRUE}
+names(apes_dr)
+apes_dr[1] # look at the first element of the list
+apes_dr[length(apes_dr)] # look at the last element of the list
+```
+
+We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
+Lists are named by the study citation, so we have that information handy at all times.

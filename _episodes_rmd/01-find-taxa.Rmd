@@ -1,0 +1,48 @@
+---
+source: Rmd
+title: "Find your taxa in the Open Tree of Life"
+teaching: 5
+exercises: 5
+questions:
+- "What are ott ids?"
+- "How do I get them?"
+- "How do I check them and fix them?"
+- "How do I use them?"
+objectives:
+- "Know about functions to handle ott ids, understand them and their outputs"
+- "Learn about approximate matching ans its sensitivity "
+- "Learn about taxonomic contexts and how to use them"
+keypoints:
+- "ott ids are the Open Tree of Life Taxonomy handlers, they allow us to intercat with the Open Tree synthetic tree"
+- "Functions that help us find ott ids start with tnrs_ "
+---
+```{r, eval = TRUE, echo = FALSE}
+source("../bin/chunk-options.R")
+```
+```{r, include = FALSE, warnings = FALSE}
+library("datelife")
+data("opentree_chronograms")
+runtime <- attr(opentree_chronograms, "running_time")
+# for provisional testing:
+start_time <- Sys.time()
+Sys.sleep(10)
+end_time <- Sys.time()
+runtime <- end_time - start_time
+```
+
+
+Get the _ott ids_ for your taxa with `tnrs_match_names()`. This will generate a "match_names" object.
+```{r, eval = TRUE}
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+class(resolved_names)
+resolved_names
+```
+
+There are two ways to extract the _ott ids_ from a "match_names" object:
+```{r}
+rotl::ott_id(resolved_names) # as a list
+resolved_names$ott_id # as a vector
+```
+
+{% include links.md %}

@@ -1,0 +1,32 @@
+---
+source: Rmd
+title: "Get an induced subtree of all taxa within a taxonomic rank"
+teaching: 5
+exercises: 5
+questions:
+- "How do I do this?"
+objectives:
+- "Learn sapply"
+- "Use datelife"
+keypoints:
+- "..."
+---
+```{r, eval = TRUE, echo = FALSE}
+source("../bin/chunk-options.R")
+amphibia <- rotl::tnrs_match_names("amphibia")  # get the ott id of the genus Canis (dogs)
+```
+
+We have implemented a function in `datelife` to extract all taxa of a given rank. It is also sligthly faster.
+
+```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+amphibia_families <- datelife::get_ott_children(ott_ids = amphibia$ott_id, ott_rank = "family")
+```
+Now, get the subtree of families only.
+```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
+```
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 8}
+amphibia_families_subtree
+ape::plot.phylo(amphibia_families_subtree, cex = 0.5)
+```
+Awesome!

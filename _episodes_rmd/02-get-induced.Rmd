@@ -1,0 +1,71 @@
+---
+source: Rmd
+title: "Get an induced subtree from the Synthetic Open Tree of Life"
+teaching: 5
+exercises: 5
+questions:
+- "What is an induced subtree?"
+- "How do I get on?"
+objectives:
+- "Know what functions are available to get an induced subtree"
+- "Understand errors and warnings from those functions"
+keypoints:
+- "dropping singletons warning is ..."
+---
+```{r, eval = TRUE, echo = FALSE}
+source("../bin/chunk-options.R")
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+```
+
+
+```{r, eval = TRUE, results = 'hide'}
+mytree <- rotl::tol_induced_subtree(resolved_names$ott_id)
+```
+
+What does this warning mean?
+
+
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE}
+ape::plot.phylo(mytree, cex = 1)
+```
+
+This is cool!
+
+Now, what if you want a synthetic tree containing some or all descendants from your taxa of interest?
+
+# Get a subtree of one taxon
+
+We can extract a subtree of all descendants of one taxon at a time using the function `tol_subtree()` and the amphibians _ott id_.
+
+Try to extract a subtree of all amphibians.
+Get the _ott id_ first. It is already stored in the `resolved_names` object, but you can run the function `tnrs_match_names()` again if you want.
+```{r, eval = TRUE}
+amphibia_ott_id <- resolved_names$ott_id[1] # extract the ott id from resolved_names
+# amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id # OR run tnrs again
+```
+
+Now, extract the subtree from the Open Tree synthetic tree using `tol_subtree()`.
+```{r, eval = TRUE, results= 'hide', warning= FALSE}
+amphibia_subtree <- rotl::tol_subtree(ott_id = amphibia_ott_id)
+```
+```{r, eval = TRUE}
+amphibia_subtree
+```
+This is a large tree!
+
+Try to extract a subtree for the genus _Canis_. It should be way smaller!
+
+```{r, eval = TRUE}
+canis <- rotl::tnrs_match_names("canis")  # get the ott id of the genus Canis (dogs)
+canis
+```
+```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+subtree <- rotl::tol_subtree(canis$ott_id) # get the subtree
+```
+
+Why am I getting an error saying that the _node id_ was not found and that my taxon is "broken"??
+
+Generally, this happens when phylogenetic information does not match taxonomic information.
+For example, extinct lineages are sometimes phylogenetically included within the taxon but are taxonomically excluded, making the taxon appear as paraphyletic.
+On the browser, you can still get to the subtree. From R, you need to do something else first.
