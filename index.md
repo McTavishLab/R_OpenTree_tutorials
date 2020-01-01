@@ -3,7 +3,8 @@ layout: lesson
 root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
-FIXME: home page introduction
+This lesson is part of the workshop "Using the Open Tree of Life for your Research",
+SSB 2020.
 
 <!-- this is an html comment -->
 
@@ -11,7 +12,7 @@ FIXME: home page introduction
 
 > ## Prerequisites
 >
-> Knowledge about phylogenies
+> Knowledge about phylogenies.
 {: .prereq}
 
 {% include links.md %}

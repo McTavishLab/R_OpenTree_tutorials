@@ -1,8 +1,11 @@
 ---
 title: Setup
 ---
-From R, install the packages `rotl`, `ape`, `devtools` and `stringr` with the function `install.packages()`,
-and the package `datelife` with the function `install_github()`.
+
+For the R section of the workshop, we recommend using RStudio ((installation instructions)[https://opentreeoflife.github.io/SSBworkshop/#setup]), but you can use the R GUI (from a mac) or R from Terminal; feel free to use whatever works better for you.
+
+From within R, install the packages `rotl`, `ape`, `devtools` and `stringr` with the function `install.packages()`,
+and the package `datelife` with the call `install_github("phylotastic/datelife")`.
 
 Load them into your workspace with `library()` or `require()`.
 
