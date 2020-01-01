@@ -18,6 +18,7 @@ This implies more typing, but gives more clarity to reproduce the workflow later
 
 An exception to this, are functions from packages that are "preloaded" --such as `library()` from `base`, or `install.packages()` from `utils`; these can simply be called by their name.
 
+**Code chunk**:
 
 ```{r}
 install.packages(c("rotl", "ape", "devtools", "stringr"))
@@ -27,3 +28,4 @@ library(stringr)
 devtools::install_github("phylotastic/datelife")
 library(datelife)
 ```
+{% include links.md %}
