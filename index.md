@@ -13,6 +13,8 @@ SSB 2020.
 > ## Prerequisites
 >
 > Knowledge about phylogenies.
+> Some experience with the R programming language.
+>
 {: .prereq}
 
 {% include links.md %}

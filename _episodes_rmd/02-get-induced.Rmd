@@ -1,11 +1,11 @@
 ---
 source: Rmd
-title: "Get an induced subtree from the Synthetic Open Tree of Life"
+title: "Getting a piece of the Synthetic Open Tree of Life"
 teaching: 5
 exercises: 5
 questions:
-- "What is an induced subtree?"
-- "How do I get on?"
+- "What is the synthetic Open Tree of Life?"
+- "How do I interact with it?"
 objectives:
 - "Know what functions are available to get an induced subtree"
 - "Understand errors and warnings from those functions"
