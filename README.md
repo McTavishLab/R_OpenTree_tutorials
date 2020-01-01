@@ -24,6 +24,6 @@ To cite this lesson, please consult with [CITATION](CITATION)
 
 ## Disclaimer:
 
-This lesson was constructed using the carpentries [lesson-example]: https://carpentries.github.io/lesson-example. The workshop "Using the Open Tree of Life for your Research" is not a part of the carpentries.
+This lesson was constructed using the carpentries [lesson-example](https://carpentries.github.io/lesson-example). The workshop "Using the Open Tree of Life for your Research" is not a part of the carpentries.
 
 
