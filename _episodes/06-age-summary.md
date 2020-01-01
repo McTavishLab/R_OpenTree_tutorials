@@ -21,49 +21,26 @@ apes_phylo_median <-  datelife::summarize_datelife_result(apes_dr,summary_format
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in check_datelife_result(datelife_result): object 'apes_dr' not found
-~~~
-{: .error}
-
 ~~~
 apes_phylo_median
 ~~~
 {: .language-r}
 
 
+Phylogenetic tree with 8 tips and 7 internal nodes.
 
-~~~
-Error in eval(expr, envir, enclos): object 'apes_phylo_median' not found
-~~~
-{: .error}
+Tip labels:
+	Homo_sapiens, Pan_paniscus, Gorilla_beringei, Gorilla_gorilla, Pongo_abelii, Pongo_pygmaeus, ...
+Node labels:
+	n1, n2, n3, n4, n5, n6, ...
 
+Rooted; includes branch lengths.
 
 
 ~~~
 ape::plot.phylo(apes_phylo_median, cex = 1)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in ape::plot.phylo(apes_phylo_median, cex = 1): object 'apes_phylo_median' not found
-~~~
-{: .error}
-
-
-
-~~~
 ape::axisPhylo()
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-~~~
-{: .error}
+<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
