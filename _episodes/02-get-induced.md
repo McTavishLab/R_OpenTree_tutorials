@@ -9,13 +9,14 @@ questions:
 - "What is the synthetic Open Tree of Life?"
 - "How do I interact with it?"
 objectives:
-- "Know what functions are available to get an induced subtree"
-- "Understand errors and warnings from those functions"
+- "Extract an indced subtree"
+- "Extract a subtree"
 keypoints:
 - "dropping singletons warning is ..."
 ---
 
 
+Now that we have 
 
 
 ~~~

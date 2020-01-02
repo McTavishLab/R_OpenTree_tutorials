@@ -6,11 +6,13 @@ exercises: 5
 questions:
 - "What is the synthetic Open Tree of Life?"
 - "How do I interact with it?"
+- "Why is my taxon not in the tree?"
 objectives:
-- "Know what functions are available to get an induced subtree"
-- "Understand errors and warnings from those functions"
+- "Extract an induced subtree"
+- "Extract a subtree"
 keypoints:
 - "dropping singletons warning is ..."
+- ""
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
@@ -18,6 +20,10 @@ my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
 resolved_names <- rotl::tnrs_match_names(my_taxa)
 ```
 
+Now that we have some _ott ids_ we can interact with the synthetic Open Tree.
+For that, we can use two different functions that start with "tol_".
+
+Let's get a tree of taxa from different ranks.
 
 ```{r, eval = TRUE, results = 'hide'}
 mytree <- rotl::tol_induced_subtree(resolved_names$ott_id)

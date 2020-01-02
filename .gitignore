@@ -13,3 +13,4 @@ _site
 .vendor/
 .docker-vendor/
 Gemfile.lock
+ssb2020_workshop.Rproj

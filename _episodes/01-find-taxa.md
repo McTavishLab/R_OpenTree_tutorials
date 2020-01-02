@@ -9,25 +9,26 @@ questions:
 - "What is the Open Tree Taxonomy?"
 - "What are _ott ids_?"
 - 'What is "tnrs"?'
-- "How do I check them and fix them?"
-- "How do I use them?"
 objectives:
-- 'Learn about "tnrs_" functions, their arguments and their outputs'
-- "Learn about approximate matching ans its sensitivity "
-- "Learn about taxonomic contexts and how to use them"
+- "Get ott ids for some taxa."
+- "Understand tnrs approximate matching and its sensitivity."
+- "Try taxonomic contexts."
 keypoints:
-- "_ott ids_ are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree"
-- "taxonomic context is very important to find the correct _ott ids_ of our taxa"
+- "_ott ids_ are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
+- "taxonomic context is very important to find the correct _ott ids_ for our taxa."
+- "You can go from a scientific name to an _ott id_ with tnrs matching."
+- "But you can go from common name to scientific name format using other functions, to make your own workflow."
 ---
 
 
-## The Open Tree Taxonomy and its identifiers
+### The Open Tree Taxonomy and its identifiers
 
 
 The Open Tree Taxonomy is
 
+TNRS stands for Taxonomic NAme Resolution Service.
 
-To get the _ott ids_ of your taxa you will need the function `tnrs_match_names()`. This will generate a "match_names" object.
+To get the _ott ids_ of your taxa we will use the function `tnrs_match_names()`. This will generate a "match_names" object.
 
 ~~~
 my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
@@ -146,10 +147,15 @@ resolved_names$ott_id["Amphibia"]
 ~~~
 {: .output}
 
-## Taxonomic contexts and updating a
+You can access other elements of the match)names object with functions `flag`
+
+
+### Taxonomic contexts and updating a "match_names" object
 
 Running a tnrs match can take some time, so if you just want to update a few elememnts from your match_names object, you can use the functions
 
+Extra:
 
+Going from common name to scientific name
 
 {% include links.md %}
