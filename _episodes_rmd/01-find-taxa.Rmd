@@ -21,7 +21,10 @@ keypoints:
 source("../bin/chunk-options.R")
 ```
 
-Get the _ott ids_ for your taxa with `tnrs_match_names()`. This will generate a "match_names" object.
+The Open Tree Taxonomy is
+
+
+To get the _ott ids_ of your taxa you will need the function `tnrs_match_names()`. This will generate a "match_names" object.
 ```{r, eval = TRUE}
 my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
 resolved_names <- rotl::tnrs_match_names(my_taxa)
@@ -29,10 +32,23 @@ class(resolved_names)
 resolved_names
 ```
 
-There are two ways to extract the _ott ids_ from a "match_names" object:
+Are you familiar with the elements of a match_names object?
+
+
+There are two ways to extract the _ott ids_ from a match_names object.
+
+As a list, with the function `ott_id()`:
+
 ```{r}
 rotl::ott_id(resolved_names) # as a list
+```
+
+Or, as a vector:
+
+```{r}
 resolved_names$ott_id # as a vector
 ```
+
+Most of the functions we will use need _ott ids_ as a vector, so I will prefer the second approach.
 
 {% include links.md %}
