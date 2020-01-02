@@ -53,23 +53,27 @@ Or, as a vector:
 resolved_names$ott_id # as a vector
 ```
 
-Most of the functions we will use need _ott ids_ as a vector, so I will prefer the second approach.
+Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
 
-**Hack**:
+> **Hack**:
+>
+> To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
+>
+> ```{r}
+> rownames(resolved_names) <- resolved_names$unique_name
+> ```
+>
+> Like this, we can access _ott ids_ by their taxon name.
+>
+> ```{r}
+> resolved_names$ott_id["Amphibia"]
+> ```
+{: .challenge}
 
-To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
+Other elements of the match_names object can only be accessed as a vector, using the "$" symbol.
 
-```{r}
-rownames(resolved_names) <- resolved_names$unique_name
-```
 
-Like this, we can access _ott ids_ by their taxon name.
-
-```{r}
-resolved_names$ott_id["Amphibia"]
-```
-
-You can access other elements of the match)names object with functions `flag`
+You can access the  elements of the match_names object with functions `flags()`
 
 
 ### Taxonomic contexts and updating a "match_names" object

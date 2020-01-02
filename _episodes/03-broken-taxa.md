@@ -6,7 +6,7 @@ title: 'Dealing with "broken" and "invalid" taxa'
 teaching: 5
 exercises: 5
 questions:
-- "Why are my taxa not in the tree?"
+- "How do I detect a broken taxon?"
 objectives:
 - "Know what functions are available to get taxon information"
 - "Understand outputs from those functions"
@@ -27,7 +27,7 @@ This is the reason why we get an error when we try to get a subtree using the _o
 Then, how do I get a subtree of my "broken" taxon?
 There are some options.
 
-## a) Get a subtree using the _node id_ instead of the _ott id_
+### a) Get a subtree using the _node id_ instead of the _ott id_
 `rotl` has a function that gets for you all info from the node containing a taxon. That includes the actual _node id_.
 
 ~~~
@@ -67,7 +67,7 @@ This includes species assigned to genera other than _Canis_.
 
 What if I _really, really_ want to get a tree containing species within the genus _Canis_ only?
 
-## b) Get an induced subtree of taxonomic children
+### b) Get an induced subtree of taxonomic children
 
 We can get the _ott ids_ of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
 

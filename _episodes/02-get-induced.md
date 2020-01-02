@@ -8,15 +8,20 @@ exercises: 5
 questions:
 - "What is the synthetic Open Tree of Life?"
 - "How do I interact with it?"
+- "Why is my taxon not in the tree?"
 objectives:
-- "Extract an indced subtree"
+- "Extract an induced subtree"
 - "Extract a subtree"
 keypoints:
 - "dropping singletons warning is ..."
+- ""
 ---
 
 
-Now that we have 
+Now that we have some _ott ids_ we can interact with the synthetic Open Tree.
+For that, we can use two different functions that start with "tol_".
+
+Let's get a tree of taxa from different ranks.
 
 
 ~~~
