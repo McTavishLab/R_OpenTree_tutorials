@@ -6,7 +6,7 @@ exercises: 5
 questions:
 - "What is the Open Tree Taxonomy?"
 - "What are _ott ids_?"
-- "How do I get them?"
+- 'What is "tnrs"?'
 - "How do I check them and fix them?"
 - "How do I use them?"
 objectives:
@@ -20,6 +20,9 @@ keypoints:
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
 ```
+
+## The Open Tree Taxonomy and its identifiers
+
 
 The Open Tree Taxonomy is
 
@@ -39,7 +42,7 @@ There are two ways to extract the _ott ids_ from a match_names object.
 
 As a list, with the function `ott_id()`:
 
-```{r}
+```{r, eval }
 rotl::ott_id(resolved_names) # as a list
 ```
 
@@ -50,5 +53,25 @@ resolved_names$ott_id # as a vector
 ```
 
 Most of the functions we will use need _ott ids_ as a vector, so I will prefer the second approach.
+
+**Hack**:
+
+To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
+
+```{r}
+rownames(resolved_names) <- resolved_names$unique_name
+```
+
+Like this, we can access _ott ids_ by their taxon name.
+
+```{r}
+resolved_names$ott_id["Amphibia"]
+```
+
+## Taxonomic contexts and updating a
+
+Running a tnrs match can take some time, so if you just want to update a few elememnts from your match_names object, you can use the functions
+
+
 
 {% include links.md %}

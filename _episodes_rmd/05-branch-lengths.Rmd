@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Get branch length information (proportional to time) for you taxa"
+title: "Getting branch length information (proportional to time) for you taxa"
 teaching: 5
 exercises: 5
 questions:
