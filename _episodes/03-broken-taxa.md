@@ -14,24 +14,25 @@ keypoints:
 - "taxonomic tree..."
 ---
 
+We say that a taxon is "broken" when its _ott id_ is not assigned to a node in the synthetic tree.
+In practice, this means the the _ott id_ is **not** in the tree.
+This is the reason why we get an error when we try to get a synthetic subtree using that _ott id_.
 
 There is a way to find out that a group is "broken" before trying to get the subtree and getting an error.
 
 ~~~
-rotl::is_in_tree(canis$ott_id)
+rotl::is_in_tree(resolved_names["Canis",]$ott_id)
 ~~~
 {: .language-r}
-We say that a taxon is not in the tree when its _ott id_ is not assigned to a node in the synthetic tree.
-This is the reason why we get an error when we try to get a subtree using the _ott id_.
 
-Then, how do I get a subtree of my "broken" taxon?
-There are some options.
+To extract a subtree of a "broken" taxon, we have some options.
 
 ### a) Get a subtree using the _node id_ instead of the _ott id_
+
 `rotl` has a function that gets for you all info from the node containing a taxon. That includes the actual _node id_.
 
 ~~~
-canis_node_info <- rotl::tol_node_info(canis$ott_id)
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
 canis_node_info
 ~~~
 {: .language-r}
@@ -47,7 +48,24 @@ Number of terminal descendants: 85
 Is taxon: FALSE
 ~~~
 {: .output}
-The _node_ that contains _Canis_ is "mrcaott47497ott110766". We can use it to get a subtree with `tol_subtree()`
+
+>**Extras: tol_lineage()**
+>
+>`tol_lineage()` gets information from all ancestral nodes from a given _node id_.
+>
+> Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
+{: .solution}
+
+>**Extras: tol_mrca()**
+>
+>`tol_mrca()` gets the mrca of a group of _ott ids_.
+>
+> Can we use it to get the mrca of _Canis_?
+{: .solution}
+
+
+The _node_ that contains _Canis_ is "mrcaott47497ott110766". We can use it to get a subtree with `tol_subtree()`.
+
 
 ~~~
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
@@ -65,7 +83,7 @@ Nice! We got a subtree of 85 tips, containing all descendants from the node that
 
 This includes species assigned to genera other than _Canis_.
 
-What if I _really, really_ want to get a tree containing species within the genus _Canis_ only?
+It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
 
 ### b) Get an induced subtree of taxonomic children
 
@@ -74,7 +92,7 @@ We can get the _ott ids_ of the taxonomic children of our taxon of interest and 
 First, get the taxonomic children.
 
 ~~~
-canis_taxonomy <- rotl::taxonomy_subtree(canis$ott_id)
+canis_taxonomy <- rotl::taxonomy_subtree(resolved_names["Canis",]$ott_id)
 ~~~
 {: .language-r}
 
@@ -221,21 +239,29 @@ Error: HTTP failure: 400
 ~~~
 {: .error}
 It is often not possible to get an induced subtree of all taxonomic children from a taxon,
-because some of them are not in the tree.
+because some of them will not make it to the synthetic tree.
 
 To verify which ones are giving us trouble, we can use the function `is_in_tree()` again.
 
 ~~~
-canis_in_tree <- sapply(canis_taxonomy_ott_ids, rotl::is_in_tree)
-canis_taxonomy_ott_ids_intree <- canis_taxonomy_ott_ids[canis_in_tree]
+canis_in_tree <- sapply(canis_taxonomy_ott_ids, rotl::is_in_tree) # logical vector
+canis_taxonomy_ott_ids_intree <- canis_taxonomy_ott_ids[canis_in_tree] # extract ott ids in tree
+~~~
+{: .language-r}
+
+Now get the tree.
+
+~~~
 canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intree)
 ~~~
 {: .language-r}
+Plot it.
 
 ~~~
 ape::plot.phylo(canis_taxonomy_subtree, cex = 0.5)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+
 There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.

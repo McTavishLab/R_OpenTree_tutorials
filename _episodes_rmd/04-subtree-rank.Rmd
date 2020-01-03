@@ -13,13 +13,17 @@ keypoints:
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
-amphibia <- rotl::tnrs_match_names("amphibia")  # get the ott id of the genus Canis (dogs)
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+rownames(resolved_names) <- resolved_names$unique_name
+amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ```
 
+### Get 
 We have implemented a function in `datelife` to extract all taxa of a given rank. It is also sligthly faster.
 
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
-amphibia_families <- datelife::get_ott_children(ott_ids = amphibia$ott_id, ott_rank = "family")
+amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
 ```
 Now, get the subtree of families only.
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}

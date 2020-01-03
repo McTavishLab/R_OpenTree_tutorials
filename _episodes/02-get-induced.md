@@ -18,10 +18,20 @@ keypoints:
 ---
 
 
-Now that we have some _ott ids_ we can interact with the synthetic Open Tree.
-For that, we can use two different functions that start with "tol_".
+`tol_about()` needs no argument.
 
-Let's get a tree of taxa from different ranks.
+
+~~~
+tol <- rotl::tol_about()
+~~~
+{: .language-r}
+
+Now that we have some interesting taxon _ott ids_ we can interact with the synthetic Open Tree.
+For this purpose, we will use functions starting with "tol_".
+
+### Get an induced subtree
+
+The function `tol_induced_subtree() allows us to get a tree of various taxa at different taxonomic ranks.
 
 
 ~~~
@@ -63,7 +73,7 @@ mrcaott9830ott18206, mrcaott18206ott60413, Sphenisciformes ott494366
 ~~~
 {: .error}
 
-What does this warning mean?
+This is not an error, it is a warning. What does it mean?
 
 
 
@@ -72,29 +82,48 @@ ape::plot.phylo(mytree, cex = 1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 
 This is cool!
 
-Now, what if you want a synthetic tree containing some or all descendants from your taxa of interest?
+But, why did my _Canis_ disappeared?
 
-# Get a subtree of one taxon
+It did not really disappear, it was replaced by the tag Felis_ott563165.
+
+We will explain why in the next section.
+
+For now, what if you want a synthetic tree containing some or all descendants from your taxa of interest?
+
+### Get a subtree of one taxon
 
 We can extract a subtree of all descendants of one taxon at a time using the function `tol_subtree()` and the amphibians _ott id_.
 
 Try to extract a subtree of all amphibians.
-Get the _ott id_ first. It is already stored in the `resolved_names` object, but you can run the function `tnrs_match_names()` again if you want.
+Its _ott id_  is already stored in the `resolved_names` object, but you can run the function `tnrs_match_names()` again if you want.
 
 ~~~
-amphibia_ott_id <- resolved_names$ott_id[1] # extract the ott id from resolved_names
-# amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id # OR run tnrs again
+resolved_names["Amphibia",]$ott_id # extract the ott id from resolved_names
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 544595
+~~~
+{: .output}
+
+
+
+~~~
+amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id # OR run tnrs again
 ~~~
 {: .language-r}
 
 Now, extract the subtree from the Open Tree synthetic tree using `tol_subtree()`.
 
 ~~~
-amphibia_subtree <- rotl::tol_subtree(ott_id = amphibia_ott_id)
+amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ~~~
 {: .language-r}
 
@@ -117,29 +146,13 @@ Node labels:
 Unrooted; no branch lengths.
 ~~~
 {: .output}
-This is a large tree!
+This is a large tree! We will have a hard time plotting it.
 
 Try to extract a subtree for the genus _Canis_. It should be way smaller!
 
 
 ~~~
-canis <- rotl::tnrs_match_names("canis")  # get the ott id of the genus Canis (dogs)
-canis
-~~~
-{: .language-r}
-
-
-
-~~~
-  search_string unique_name approximate_match ott_id is_synonym flags
-1         canis       Canis             FALSE 372706      FALSE      
-  number_matches
-1              2
-~~~
-{: .output}
-
-~~~
-subtree <- rotl::tol_subtree(canis$ott_id) # get the subtree
+subtree <- rotl::tol_subtree(resolved_names["Canis",]$ott_id)
 ~~~
 {: .language-r}
 
@@ -156,4 +169,4 @@ Why am I getting an error saying that the _node id_ was not found and that my ta
 
 Generally, this happens when phylogenetic information does not match taxonomic information.
 For example, extinct lineages are sometimes phylogenetically included within the taxon but are taxonomically excluded, making the taxon appear as paraphyletic.
-On the browser, you can still get to the subtree. From R, you need to do something else first.
+On the [Open Tree of Life browser](https://tree.opentreeoflife.org/opentree/argus/ottol@372706), you can still get to the subtree. From R, you need to do something else first.

@@ -8,9 +8,10 @@ questions:
 - "What are _ott ids_?"
 - 'What is "tnrs"?'
 objectives:
-- "Get ott ids for some taxa."
-- "Understand tnrs approximate matching and its sensitivity."
-- "Try taxonomic contexts."
+- "Getting ott ids for some taxa."
+- "Understanding tnrs approximate matching and its sensitivity."
+- "Finding the utility of taxonomic contexts"
+- "Discovering functions to handle a match_names object."
 keypoints:
 - "_ott ids_ are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
 - "taxonomic context is very important to find the correct _ott ids_ for our taxa."
@@ -22,7 +23,6 @@ source("../bin/chunk-options.R")
 ```
 
 ### The Open Tree Taxonomy and its identifiers
-
 
 The Open Tree Taxonomy is
 
@@ -36,26 +36,23 @@ class(resolved_names)
 resolved_names
 ```
 
-Are you familiar with the elements of a match_names object?
-
-
 There are two ways to extract the _ott ids_ from a match_names object.
 
 As a list, with the function `ott_id()`:
 
-```{r, eval }
-rotl::ott_id(resolved_names) # as a list
+```{r}
+rotl::ott_id(resolved_names)
 ```
 
 Or, as a vector:
 
 ```{r}
-resolved_names$ott_id # as a vector
+resolved_names$ott_id
 ```
 
 Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
 
-> **Hack**:
+> **Hacks**
 >
 > To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
 >
@@ -63,22 +60,29 @@ Most of the functions we will explore take an argument of _ott ids_ as a numeric
 > rownames(resolved_names) <- resolved_names$unique_name
 > ```
 >
-> Like this, we can access _ott ids_ by their taxon name.
+> Like this, we can access elements of the match_names object by taxon name.
 >
 > ```{r}
-> resolved_names$ott_id["Amphibia"]
+> resolved_names["Amphibia",]$ott_id
 > ```
 {: .challenge}
 
-Other elements of the match_names object can only be accessed as a vector, using the "$" symbol.
 
+Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
 
-You can access the  elements of the match_names object with functions `flags()`
+The only other element tht can be accesses as a list are "flags"
+
+```{r}
+rotl::flags(resolved_names)
+```
+
+> Are you familiar with the elements of a match_names object?
+{: .solution}
 
 
 ### Taxonomic contexts and updating a "match_names" object
 
-Running a tnrs match can take some time, so if you just want to update a few elememnts from your match_names object, you can use the functions
+Running a tnrs match can take some time, so if you just want to update a few elememnts from your match_names object, you can use the functions `inspect()` and `update()`.
 
 Extra:
 
