@@ -36,27 +36,30 @@ class(resolved_names)
 resolved_names
 ```
 
-> #### Challenge: Get the _ott ids_ from a match names object
+> #### **Challenge!** Get the _ott ids_ from a match names object
 >
-> There are two ways to extract the _ott ids_ from a match_names object.
+> There are two main ways to extract the _ott ids_ from a match_names object. Can you figure them out?
 >
-> As a list, with the function `ott_id()`:
->
-> ```{r}
-> rotl::ott_id(resolved_names)
-> ```
->
-> Or, as a vector:
->
-> ```{r}
-> resolved_names$ott_id
-> ```
->
-> Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
+> > #### Solution
+> >
+> > As a list, with the function `ott_id()`:
+> >
+> > ```{r}
+> > rotl::ott_id(resolved_names)
+> > ```
+> >
+> > Or, as a vector:
+> >
+> > ```{r}
+> > resolved_names$ott_id
+> > ```
+> >
+> > Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
+> > {: .solution}
 {: .challenge}
 
 
-> #### **Hack**
+> #### **Hack!**
 >
 > To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
 >
@@ -67,11 +70,11 @@ resolved_names
 > This will allow an easy access to elements of the match_names object by calling the taxon name.
 >
 > ```{r}
-> resolved_names["Amphibia",]$ott_id
+> resolved_names["Amphibia",]$ott_id # or resolved_names["Amphibia","ott_id"]
 > ```
 {: .callout}
 
-> #### Extra: Accessing other elements of a match_names object
+> #### **Extra!** Accessing other elements of a match_names object
 >
 > Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
 >
