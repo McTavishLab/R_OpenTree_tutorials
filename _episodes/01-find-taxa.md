@@ -69,8 +69,8 @@ resolved_names
 ~~~
 {: .output}
 
-> #### Get the _ott ids_ from a match names object
-> 
+> #### Challenge: Get the _ott ids_ from a match names object
+>
 > There are two ways to extract the _ott ids_ from a match_names object.
 >
 > As a list, with the function `ott_id()`:
@@ -133,7 +133,7 @@ resolved_names
 > ~~~
 > {: .language-r}
 >
-> Like this, we can access elements of the match_names object by taxon name.
+> This will allow an easy access to elements of the match_names object by calling the taxon name.
 >
 > 
 > ~~~
@@ -147,44 +147,47 @@ resolved_names
 > [1] 544595
 > ~~~
 > {: .output}
+{: .callout}
+
+> #### Extra: Accessing other elements of a match_names object
+>
+> Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
+>
+> The only other element that can be accessed as a list are "flags"
+>
+> 
+> ~~~
+> rotl::flags(resolved_names)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> $Amphibia
+> NULL
+> 
+> $Canis
+> NULL
+> 
+> $Felis
+> NULL
+> 
+> $Delphinidae
+> NULL
+> 
+> $Spheniscidae
+> NULL
+> 
+> attr(,"class")
+> [1] "otl_flags" "list"     
+> ~~~
+> {: .output}
+{: .testimonial}
+
+> Challenge: What are the elements of a match_names object?
+>
 {: .challenge}
-
-
-Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
-
-The only other element tht can be accesses as a list are "flags"
-
-
-~~~
-rotl::flags(resolved_names)
-~~~
-{: .language-r}
-
-
-
-~~~
-$Amphibia
-NULL
-
-$Canis
-NULL
-
-$Felis
-NULL
-
-$Delphinidae
-NULL
-
-$Spheniscidae
-NULL
-
-attr(,"class")
-[1] "otl_flags" "list"     
-~~~
-{: .output}
-
-> Are you familiar with the elements of a match_names object?
-{: .solution}
 
 
 ### Taxonomic contexts and updating a "match_names" object
@@ -193,10 +196,11 @@ Running a tnrs match can take some time, so if you just want to update a few ele
 
 **Hack**
 
+Put together two match_names objects
 
-
-Extra:
+**Extra**
 
 Going from common name to scientific name
+
 
 {% include links.md %}

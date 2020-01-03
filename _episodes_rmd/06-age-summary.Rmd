@@ -21,7 +21,7 @@ We can summarize it.
 ```{r, eval = TRUE, results = 'hide', message = FALSE}
 apes_phylo_median <-  datelife::summarize_datelife_result(apes_dr,summary_format = "phylo_median")
 ```
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 6}
+```{r plot60, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 6}
 apes_phylo_median
 ape::plot.phylo(apes_phylo_median, cex = 1)
 ape::axisPhylo()

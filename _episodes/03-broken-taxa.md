@@ -49,19 +49,19 @@ Is taxon: FALSE
 ~~~
 {: .output}
 
-> **Extra: tol_lineage()**
+> #### **Extra: tol_lineage()**
 >
 > `tol_lineage()` gets information from all ancestral nodes from a given _node id_.
 >
 > Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
-{: .solution}
+{: .testimonial}
 
-> **Extra: tol_mrca()**
+> #### **Extra: tol_mrca()**
 >
 > `tol_mrca()` gets the mrca of a group of _ott ids_.
 >
 > Can we use it to get the mrca of _Canis_?
-{: .solution}
+{: .testimonial}
 
 
 The _node_ that contains _Canis_ is "mrcaott47497ott110766". We can use it to get a subtree with `tol_subtree()`.
@@ -101,6 +101,9 @@ canis_taxonomy
 ~~~
 {: .language-r}
 
+
+
+~~~
 $tip_label
  [1] "Canis_dirus_ott3612500"                         
  [2] "Canis_anthus_ott5835572"                        
@@ -190,6 +193,8 @@ $tip_label
 $edge_label
 [1] "Canis_mesomelas_ott666235" "Canis_lupus_ott247341"    
 [3] "Canis_ott372706"          
+~~~
+{: .output}
 Now, extract the _ott ids_.
 
 ~~~

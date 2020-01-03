@@ -103,17 +103,17 @@ ape::plot.phylo(my_tree, cex = 1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-plot1-1.png" title="plot of chunk plot1" alt="plot of chunk plot1" width="612" style="display: block; margin: auto;" />
 
 This is cool!
 
 But, why did my _Canis_ disappeared?
 
-It did not really disappear, it was replaced by the tag Delphinidae_ott698406, mrcaott47497ott110766, Felis_ott563165, Spheniscidae_ott494367, Amphibia_ott544595.
+Well, it did not actually disappear, it was replaced by the label "mrcaott47497ott110766".
 
 We will explain why this happens in the next section.
 
-Now, _what if you want a synthetic tree containing some or all descendants from your taxa of interest?_
+Now, **_what if you want a synthetic tree containing some or all descendants from your taxa of interest?_**
 
 ### Get a subtree of one taxon
 

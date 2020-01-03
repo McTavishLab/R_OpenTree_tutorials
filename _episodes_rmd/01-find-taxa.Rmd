@@ -36,8 +36,8 @@ class(resolved_names)
 resolved_names
 ```
 
-> #### Get the _ott ids_ from a match names object
-> 
+> #### Challenge: Get the _ott ids_ from a match names object
+>
 > There are two ways to extract the _ott ids_ from a match_names object.
 >
 > As a list, with the function `ott_id()`:
@@ -64,24 +64,27 @@ resolved_names
 > rownames(resolved_names) <- resolved_names$unique_name
 > ```
 >
-> Like this, we can access elements of the match_names object by taxon name.
+> This will allow an easy access to elements of the match_names object by calling the taxon name.
 >
 > ```{r}
 > resolved_names["Amphibia",]$ott_id
 > ```
+{: .callout}
+
+> #### Extra: Accessing other elements of a match_names object
+>
+> Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
+>
+> The only other element that can be accessed as a list are "flags"
+>
+> ```{r}
+> rotl::flags(resolved_names)
+> ```
+{: .testimonial}
+
+> Challenge: What are the elements of a match_names object?
+>
 {: .challenge}
-
-
-Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
-
-The only other element tht can be accesses as a list are "flags"
-
-```{r}
-rotl::flags(resolved_names)
-```
-
-> Are you familiar with the elements of a match_names object?
-{: .solution}
 
 
 ### Taxonomic contexts and updating a "match_names" object
@@ -90,10 +93,11 @@ Running a tnrs match can take some time, so if you just want to update a few ele
 
 **Hack**
 
+Put together two match_names objects
 
-
-Extra:
+**Extra**
 
 Going from common name to scientific name
+
 
 {% include links.md %}

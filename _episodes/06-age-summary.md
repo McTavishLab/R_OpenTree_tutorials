@@ -43,4 +43,4 @@ ape::axisPhylo()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-plot60-1.png" title="plot of chunk plot60" alt="plot of chunk plot60" width="612" style="display: block; margin: auto;" />
