@@ -14,42 +14,35 @@ keypoints:
 ---
 
 ~~~
-## Error in datelife::extract_ott_ids(canis_node_subtree$tip.label): object 'canis_node_subtree' not found
+## Error in curl::curl_fetch_memory(url, handle = handle): Could not resolve host: api.opentreeoflife.org
 ~~~
 {: .error}
 
 
 
 ~~~
-## Error in lapply(ott_ids, function(x) {: object 'canis_node_ottids' not found
+## Error in eval(expr, envir, enclos): object 'resolved_names' not found
 ~~~
 {: .error}
 
 
 
 ~~~
-## Error in rotl::tax_rank(canis_node_ottids_taxon_info): object 'canis_node_ottids_taxon_info' not found
+## Error in .tol_node_info(ott_id = ott_id, node_id = node_id, include_lineage = include_lineage, : object 'resolved_names' not found
 ~~~
 {: .error}
 
 
 
 ~~~
-## Error in canis_node_ranks %in% "species": object 'canis_node_ranks' not found
+## Error in .tol_subtree(ott_id = ott_id, node_id = node_id, label_format = label_format, : object 'canis_node_info' not found
 ~~~
 {: .error}
 
 
 
 ~~~
-## Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'canis_node_ottids' not found
-~~~
-{: .error}
-
-
-
-~~~
-## Error in datelife_query_check(datelife_query = input, use_tnrs = use_tnrs, : object 'canis_node_subtree_species' not found
+## Error in datelife_query_check(datelife_query = input, use_tnrs = use_tnrs, : object 'canis_node_subtree' not found
 ~~~
 {: .error}
 

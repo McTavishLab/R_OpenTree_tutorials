@@ -19,7 +19,7 @@ my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
 resolved_names <- rotl::tnrs_match_names(my_taxa)
 rownames(resolved_names) <- resolved_names$unique_name
 canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
-canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
+library(datelife)
 ```
 
 ### Subset a list of studies or trees by some criteria
@@ -55,24 +55,41 @@ You can get all source chronograms from an induced subtree, as long as the tip l
 are in the "name" format (and not the default "name_and_id").
 
 ```{r, eval = TRUE}
-canis_node_subtree <- rotl::tol_induced_subtree(canis_node_ottids[canis_node_species], label = "name")
-# important!! tip label should be name.
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id, label = "name")
+canis_node_subtree
 ```
+
+Use that tree as input for the `get_datelife_result()`.
 
 ```{r, eval = TRUE, results = 'hide'}
 canis_dr <- datelife::get_datelife_result(canis_node_subtree)
 ```
+We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
+
+Lists are named by the study citation, so we have that information handy at all times.
+
+Let's explore the output.
+
 ```{r, eval = TRUE}
 names(canis_dr)
 canis_dr[1] # look at the first element of the list
-apes_dr[length(canis_dr)] # look at the last element of the list
+canis_dr[length(canis_dr)] # look at the last element of the list
 ```
 
-We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
-Lists are named by the study citation, so we have that information handy at all times.
 
-It is really easy to go from a matrix to a tree:
+Then, it is really easy to go from a matrix to a tree, using the function `summarize_datelife_result()` with the option `summary_format = "phylo_all"`.
 
-```{r, eval = TRUE, results = 'hide', warning = FALSE}
-canis_phylo_all <-  datelife::summarize_datelife_result(canis_dr,summary_format = "phylo_all")
+```{r, eval = TRUE, results = 'hide', warning = FALSE, message = FALSE}
+canis_phylo_all <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_all")
+```
+```{r, eval = TRUE, warning = FALSE}
+for (i in seq(length(canis_phylo_all))){
+  ape::plot.phylo(canis_phylo_all[[i]])
+  ape::axisPhylo()
+}
+```
+You can also use the function `plot_phylo_all()`, that plots the chronograms with the study citation as title.
+
+```{r, eval = TRUE, warning = FALSE}
+datelife::plot_phylo_all(trees = canis_phylo_all)
 ```

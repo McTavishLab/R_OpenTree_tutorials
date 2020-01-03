@@ -15,12 +15,12 @@ source("../bin/chunk-options.R")
 # apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
 # resolved_names <- rotl::tnrs_match_names(apes)
 # apes_dr <- datelife::get_datelife_result(resolved_names$unique_name, get_spp_from_taxon = TRUE)
-canis_node_ottids <- datelife::extract_ott_ids(canis_node_subtree$tip.label)
-canis_node_ottids_taxon_info <- rotl::taxonomy_taxon_info(canis_node_ottids)
-canis_node_ranks <- rotl::tax_rank(canis_node_ottids_taxon_info)
-canis_node_species <- canis_node_ranks %in% "species"
-canis_node_subtree_species <- rotl::tol_induced_subtree(canis_node_ottids[canis_node_species], label = "name")
-canis_dr <- datelife::get_datelife_result(canis_node_subtree_species)
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+rownames(resolved_names) <- resolved_names$unique_name
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id, label = "name")
+canis_dr <- datelife::get_datelife_result(canis_node_subtree)
 ```
 
 We can summarize it.
