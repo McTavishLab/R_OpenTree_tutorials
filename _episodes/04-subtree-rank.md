@@ -55,9 +55,233 @@ ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 Super cool!
 
-## **Challenge!** Find a way to do this using `rotl` functions only.
-
-## Solution
-
-{: .solution}
+> ## **Challenge!** Find a way to do this using `rotl` functions only.
+>
+> > ## Look at a possible solution
+> > 
+> > ~~~
+> > amphibia_taxonomy <- rotl::taxonomy_subtree(amphibians$ott_id)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in check_ott_ids(ott_id): object 'amphibians' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > ls(amphibia_taxonomy)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in ls(amphibia_taxonomy): 'amphibia_taxonomy' converted to character
+> > string
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in as.environment(pos): no item called "amphibia_taxonomy" on the search list
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > length(amphibia_taxonomy$tip_label)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'amphibia_taxonomy' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > head(amphibia_taxonomy$tip_label)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in head(amphibia_taxonomy$tip_label): object 'amphibia_taxonomy' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > tail(amphibia_taxonomy$tip_label)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in tail(amphibia_taxonomy$tip_label): object 'amphibia_taxonomy' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > amphibia_taxonomy$edge_label
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'amphibia_taxonomy' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > edges <- datelife::extract_ott_ids(x=amphibia_taxonomy$edge_label)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in datelife::extract_ott_ids(x = amphibia_taxonomy$edge_label): object 'amphibia_taxonomy' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > length(edges)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'edges' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > edges_taxon_info <- rotl::taxonomy_taxon_info(edges)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in lapply(ott_ids, function(x) {: object 'edges' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > ls(edges_taxon_info[[1]])
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in ls(edges_taxon_info[[1]]): 'edges_taxon_info[[1]]' converted to
+> > character string
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in as.environment(pos): no item called "edges_taxon_info[[1]]" on the search list
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > is_family <- unname(unlist(sapply(edges_taxon_info, "[", "rank") %in% "family"))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in lapply(X = X, FUN = FUN, ...): object 'edges_taxon_info' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > is_suppressed <- unname(unlist(sapply(edges_taxon_info, "[", "is_suppressed_from_synth")))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in lapply(X = X, FUN = FUN, ...): object 'edges_taxon_info' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > # flag "is suppressed from synth" is not updated, so it is useless for now.
+> > amphibia_families <- unname(unlist(sapply(edges_taxon_info, "[", "ott_id")[is_family]))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in lapply(X = X, FUN = FUN, ...): object 'edges_taxon_info' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > in_tree <- rotl::is_in_tree(amphibia_families)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in FUN(X[[i]], ...): only 1 element should be provided
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families[in_tree])
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'in_tree' not found
+> > ~~~
+> > {: .error}
+> {: .solution}
 {: .challenge}

@@ -8,10 +8,9 @@ exercises: 5
 questions:
 - "What are the original studies supporting relationships in my synthetic subtree?"
 objectives:
-- "Learn sapply"
-- "Use datelife"
+- "Get supporting studies for certain regions of the synthetic Open Tree of Life."
 keypoints:
-- "..."
+- "Supporting studies from rotl do not always match with th eones coming from the browser."
 ---
 
 
@@ -66,7 +65,7 @@ Rooted; includes branch lengths.
 ~~~
 {: .output}
 
-> ## **Challenge!** Get all source trees.
+> ## **Challenge!** Get all supporting trees.
 >
 > Hint: You can use a "for" loop or an `apply()` function.
 >

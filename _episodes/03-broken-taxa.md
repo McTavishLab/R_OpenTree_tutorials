@@ -83,13 +83,14 @@ Nice! We got a subtree of 85 tips, containing all descendants from the node that
 
 This includes species assigned to genera other than _Canis_.
 
-It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
 
 > ## **Extra!** Get an induced subtree of taxonomic children
 >
+> It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
+>
 > We can get the _ott ids_ of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
 >
-> > ## Peek a boo
+> > ## Look at the hack
 > > First, get the taxonomic children.
 > > 
 > > ~~~
@@ -269,7 +270,7 @@ It might seem non phylogenetic, but what if I _really, really_ need a tree conta
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
-> > 
+> >
 > > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
 > {: .solution}
 {: .testimonial}

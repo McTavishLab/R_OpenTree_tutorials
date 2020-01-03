@@ -6,59 +6,26 @@ title: "Summarizing branch length information"
 teaching: 5
 exercises: 5
 questions:
-- "How do I do this?"
+- "How do I summarize infromation from different source chronograms?"
+- "How do I choose a preferred source chronogram?"
 objectives:
-- "Understand problems with phylogenetic uncertainty and ages"
+- "Understanding the depth of uncertainty around age estimates."
 keypoints:
-- "..."
+- "Source chronograms have a wide range of variation in age estimates."
 ---
 
 ~~~
-## Error in curl::curl_fetch_memory(url, handle = handle): Could not resolve host: api.opentreeoflife.org
-~~~
-{: .error}
-
-
-
-~~~
-## Error in eval(expr, envir, enclos): object 'resolved_names' not found
-~~~
-{: .error}
-
-
-
-~~~
-## Error in .tol_node_info(ott_id = ott_id, node_id = node_id, include_lineage = include_lineage, : object 'resolved_names' not found
-~~~
-{: .error}
-
-
-
-~~~
-## Error in .tol_subtree(ott_id = ott_id, node_id = node_id, label_format = label_format, : object 'canis_node_info' not found
-~~~
-{: .error}
-
-
-
-~~~
-## Error in datelife_query_check(datelife_query = input, use_tnrs = use_tnrs, : object 'canis_node_subtree' not found
+## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
+## labels: Lycaon, Cuon alpinus, Eucyon, Atelocynus, Chrysocyon, Canis mesomelas
 ~~~
 {: .error}
 
 We can summarize it.
 
 ~~~
-canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr,summary_format = "phylo_median")
+canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_median")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in check_datelife_result(datelife_result): object 'canis_dr' not found
-~~~
-{: .error}
 
 ~~~
 canis_phylo_median
@@ -66,36 +33,33 @@ canis_phylo_median
 {: .language-r}
 
 
+Phylogenetic tree with 18 tips and 13 internal nodes.
 
-~~~
-Error in eval(expr, envir, enclos): object 'canis_phylo_median' not found
-~~~
-{: .error}
+Tip labels:
+	Canis_rufus, Canis_simensis, Speothos_venaticus, Lycaon_pictus, Canis_latrans, Canis_aureus, ...
+Node labels:
+	n1, n2, n3, n4, n5, n6, ...
 
+Unrooted; includes branch lengths.
 
 
 ~~~
 ape::plot.phylo(canis_phylo_median, cex = 1.2)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in ape::plot.phylo(canis_phylo_median, cex = 1.2): object 'canis_phylo_median' not found
-~~~
-{: .error}
-
-
-
-~~~
 ape::axisPhylo()
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-plot60-1.png" title="plot of chunk plot60" alt="plot of chunk plot60" width="612" style="display: block; margin: auto;" />
 
-
-~~~
-Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-~~~
-{: .error}
+> ## Challenge! Get other types of summary opentree_chronograms
+>
+> > Hint: Use the argument summary_format = "phylo_sdm"
+> >
+> > ## Solution
+> > 
+> > ~~~
+> > canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_sdm")
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}

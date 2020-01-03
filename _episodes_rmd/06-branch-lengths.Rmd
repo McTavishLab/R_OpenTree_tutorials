@@ -7,12 +7,12 @@ questions:
 - "How do I find supporting trees that include branch lengths?"
 - "How do I subset them to include just the taxa I am interested in?"
 objectives:
-- "Learn about the opentree_chronograms object from datelife"
-- "Get source chronograms from the opentree_chronograms object for a set of taxa"
+- "Learn about the opentree_chronograms object from datelife."
+- "Get source chronograms from the opentree_chronograms object for a set of taxa."
 keypoints:
-- "datelife stored chronograms from source trees from the Open Tree of Life phylesystem"
-- "chronograms are stored in the opentree-chronograms object"
-- "source chronograms are retrieved at the species level only (for now)"
+- "datelife stores all chronograms from the Open Tree of Life phylesystem."
+- "chronograms are stored in the opentree_chronograms object."
+- "source chronograms are retrieved at the species level only (for now)."
 ---
 ```{r, eval = TRUE, echo = FALSE, warning = FALSE, results = 'hide'}
 source("../bin/chunk-options.R")
