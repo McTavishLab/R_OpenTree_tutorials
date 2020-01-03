@@ -9,17 +9,13 @@ questions:
 - "How do I find supporting trees?"
 - "How do I know if they include branch lengths"
 objectives:
-- ""
+- "Learn about the opentree_chronograms object from datelife"
+- "Get source chronograms from the opentree_chronograms object for a set of taxa"
 keypoints:
-- "..."
+- "datelife gets chronograms using source trees from the Open Tree of Life phylesystem"
+- "chronograms are retrieved at the species level only (for now)"
 ---
 
-~~~
-## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
-## labels: Lycaon ott821959, Cuon alpinus ott313163, Eucyon ott3612566, Atelocynus
-## ott621180, Chrysocyon ott621163, Canis mesomelas ott666235
-~~~
-{: .error}
 
 ### Subset a list of studies or trees by some criteria
 
@@ -27,160 +23,147 @@ We can get a list of study and tree properties available with the function `stud
 The values that this properties can take are listed in the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON).
 
 
-To get get all trees with branch lengths poprotional to time, we will use the function
+To get get all trees with branch lengths poprotional to time, we use the function
 `studies_find_trees()`, with the property "ot:branchLengthMode" and the value "ot:time".
+It takes some time for it to get all the information.
+
+> ## Extra! Try it yourself.
+>
+> 
+> ~~~
+> chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
+> ~~~
+> {: .language-r}
+> 
+> ~~~
+> class(chronograms)
+> names(chronograms)
+> ~~~
+> {: .language-r}
+> We should be able to use `list_trees()` to get all trees matching our criteria.
+> 
+> ~~~
+> rotl:::list_trees(chronograms)
+> ~~~
+> {: .language-r}
+>
+> Except, it does not really work.
+{: .testimonial}
+
+In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
+
+You can get all source chronograms from an induced subtree, as long as the tip labels
+are in the "name" format (and not the default "name_and_id").
+
 
 ~~~
-chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
-class(chronograms)
+canis_node_subtree <- rotl::tol_induced_subtree(canis_node_ottids[canis_node_species], label = "name")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "matched_studies" "data.frame"     
-~~~
-{: .output}
-
-
-
-~~~
-names(chronograms)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "study_ids"       "n_trees"         "tree_ids"        "candidate"      
-[5] "study_year"      "title"           "study_doi"       "n_matched_trees"
-[9] "match_tree_ids" 
-~~~
-{: .output}
-
-We should be able to use `list_trees()` to get all trees matching our criteria.
-
-~~~
-rotl:::list_trees()
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in UseMethod("list_trees"): no applicable method for 'list_trees' applied to an object of class "NULL"
+Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'canis_node_ottids' not found
 ~~~
 {: .error}
 
-But it does not work.
-
-In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
-It only works at the species level.
 
 
 ~~~
-apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
-resolved_names <- rotl::tnrs_match_names(apes)
+# important!! tip label should be name.
 ~~~
 {: .language-r}
 
 
 ~~~
-apes_dr <- datelife::get_datelife_result(resolved_names$unique_name, get_spp_from_taxon = TRUE)
-~~~
-{: .language-r}
-
-~~~
-names(apes_dr)
+canis_dr <- datelife::get_datelife_result(canis_node_subtree)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512"                                                                                                         
-[2] "Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512"                                                                                                         
-[3] "Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512"                                                                                                         
-[4] "Hedges, S. Blair, Julie Marin, Michael Suleski, Madeline Paymer, Sudhir Kumar. 2015. Tree of life reveals clock-like speciation and diversification. Molecular Biology and Evolution 32 (4): 835-845"                                                                                                                                                                   
-[5] "Springer, Mark S., Robert W. Meredith, John Gatesy, Christopher A. Emerling, Jong Park, Daniel L. Rabosky, Tanja Stadler, Cynthia Steiner, Oliver A. Ryder, Jan E. Janečka, Colleen A. Fisher, William J. Murphy. 2012. Macroevolutionary dynamics and historical biogeography of primate diversification inferred from a species supermatrix. PLoS ONE 7 (11): e49521."
-[6] "Springer, Mark S., Robert W. Meredith, John Gatesy, Christopher A. Emerling, Jong Park, Daniel L. Rabosky, Tanja Stadler, Cynthia Steiner, Oliver A. Ryder, Jan E. Janečka, Colleen A. Fisher, William J. Murphy. 2012. Macroevolutionary dynamics and historical biogeography of primate diversification inferred from a species supermatrix. PLoS ONE 7 (11): e49521."
-[7] "Springer, Mark S., Robert W. Meredith, John Gatesy, Christopher A. Emerling, Jong Park, Daniel L. Rabosky, Tanja Stadler, Cynthia Steiner, Oliver A. Ryder, Jan E. Janečka, Colleen A. Fisher, William J. Murphy. 2012. Macroevolutionary dynamics and historical biogeography of primate diversification inferred from a species supermatrix. PLoS ONE 7 (11): e49521."
-[8] "Springer, Mark S., Robert W. Meredith, John Gatesy, Christopher A. Emerling, Jong Park, Daniel L. Rabosky, Tanja Stadler, Cynthia Steiner, Oliver A. Ryder, Jan E. Janečka, Colleen A. Fisher, William J. Murphy. 2012. Macroevolutionary dynamics and historical biogeography of primate diversification inferred from a species supermatrix. PLoS ONE 7 (11): e49521."
+Warning: Datelife Result object is empty.
+~~~
+{: .error}
+
+
+
+~~~
+Input taxa were not found across available chronograms.
 ~~~
 {: .output}
 
 
 
 ~~~
-apes_dr[1] # look at the first element of the list
+Setting use_tnrs = TRUE might change this, but it is time consuming.
+~~~
+{: .output}
+
+~~~
+names(canis_dr)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-$`Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512`
-                Gorilla gorilla Homo sapiens Pan paniscus Pan troglodytes
-Gorilla gorilla             0.0         25.4         25.4            25.4
-Homo sapiens               25.4          0.0         19.4            19.4
-Pan paniscus               25.4         19.4          0.0             7.8
-Pan troglodytes            25.4         19.4          7.8             0.0
-Pongo pygmaeus             39.4         39.4         39.4            39.4
-Hoolock hoolock            47.0         47.0         47.0            47.0
-                Pongo pygmaeus Hoolock hoolock
-Gorilla gorilla           39.4              47
-Homo sapiens              39.4              47
-Pan paniscus              39.4              47
-Pan troglodytes           39.4              47
-Pongo pygmaeus             0.0              47
-Hoolock hoolock           47.0               0
+character(0)
 ~~~
 {: .output}
 
 
 
 ~~~
-apes_dr[length(apes_dr)] # look at the last element of the list
+canis_dr[1] # look at the first element of the list
 ~~~
 {: .language-r}
 
 
 
 ~~~
-$...
-                   Pongo abelii Pongo pygmaeus Pan troglodytes Pan paniscus
-Pongo abelii             0.0000         1.6408         24.1506      24.1506
-Pongo pygmaeus           1.6408         0.0000         24.1506      24.1506
-Pan troglodytes         24.1506        24.1506          0.0000       2.0326
-Pan paniscus            24.1506        24.1506          2.0326       0.0000
-Homo sapiens            24.1506        24.1506         10.8756      10.8756
-Gorilla beringei        24.1506        24.1506         12.6052      12.6052
-Gorilla gorilla         24.1506        24.1506         12.6052      12.6052
-Hoolock hoolock         27.2042        27.2042         27.2042      27.2042
-Hoolock leuconedys      27.2042        27.2042         27.2042      27.2042
-                   Homo sapiens Gorilla beringei Gorilla gorilla
-Pongo abelii            24.1506          24.1506         24.1506
-Pongo pygmaeus          24.1506          24.1506         24.1506
-Pan troglodytes         10.8756          12.6052         12.6052
-Pan paniscus            10.8756          12.6052         12.6052
-Homo sapiens             0.0000          12.6052         12.6052
-Gorilla beringei        12.6052           0.0000          1.8636
-Gorilla gorilla         12.6052           1.8636          0.0000
-Hoolock hoolock         27.2042          27.2042         27.2042
-Hoolock leuconedys      27.2042          27.2042         27.2042
-                   Hoolock hoolock Hoolock leuconedys
-Pongo abelii               27.2042            27.2042
-Pongo pygmaeus             27.2042            27.2042
-Pan troglodytes            27.2042            27.2042
-Pan paniscus               27.2042            27.2042
-Homo sapiens               27.2042            27.2042
-Gorilla beringei           27.2042            27.2042
-Gorilla gorilla            27.2042            27.2042
-Hoolock hoolock             0.0000             2.3368
-Hoolock leuconedys          2.3368             0.0000
+$<NA>
+NULL
 ~~~
 {: .output}
+
+
+
+~~~
+apes_dr[length(canis_dr)] # look at the last element of the list
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'apes_dr' not found
+~~~
+{: .error}
 
 We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
 Lists are named by the study citation, so we have that information handy at all times.
+
+It is really easy to go from a matrix to a tree:
+
+
+~~~
+canis_phylo_all <-  datelife::summarize_datelife_result(canis_dr,summary_format = "phylo_all")
+~~~
+{: .language-r}
+
+
+
+~~~
+datelife_query argument is empty: showing taxon distribution of taxa found only in at least one chronogram. This excludes input taxa not found in any chronogram.
+~~~
+{: .output}
+
+
+
+~~~
+Error in `rownames<-`(`*tmp*`, value = paste0("Chronogram", sequence(nrow(taxon_matrix)))): attempt to set 'rownames' on an object with no dimensions
+~~~
+{: .error}

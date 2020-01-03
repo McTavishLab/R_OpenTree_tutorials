@@ -36,14 +36,14 @@ canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
 canis_node_info
 ```
 
-> #### **Extra: tol_lineage()**
+> ## **Extra: tol_lineage()**
 >
 > `tol_lineage()` gets information from all ancestral nodes from a given _node id_.
 >
 > Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
 {: .testimonial}
 
-> #### **Extra: tol_mrca()**
+> ## **Extra: tol_mrca()**
 >
 > `tol_mrca()` gets the mrca of a group of _ott ids_.
 >
@@ -56,8 +56,8 @@ The _node_ that contains _Canis_ is "`r canis_node_info$node_id`". We can use it
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
 ```
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 9}
-ape::plot.phylo(canis_node_subtree, cex = 0.5)
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 13}
+ape::plot.phylo(canis_node_subtree, cex = 1.2)
 ```
 
 Nice! We got a subtree of 85 tips, containing all descendants from the node that also contains _Canis_.
@@ -100,8 +100,8 @@ Now get the tree.
 canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intree)
 ```
 Plot it.
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 6}
-ape::plot.phylo(canis_taxonomy_subtree, cex = 0.5)
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 9}
+ape::plot.phylo(canis_taxonomy_subtree, cex = 1.2)
 ```
 
 There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.

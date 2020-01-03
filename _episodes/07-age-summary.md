@@ -13,34 +13,96 @@ keypoints:
 - "..."
 ---
 
+~~~
+## Error in datelife::extract_ott_ids(canis_node_subtree$tip.label): object 'canis_node_subtree' not found
+~~~
+{: .error}
+
+
+
+~~~
+## Error in lapply(ott_ids, function(x) {: object 'canis_node_ottids' not found
+~~~
+{: .error}
+
+
+
+~~~
+## Error in rotl::tax_rank(canis_node_ottids_taxon_info): object 'canis_node_ottids_taxon_info' not found
+~~~
+{: .error}
+
+
+
+~~~
+## Error in canis_node_ranks %in% "species": object 'canis_node_ranks' not found
+~~~
+{: .error}
+
+
+
+~~~
+## Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'canis_node_ottids' not found
+~~~
+{: .error}
+
+
+
+~~~
+## Error in datelife_query_check(datelife_query = input, use_tnrs = use_tnrs, : object 'canis_node_subtree_species' not found
+~~~
+{: .error}
 
 We can summarize it.
 
 ~~~
-apes_phylo_median <-  datelife::summarize_datelife_result(apes_dr,summary_format = "phylo_median")
-~~~
-{: .language-r}
-
-~~~
-apes_phylo_median
+canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr,summary_format = "phylo_median")
 ~~~
 {: .language-r}
 
 
-Phylogenetic tree with 8 tips and 7 internal nodes.
 
-Tip labels:
-	Homo_sapiens, Pan_paniscus, Gorilla_beringei, Gorilla_gorilla, Pongo_abelii, Pongo_pygmaeus, ...
-Node labels:
-	n1, n2, n3, n4, n5, n6, ...
+~~~
+Error in check_datelife_result(datelife_result): object 'canis_dr' not found
+~~~
+{: .error}
 
-Rooted; includes branch lengths.
+~~~
+canis_phylo_median
+~~~
+{: .language-r}
+
 
 
 ~~~
-ape::plot.phylo(apes_phylo_median, cex = 1)
+Error in eval(expr, envir, enclos): object 'canis_phylo_median' not found
+~~~
+{: .error}
+
+
+
+~~~
+ape::plot.phylo(canis_phylo_median, cex = 1.2)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in ape::plot.phylo(canis_phylo_median, cex = 1.2): object 'canis_phylo_median' not found
+~~~
+{: .error}
+
+
+
+~~~
 ape::axisPhylo()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-plot60-1.png" title="plot of chunk plot60" alt="plot of chunk plot60" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
+~~~
+{: .error}

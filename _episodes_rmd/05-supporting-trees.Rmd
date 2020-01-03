@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Getting studies supporting relationships from an induced subtree"
+title: "Getting studies supporting relationships in a synthetic subtree"
 teaching: 5
 exercises: 5
 questions:
@@ -32,24 +32,29 @@ x <- 1
 rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_node_studies$tree_id[x], tip_label="ott_taxon_name", deduplicate = TRUE)
 ```
 
-#### **Challenge!** Use a "for" loop or an `apply()` function to get all trees.
-
-With a "for" loop.
-
-```{r}
-canis_source_trees <- vector(mode = "list") # generate an empty list
-for (i in seq(nrow(canis_node_studies))){
-  source_tree <- rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE)
-  canis_source_trees <- c(canis_source_trees, list(source_tree))
-}
-canis_source_trees
-```
-
-With an `apply()` function.
-
-```{r}
-canis_source_trees <- sapply(seq(nrow(canis_node_studies)), function(i)
-  rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE))
-canis_source_trees
-```
+> ## **Challenge!** Get all source trees.
+>
+> Hint: You can use a "for" loop or an `apply()` function.
+>
+> > ## Solution
+> >
+> > With a "for" loop.
+> >
+> > ```{r}
+> > canis_source_trees <- vector(mode = "list") # generate an empty list
+> > for (i in seq(nrow(canis_node_studies))){
+> >   source_tree <- rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE)
+> >   canis_source_trees <- c(canis_source_trees, list(source_tree))
+> > }
+> > canis_source_trees
+> > ```
+> >
+> > With an `apply()` function.
+> >
+> > ```{r}
+> > canis_source_trees <- sapply(seq(nrow(canis_node_studies)), function(i)
+> >   rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE))
+> > canis_source_trees
+> > ```
+> {: .solution}
 {: .challenge}

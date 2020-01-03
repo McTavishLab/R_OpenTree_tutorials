@@ -48,16 +48,16 @@ Rooted; no branch lengths.
 
 
 ~~~
-ape::plot.phylo(amphibia_families_subtree, cex = 0.5)
+ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 Super cool!
 
-#### **Challenge!** Find a way to do this using `rotl` functions only.
+## **Challenge!** Find a way to do this using `rotl` functions only.
 
-#### Solution
+## Solution
 
 {: .solution}
 {: .challenge}

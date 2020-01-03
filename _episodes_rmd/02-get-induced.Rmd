@@ -44,7 +44,7 @@ This is not an error, it is a warning. What does it mean?
 my_tree
 ```
 ```{r plot1, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE}
-ape::plot.phylo(my_tree, cex = 1)
+ape::plot.phylo(my_tree, cex = 2)
 ```
 
 This is cool!

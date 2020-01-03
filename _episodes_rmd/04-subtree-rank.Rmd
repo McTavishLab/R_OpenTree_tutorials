@@ -30,15 +30,15 @@ Now, get the subtree of families only.
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
 ```
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 8}
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 13}
 amphibia_families_subtree
-ape::plot.phylo(amphibia_families_subtree, cex = 0.5)
+ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ```
 Super cool!
 
-#### **Challenge!** Find a way to do this using `rotl` functions only.
+## **Challenge!** Find a way to do this using `rotl` functions only.
 
-#### Solution
+## Solution
 
 {: .solution}
 {: .challenge}

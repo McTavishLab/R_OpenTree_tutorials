@@ -99,7 +99,7 @@ Rooted; no branch lengths.
 {: .output}
 
 ~~~
-ape::plot.phylo(my_tree, cex = 1)
+ape::plot.phylo(my_tree, cex = 2)
 ~~~
 {: .language-r}
 

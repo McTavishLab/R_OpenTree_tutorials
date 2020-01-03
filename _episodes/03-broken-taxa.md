@@ -49,14 +49,14 @@ Is taxon: FALSE
 ~~~
 {: .output}
 
-> #### **Extra: tol_lineage()**
+> ## **Extra: tol_lineage()**
 >
 > `tol_lineage()` gets information from all ancestral nodes from a given _node id_.
 >
 > Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
 {: .testimonial}
 
-> #### **Extra: tol_mrca()**
+> ## **Extra: tol_mrca()**
 >
 > `tol_mrca()` gets the mrca of a group of _ott ids_.
 >
@@ -73,7 +73,7 @@ canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
 {: .language-r}
 
 ~~~
-ape::plot.phylo(canis_node_subtree, cex = 0.5)
+ape::plot.phylo(canis_node_subtree, cex = 1.2)
 ~~~
 {: .language-r}
 
@@ -263,7 +263,7 @@ canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intre
 Plot it.
 
 ~~~
-ape::plot.phylo(canis_taxonomy_subtree, cex = 0.5)
+ape::plot.phylo(canis_taxonomy_subtree, cex = 1.2)
 ~~~
 {: .language-r}
 

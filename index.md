@@ -12,7 +12,7 @@ SSB 2020.
 
 > ## Prerequisites
 >
-> Knowledge about phylogenies.
+> Background in systematics and phylogenetics.
 > Some experience with the R programming language.
 >
 {: .prereq}

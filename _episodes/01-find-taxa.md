@@ -69,11 +69,11 @@ resolved_names
 ~~~
 {: .output}
 
-> #### **Challenge!** Get the _ott ids_ from a "match_names" object
+> ## **Challenge!** Get the _ott ids_ from a "match_names" object
 >
 > There are two main ways to extract the _ott ids_ from a "match_names" object. Can you figure them out?
 >
-> > #### Solution
+> > ## Solution
 > >
 > > As a list, with the function `ott_id()`:
 > >
@@ -122,11 +122,11 @@ resolved_names
 > > {: .output}
 > >
 > > Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
-> > {: .solution}
+> {: .solution}
 {: .challenge}
 
 
-> #### **Hack!**
+> ## **Hack!**
 >
 > To facilitate the use of _ott ids_ later, you can name the rows of your "match_names" object.
 >
@@ -188,9 +188,9 @@ resolved_names
 > {: .output}
 {: .testimonial}
 
-#### **Challenge!** What do other elements of a "match_names" object tell us?
+## **Challenge!** What do other elements of a "match_names" object tell us?
 
-#### Solution
+## Solution
 {: .solution}
 {: .challenge}
 
@@ -201,12 +201,12 @@ Running a tnrs match can take some time, so if you just want to update a few ele
 
 The _Mus_ example.
 
-#### **Hack!**
+## **Hack!**
 
 Put together two "match_names" objects with `c()` or `rbind()`
 {: .callout}
 
-#### **Extra!**
+## **Extra!**
 
 Going from common name to scientific name
 {: .challenge}
