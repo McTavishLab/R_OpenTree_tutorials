@@ -235,11 +235,45 @@ Let's plot the supporting trees.
 ~~~
 for (i in seq(length(canis_source_trees))){
   ape::plot.phylo(canis_source_trees[[i]])
+  print(paste("This hronogram has", length(canis_source_trees[[i]]$tip.label), "tips."))
 }
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-6-4.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-6-5.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "This hronogram has 142 tips."
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "This hronogram has 294 tips."
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "This hronogram has 169 tips."
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-6-4.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "This hronogram has 86 tips."
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-6-5.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "This hronogram has 78 tips."
+~~~
+{: .output}
 Note that supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.
