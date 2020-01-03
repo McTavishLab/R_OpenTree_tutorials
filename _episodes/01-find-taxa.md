@@ -24,11 +24,13 @@ keypoints:
 
 ### The Open Tree Taxonomy and its identifiers
 
-The Open Tree Taxonomy is
+The Open Tree Taxonomy stores information about taxa and assigns eaxh taxon a unique identifies which we cal the **_ott id_**.
 
-TNRS stands for Taxonomic NAme Resolution Service.
 
-To get the _ott ids_ of your taxa we will use the function `tnrs_match_names()`. This will generate a "match_names" object.
+To get the _ott ids_ of your taxa we will use the function `tnrs_match_names()`. This function generates a "match_names" object.
+
+"tnrs" stands for Taxonomic Name Resolution Service.
+
 
 ~~~
 my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
