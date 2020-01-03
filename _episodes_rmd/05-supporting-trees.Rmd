@@ -60,11 +60,21 @@ rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_
 > {: .solution}
 {: .challenge}
 
+Get the citations for this source trees.
+```{r, eval = TRUE, warning = FALSE}
+canis_node_studies_meta <- lapply(seq(nrow(canis_node_studies)), function(i)
+  rotl::get_study_meta(study_id = canis_node_studies$study_id[i]))
+canis_node_studies_citations <- sapply(seq(length(canis_node_studies_meta)), function (i) canis_node_studies_meta[[i]]$nexml$`^ot:studyPublicationReference`)
+
+```
+
 Let's plot the supporting trees.
 ```{r, eval = TRUE, warning = FALSE, fig.height = 24}
 for (i in seq(length(canis_source_trees))){
   ape::plot.phylo(canis_source_trees[[i]])
   print(paste("The chronogram above has", length(canis_source_trees[[i]]$tip.label), "tips."))
+  print("Citations is:")
+  print(canis_node_studies_citations[i])
 }
 ```
 Note that supporting trees for a node can be larger than the subtree itself.

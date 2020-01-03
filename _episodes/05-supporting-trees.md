@@ -230,48 +230,69 @@ Rooted; includes branch lengths.
 > {: .solution}
 {: .challenge}
 
+Get the citations for this source trees.
+
+~~~
+canis_node_studies_meta <- lapply(seq(nrow(canis_node_studies)), function(i)
+  rotl::get_study_meta(study_id = canis_node_studies$study_id[i]))
+canis_node_studies_citations <- sapply(seq(length(canis_node_studies_meta)), function (i) canis_node_studies_meta[[i]]$nexml$`^ot:studyPublicationReference`)
+~~~
+{: .language-r}
+
 Let's plot the supporting trees.
 
 ~~~
 for (i in seq(length(canis_source_trees))){
   ape::plot.phylo(canis_source_trees[[i]])
-  print(paste("This hronogram has", length(canis_source_trees[[i]]$tip.label), "tips."))
+  print(paste("The chronogram above has", length(canis_source_trees[[i]]$tip.label), "tips."))
+  print("Citations is:")
+  print(canis_node_studies_citations[i])
 }
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "This hronogram has 142 tips."
-~~~
-{: .output}
-
-<img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
-
-~~~
-[1] "This hronogram has 294 tips."
+[1] "The chronogram above has 142 tips."
+[1] "Citations is:"
+[1] "Tedford, Richard H.; Wang, Xiaoming; Taylor, Beryl E. (2009). Phylogenetic systematics of the North American fossil Caninae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 325. http://hdl.handle.net/2246/5999\n\nWang, Xiaoming; Tedford, Richard H.; Taylor, Beryl E. (1999). Phylogenetic systematics of the Borophaginae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 243. http://hdl.handle.net/2246/1588\n\nWang, Xiaoming (1994). Phylogenetic systematics of the Hesperocyoninae (Carnivora, Canidae). Bulletin of the  American Museum of Natural History, no. 221. http://hdl.handle.net/2246/829\n"
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-7-2.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "This hronogram has 169 tips."
-~~~
-{: .output}
-
-<img src="../fig/rmd-unnamed-chunk-6-4.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
-
-~~~
-[1] "This hronogram has 86 tips."
+[1] "The chronogram above has 294 tips."
+[1] "Citations is:"
+[1] "Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12"
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-6-5.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-7-3.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "This hronogram has 78 tips."
+[1] "The chronogram above has 169 tips."
+[1] "Citations is:"
+[1] "Meredith, R.W., Janecka J., Gatesy J., Ryder O.A., Fisher C., Teeling E., Goodbla A., Eizirik E., Simao T., Stadler T., Rabosky D., Honeycutt R., Flynn J., Ingram C., Steiner C., Williams T., Robinson T., Herrick A., Westerman M., Ayoub N., Springer M., & Murphy W. 2011. Impacts of the Cretaceous Terrestrial Revolution and KPg Extinction on Mammal Diversification. Science 334 (6055): 521-524."
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-7-4.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "The chronogram above has 86 tips."
+[1] "Citations is:"
+[1] "O'Leary, M. A., J. I. Bloch, J. J. Flynn, T. J. Gaudin, A. Giallombardo, N. P. Giannini, S. L. Goldberg, B. P. Kraatz, Z.-X. Luo, J. Meng, X. Ni, M. J. Novacek, F. A. Perini, Z. S. Randall, G. W. Rougier, E. J. Sargis, M. T. Silcox, N. B. Simmons, M. Spaulding, P. M. Velazco, M. Weksler, J. R. Wible, A. L. Cirranello. 2013. The placental mammal ancestor and the post-K-Pg radiation of placentals. Science 339 (6120): 662-667."
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-7-5.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "The chronogram above has 78 tips."
+[1] "Citations is:"
+[1] "Lartillot, Nicolas, Frédéric Delsuc. 2012. Joint reconstruction of divergence times and life-history evolution in placental mammals using a phylogenetic covariance model. Evolution 66 (6): 1773-1787."
 ~~~
 {: .output}
 Note that supporting trees for a node can be larger than the subtree itself.
