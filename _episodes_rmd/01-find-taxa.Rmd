@@ -10,13 +10,13 @@ questions:
 objectives:
 - "Getting ott ids for some taxa."
 - "Understanding tnrs approximate matching and its sensitivity."
-- "Finding the utility of taxonomic contexts"
-- 'Discovering functions to handle a "match_names" object.'
+# - "Finding the utility of taxonomic contexts"
+# - 'Discovering functions to handle a "match_names" object.'
 keypoints:
 - "_ott ids_ are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
-- "taxonomic context is very important to find the correct _ott ids_ for our taxa."
+# - "taxonomic context is very important to find the correct _ott ids_ for our taxa."
 - "You can go from a scientific name to an _ott id_ with tnrs matching."
-- "But you can go from common name to scientific name format using other functions, to make your own workflow."
+- "You cannot go from a common name to _ott id_."
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
