@@ -74,7 +74,7 @@ resolved_names
 > ```
 {: .callout}
 
-> #### **Extra!** Accessing other elements of a "match_names" object
+> ## **Extra!** Accessing other elements of a "match_names" object
 >
 > Most elements of a "match_names" object can only be accessed as a vector, using the "$" symbol.
 >
@@ -85,7 +85,7 @@ resolved_names
 > ```
 {: .testimonial}
 
-## **Challenge!** What do other elements of a "match_names" object tell us?
+<!-- ## **Challenge!** What do other elements of a "match_names" object tell us?
 
 ## Solution
 {: .solution}
@@ -96,17 +96,17 @@ resolved_names
 
 Running a tnrs match can take some time, so if you just want to update a few elements from your match_names object, you can use the functions `inspect()` and `update()`.
 
-The _Mus_ example.
+The _Mus_ example is fixed.
 
 ## **Hack!**
 
 Put together two "match_names" objects with `c()` or `rbind()`
-{: .callout}
+{: .callout} -->
 
-## **Extra!**
-
-Going from common name to scientific name
-{: .challenge}
+> ## **Extra!**
+>
+> Going from common name to scientific name can be achieved with other tools. Check out [phylotastic](https://phylo.cs.nmsu.edu/) or [OneZoom](https://github.com/OneZoom/OZtree) APIs for that.
+{: .testimonial}
 
 
 {% include links.md %}

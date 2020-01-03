@@ -11,7 +11,7 @@ objectives:
 keypoints:
 - "Source chronograms have a wide range of variation in age estimates."
 ---
-```{r, eval = TRUE, echo = FALSE, message = FALSE, results = 'hide'}
+```{r, eval = TRUE, echo = FALSE, message = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
 # apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
 # resolved_names <- rotl::tnrs_match_names(apes)
@@ -36,11 +36,18 @@ ape::axisPhylo()
 
 > ## Challenge! Get other types of summary opentree_chronograms
 >
-> > Hint: Use the argument summary_format = "phylo_sdm"
+> > Hint: Use the argument summary_format = "phylo_sdm" from the funtion `summarize_datelife_result()`
 > >
 > > ## Solution
 > > ```{r, eval = TRUE, results = 'hide', message = FALSE}
-> > canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_sdm")
+> > canis_phylo_sdm <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_sdm")
 > > ```
+> > ```{r plot61, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 10}
+> > canis_phylo_sdm
+> > ape::plot.phylo(canis_phylo_sdm, cex = 1.2)
+> > ape::axisPhylo()
+> > ````
 > {: .solution}
 {: .challenge}
+
+#### You can also try the web browser of [datelife](http://datelife.org/query/).

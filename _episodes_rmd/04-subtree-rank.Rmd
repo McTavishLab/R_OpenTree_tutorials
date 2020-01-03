@@ -4,12 +4,11 @@ title: "Getting an induced subtree of all taxa within a taxonomic rank"
 teaching: 5
 exercises: 5
 questions:
-- "How do I do this?"
+- "How do I get all taxa from a certain rank?"
 objectives:
-- "Learn sapply"
-- "Use datelife"
+- "Get an induced subtree from all taxa of a certain taxonomic rank."
 keypoints:
-- "..."
+- "It is possible to get all types of subsets from the synthetic tree, as long as you can get the _ott ids_!"
 ---
 ```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
@@ -40,7 +39,7 @@ Super cool!
 >
 > > ## Look at a possible solution
 > > ```{r, eval = TRUE}
-> > amphibia_taxonomy <- rotl::taxonomy_subtree(amphibians$ott_id)
+> > amphibia_taxonomy <- rotl::taxonomy_subtree(resolved_names["Amphibia",]$ott_id)
 > > ls(amphibia_taxonomy)
 > > length(amphibia_taxonomy$tip_label)
 > > head(amphibia_taxonomy$tip_label)

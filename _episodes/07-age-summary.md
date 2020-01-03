@@ -14,11 +14,6 @@ keypoints:
 - "Source chronograms have a wide range of variation in age estimates."
 ---
 
-~~~
-## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
-## labels: Lycaon, Cuon alpinus, Eucyon, Atelocynus, Chrysocyon, Canis mesomelas
-~~~
-{: .error}
 
 We can summarize it.
 
@@ -53,13 +48,39 @@ ape::axisPhylo()
 
 > ## Challenge! Get other types of summary opentree_chronograms
 >
-> > Hint: Use the argument summary_format = "phylo_sdm"
+> > Hint: Use the argument summary_format = "phylo_sdm" from the funtion `summarize_datelife_result()`
 > >
 > > ## Solution
 > > 
 > > ~~~
-> > canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_sdm")
+> > canis_phylo_sdm <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_sdm")
 > > ~~~
 > > {: .language-r}
+> > 
+> > ~~~
+> > canis_phylo_sdm
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > Phylogenetic tree with 18 tips and 13 internal nodes.
+> > 
+> > Tip labels:
+> > 	Canis_rufus, Canis_simensis, Speothos_venaticus, Lycaon_pictus, Canis_latrans, Canis_aureus, ...
+> > Node labels:
+> > 	n1, n2, n3, n4, n5, n6, ...
+> > 
+> > Unrooted; includes branch lengths.
+> > 
+> > 
+> > ~~~
+> > ape::plot.phylo(canis_phylo_sdm, cex = 1.2)
+> > ape::axisPhylo()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-plot61-1.png" title="plot of chunk plot61" alt="plot of chunk plot61" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
+
+#### You can also try the web browser of [datelife](http://datelife.org/query/).

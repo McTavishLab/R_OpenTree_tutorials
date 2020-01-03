@@ -33,7 +33,9 @@ rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_
 
 > ## **Challenge!** Get all supporting trees.
 >
-> Hint: You can use a "for" loop or an `apply()` function.
+> Call the output `canis_source_trees`
+>
+> Hint: You can use a "for" loop or an `apply()` function to get them all.
 >
 > > ## Solution
 > >
@@ -59,7 +61,7 @@ rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_
 {: .challenge}
 
 Let's plot the supporting trees.
-```{r, eval = TRUE, warning = FALSE}
+```{r, eval = TRUE, warning = FALSE, fig.height = 17}
 for (i in seq(length(canis_source_trees))){
   ape::plot.phylo(canis_source_trees[[i]])
 }
@@ -67,3 +69,5 @@ for (i in seq(length(canis_source_trees))){
 Note that supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.
+
+Also, tip labels have different names, so we have to standardize them with tnrs before trying to subset.
