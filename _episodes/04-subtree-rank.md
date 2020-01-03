@@ -85,7 +85,7 @@ keypoints:
 ~~~
 {: .error}
 
-### Get 
+### Get
 We have implemented a function in `datelife` to extract all taxa of a given rank. It is also sligthly faster.
 
 

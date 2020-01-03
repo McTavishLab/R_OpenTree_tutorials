@@ -36,23 +36,27 @@ class(resolved_names)
 resolved_names
 ```
 
-There are two ways to extract the _ott ids_ from a match_names object.
+> #### Get the _ott ids_ from a match names object
+> 
+> There are two ways to extract the _ott ids_ from a match_names object.
+>
+> As a list, with the function `ott_id()`:
+>
+> ```{r}
+> rotl::ott_id(resolved_names)
+> ```
+>
+> Or, as a vector:
+>
+> ```{r}
+> resolved_names$ott_id
+> ```
+>
+> Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
+{: .challenge}
 
-As a list, with the function `ott_id()`:
 
-```{r}
-rotl::ott_id(resolved_names)
-```
-
-Or, as a vector:
-
-```{r}
-resolved_names$ott_id
-```
-
-Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
-
-> **Hacks**
+> #### **Hack**
 >
 > To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
 >
@@ -82,7 +86,11 @@ rotl::flags(resolved_names)
 
 ### Taxonomic contexts and updating a "match_names" object
 
-Running a tnrs match can take some time, so if you just want to update a few elememnts from your match_names object, you can use the functions `inspect()` and `update()`.
+Running a tnrs match can take some time, so if you just want to update a few elements from your match_names object, you can use the functions `inspect()` and `update()`.
+
+**Hack**
+
+
 
 Extra:
 

@@ -11,7 +11,7 @@ objectives:
 keypoints:
 - "..."
 ---
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide'}
 source("../bin/chunk-options.R")
 my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
 resolved_names <- rotl::tnrs_match_names(my_taxa)
@@ -19,7 +19,7 @@ rownames(resolved_names) <- resolved_names$unique_name
 amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ```
 
-### Get 
+### Get
 We have implemented a function in `datelife` to extract all taxa of a given rank. It is also sligthly faster.
 
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}

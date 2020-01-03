@@ -69,57 +69,61 @@ resolved_names
 ~~~
 {: .output}
 
-There are two ways to extract the _ott ids_ from a match_names object.
+> #### Get the _ott ids_ from a match names object
+> 
+> There are two ways to extract the _ott ids_ from a match_names object.
+>
+> As a list, with the function `ott_id()`:
+>
+> 
+> ~~~
+> rotl::ott_id(resolved_names)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> $Amphibia
+> [1] 544595
+> 
+> $Canis
+> [1] 372706
+> 
+> $Felis
+> [1] 563165
+> 
+> $Delphinidae
+> [1] 698406
+> 
+> $Spheniscidae
+> [1] 494367
+> 
+> attr(,"class")
+> [1] "otl_ott_id" "list"      
+> ~~~
+> {: .output}
+>
+> Or, as a vector:
+>
+> 
+> ~~~
+> resolved_names$ott_id
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 544595 372706 563165 698406 494367
+> ~~~
+> {: .output}
+>
+> Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
+{: .challenge}
 
-As a list, with the function `ott_id()`:
 
-
-~~~
-rotl::ott_id(resolved_names)
-~~~
-{: .language-r}
-
-
-
-~~~
-$Amphibia
-[1] 544595
-
-$Canis
-[1] 372706
-
-$Felis
-[1] 563165
-
-$Delphinidae
-[1] 698406
-
-$Spheniscidae
-[1] 494367
-
-attr(,"class")
-[1] "otl_ott_id" "list"      
-~~~
-{: .output}
-
-Or, as a vector:
-
-
-~~~
-resolved_names$ott_id
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 544595 372706 563165 698406 494367
-~~~
-{: .output}
-
-Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
-
-> **Hacks**
+> #### **Hack**
 >
 > To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
 >
@@ -185,7 +189,11 @@ attr(,"class")
 
 ### Taxonomic contexts and updating a "match_names" object
 
-Running a tnrs match can take some time, so if you just want to update a few elememnts from your match_names object, you can use the functions `inspect()` and `update()`.
+Running a tnrs match can take some time, so if you just want to update a few elements from your match_names object, you can use the functions `inspect()` and `update()`.
+
+**Hack**
+
+
 
 Extra:
 

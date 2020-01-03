@@ -35,25 +35,27 @@ For this purpose, we will use functions starting with "tol_".
 The function `tol_induced_subtree() allows us to get a tree of various taxa at different taxonomic ranks.
 
 ```{r, eval = TRUE, results = 'hide'}
-mytree <- rotl::tol_induced_subtree(resolved_names$ott_id)
+my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
 ```
 
 This is not an error, it is a warning. What does it mean?
 
-
+```{r, eval = TRUE}
+my_tree
+```
 ```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE}
-ape::plot.phylo(mytree, cex = 1)
+ape::plot.phylo(my_tree, cex = 1)
 ```
 
 This is cool!
 
 But, why did my _Canis_ disappeared?
 
-It did not really disappear, it was replaced by the tag `r mytree$tip.label[3]`.
+It did not really disappear, it was replaced by the tag `r my_tree$tip.label`.
 
-We will explain why in the next section.
+We will explain why this happens in the next section.
 
-For now, what if you want a synthetic tree containing some or all descendants from your taxa of interest?
+Now, _what if you want a synthetic tree containing some or all descendants from your taxa of interest?_
 
 ### Get a subtree of one taxon
 

@@ -49,16 +49,16 @@ Is taxon: FALSE
 ~~~
 {: .output}
 
->**Extras: tol_lineage()**
+> **Extra: tol_lineage()**
 >
->`tol_lineage()` gets information from all ancestral nodes from a given _node id_.
+> `tol_lineage()` gets information from all ancestral nodes from a given _node id_.
 >
 > Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
 {: .solution}
 
->**Extras: tol_mrca()**
+> **Extra: tol_mrca()**
 >
->`tol_mrca()` gets the mrca of a group of _ott ids_.
+> `tol_mrca()` gets the mrca of a group of _ott ids_.
 >
 > Can we use it to get the mrca of _Canis_?
 {: .solution}

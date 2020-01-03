@@ -35,7 +35,7 @@ The function `tol_induced_subtree() allows us to get a tree of various taxa at d
 
 
 ~~~
-mytree <- rotl::tol_induced_subtree(resolved_names$ott_id)
+my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
 ~~~
 {: .language-r}
 
@@ -76,23 +76,44 @@ mrcaott9830ott18206, mrcaott18206ott60413, Sphenisciformes ott494366
 This is not an error, it is a warning. What does it mean?
 
 
-
 ~~~
-ape::plot.phylo(mytree, cex = 1)
+my_tree
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+
+Phylogenetic tree with 5 tips and 4 internal nodes.
+
+Tip labels:
+[1] "Delphinidae_ott698406"  "mrcaott47497ott110766"  "Felis_ott563165"       
+[4] "Spheniscidae_ott494367" "Amphibia_ott544595"    
+Node labels:
+[1] "Tetrapoda ott229562" "Amniota ott229560"   "mrcaott1548ott4697" 
+[4] "mrcaott4697ott6940" 
+
+Rooted; no branch lengths.
+~~~
+{: .output}
+
+~~~
+ape::plot.phylo(my_tree, cex = 1)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 
 This is cool!
 
 But, why did my _Canis_ disappeared?
 
-It did not really disappear, it was replaced by the tag Felis_ott563165.
+It did not really disappear, it was replaced by the tag Delphinidae_ott698406, mrcaott47497ott110766, Felis_ott563165, Spheniscidae_ott494367, Amphibia_ott544595.
 
-We will explain why in the next section.
+We will explain why this happens in the next section.
 
-For now, what if you want a synthetic tree containing some or all descendants from your taxa of interest?
+Now, _what if you want a synthetic tree containing some or all descendants from your taxa of interest?_
 
 ### Get a subtree of one taxon
 
