@@ -6,10 +6,10 @@ exercises: 5
 questions:
 - "How do I detect a broken taxon?"
 objectives:
-- "Know what functions are available to get taxon information"
+- "Use the function is_in_tree()"
 - "Understand outputs from those functions"
 keypoints:
-- "taxonomic tree..."
+- "It is not possible to get a subtre from an _ott id_ that is not in the synthetic tree"
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
@@ -26,9 +26,9 @@ There is a way to find out that a group is "broken" before trying to get the sub
 rotl::is_in_tree(resolved_names["Canis",]$ott_id)
 ```
 
-To extract a subtree of a "broken" taxon, we have some options.
+To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
 
-### a) Get a subtree using the _node id_ instead of the _ott id_
+### Getting a subtree using the _node id_ instead of the _ott id_
 
 `rotl` has a function that gets for you all info from the node containing a taxon. That includes the actual _node id_.
 ```{r, eval = TRUE, warning= FALSE, error = TRUE}
@@ -64,44 +64,48 @@ Nice! We got a subtree of 85 tips, containing all descendants from the node that
 
 This includes species assigned to genera other than _Canis_.
 
-It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
 
-### b) Get an induced subtree of taxonomic children
-
-We can get the _ott ids_ of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
-
-First, get the taxonomic children.
-```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
-canis_taxonomy <- rotl::taxonomy_subtree(resolved_names["Canis",]$ott_id)
-```
-```{r, eval = TRUE, warning= FALSE, error = TRUE}
-canis_taxonomy
-```
-Now, extract the _ott ids_.
-```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
-canis_taxonomy_ott_ids <- datelife::extract_ott_ids(x = canis_taxonomy$tip_label)
-```
-Try to get an induced subtree of _Canis_ taxonomic children.
-
-```{r, eval = TRUE, results = 'hide', warning= FALSE, error = TRUE}
-canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids)
-```
-It is often not possible to get an induced subtree of all taxonomic children from a taxon,
-because some of them will not make it to the synthetic tree.
-
-To verify which ones are giving us trouble, we can use the function `is_in_tree()` again.
-```{r, eval = TRUE, warning= FALSE, error = TRUE, results = 'hide'}
-canis_in_tree <- sapply(canis_taxonomy_ott_ids, rotl::is_in_tree) # logical vector
-canis_taxonomy_ott_ids_intree <- canis_taxonomy_ott_ids[canis_in_tree] # extract ott ids in tree
-```
-
-Now get the tree.
-```{r, eval = TRUE, results = 'hide', warning= FALSE, error = TRUE}
-canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intree)
-```
-Plot it.
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 9}
-ape::plot.phylo(canis_taxonomy_subtree, cex = 1.2)
-```
-
-There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
+> ## **Extra!** Get an induced subtree of taxonomic children
+>
+> It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
+>
+> We can get the _ott ids_ of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
+>
+> > ## Look at the hack
+> > First, get the taxonomic children.
+> > ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+> > canis_taxonomy <- rotl::taxonomy_subtree(resolved_names["Canis",]$ott_id)
+> > ```
+> > ```{r, eval = TRUE, warning= FALSE, error = TRUE}
+> > canis_taxonomy
+> > ```
+> > Now, extract the _ott ids_.
+> > ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+> > canis_taxonomy_ott_ids <- datelife::extract_ott_ids(x = canis_taxonomy$tip_label)
+> > ```
+> > Try to get an induced subtree of _Canis_ taxonomic children.
+> >
+> > ```{r, eval = TRUE, results = 'hide', warning= FALSE, error = TRUE}
+> > canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids)
+> > ```
+> > It is often not possible to get an induced subtree of all taxonomic children from a taxon,
+> > because some of them will not make it to the synthetic tree.
+> >
+> > To verify which ones are giving us trouble, we can use the function `is_in_tree()` again.
+> > ```{r, eval = TRUE, warning= FALSE, error = TRUE, results = 'hide'}
+> > canis_in_tree <- sapply(canis_taxonomy_ott_ids, rotl::is_in_tree) # logical vector
+> > canis_taxonomy_ott_ids_intree <- canis_taxonomy_ott_ids[canis_in_tree] # extract ott ids in tree
+> > ```
+> >
+> > Now get the tree.
+> > ```{r, eval = TRUE, results = 'hide', warning= FALSE, error = TRUE}
+> > canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intree)
+> > ```
+> > Plot it.
+> > ```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 9}
+> > ape::plot.phylo(canis_taxonomy_subtree, cex = 1.2)
+> > ```
+> >
+> > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
+> {: .solution}
+{: .testimonial}

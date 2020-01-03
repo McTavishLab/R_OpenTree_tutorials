@@ -11,38 +11,55 @@ objectives:
 - "Extract an induced subtree"
 - "Extract a subtree"
 keypoints:
-- "dropping singletons warning is ..."
-- ""
+- "Portions if the synthetic tree canbe extracted from a single _ott id_ and from a bunch of _ott_ids"
+- "It is not possible to get a subtre from an _ott id_ that is not in the synthetic tree"
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
 my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
 resolved_names <- rotl::tnrs_match_names(my_taxa)
 rownames(resolved_names) <- resolved_names$unique_name
-```
-
-`tol_about()` needs no argument.
-
-```{r, eval = TRUE}
 tol <- rotl::tol_about()
 ```
 
-Now that we have some interesting taxon _ott ids_ we can interact with the synthetic Open Tree.
+The Synthetic Open Tree of Life summarizes information from `r tol$num_source_trees`
+trees from `r tol$num_source_studies` studies.
+
+<!-- The latest one was created in `r tol$date_created` -->
+
+To access general information about the current synthetic otol, we can use the function `tol_about()`.
+This function requires no argument.
+
+```{r, eval = TRUE}
+rotl::tol_about()
+```
+This is nice!
+
+But, **_what if we just want a small piece of the whole synthetic Open Tree of Life?_**
+
+Well, now that we have some interesting taxon _ott ids_ we can interact with the synthetic Open Tree.
+
 For this purpose, we will use functions starting with "tol_".
 
-### Get an induced subtree
+### Getting an induced subtree
 
-The function `tol_induced_subtree() allows us to get a tree of various taxa at different taxonomic ranks.
+The function `tol_induced_subtree()`` allows us to get a tree of various taxa at different taxonomic ranks.
 
 ```{r, eval = TRUE, results = 'hide'}
 my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
 ```
 
-This is not an error, it is a warning. What does it mean?
+This is **not an error**, it is a warning (because we got an output!).
 
+> ## Challenge! Have you seen it before? What does it mean?
+{: .challenge}
+
+Let's look at the output.
 ```{r, eval = TRUE}
 my_tree
 ```
+
+It is, indeed, a tree. Plot it.
 ```{r plot1, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE}
 ape::plot.phylo(my_tree, cex = 2)
 ```

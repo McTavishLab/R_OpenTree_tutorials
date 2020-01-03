@@ -36,9 +36,26 @@ ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ```
 Super cool!
 
-## **Challenge!** Find a way to do this using `rotl` functions only.
-
-## Solution
-
-{: .solution}
+> ## **Challenge!** Find a way to do this using `rotl` functions only.
+>
+> > ## Look at a possible solution
+> > ```{r, eval = TRUE}
+> > amphibia_taxonomy <- rotl::taxonomy_subtree(amphibians$ott_id)
+> > ls(amphibia_taxonomy)
+> > length(amphibia_taxonomy$tip_label)
+> > head(amphibia_taxonomy$tip_label)
+> > tail(amphibia_taxonomy$tip_label)
+> > amphibia_taxonomy$edge_label
+> > edges <- datelife::extract_ott_ids(x=amphibia_taxonomy$edge_label)
+> > length(edges)
+> > edges_taxon_info <- rotl::taxonomy_taxon_info(edges)
+> > ls(edges_taxon_info[[1]])
+> > is_family <- unname(unlist(sapply(edges_taxon_info, "[", "rank") %in% "family"))
+> > is_suppressed <- unname(unlist(sapply(edges_taxon_info, "[", "is_suppressed_from_synth")))
+> > # flag "is suppressed from synth" is not updated, so it is useless for now.
+> > amphibia_families <- unname(unlist(sapply(edges_taxon_info, "[", "ott_id")[is_family]))
+> > in_tree <- rotl::is_in_tree(amphibia_families)
+> > amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families[in_tree])
+> > ```
+> {: .solution}
 {: .challenge}

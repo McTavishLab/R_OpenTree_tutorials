@@ -13,25 +13,54 @@ objectives:
 - "Extract an induced subtree"
 - "Extract a subtree"
 keypoints:
-- "dropping singletons warning is ..."
-- ""
+- "Portions if the synthetic tree canbe extracted from a single _ott id_ and from a bunch of _ott_ids"
+- "It is not possible to get a subtre from an _ott id_ that is not in the synthetic tree"
 ---
 
 
-`tol_about()` needs no argument.
+The Synthetic Open Tree of Life summarizes information from 1216
+trees from 1162 studies.
+
+<!-- The latest one was created in 2019-12-23 11:41:23 -->
+
+To access general information about the current synthetic otol, we can use the function `tol_about()`.
+This function requires no argument.
 
 
 ~~~
-tol <- rotl::tol_about()
+rotl::tol_about()
 ~~~
 {: .language-r}
 
-Now that we have some interesting taxon _ott ids_ we can interact with the synthetic Open Tree.
+
+
+~~~
+
+OpenTree Synthetic Tree of Life.
+
+Tree version: opentree12.3
+Taxonomy version: 3.2draft9
+Constructed on: 2019-12-23 11:41:23
+Number of terminal taxa: 2391916
+Number of source trees: 1216
+Number of source studies: 1162
+Source list present: false
+Root taxon: cellular organisms
+Root ott_id: 93302
+Root node_id: ott93302
+~~~
+{: .output}
+This is nice!
+
+But, **_what if we just want a small piece of the whole synthetic Open Tree of Life?_**
+
+Well, now that we have some interesting taxon _ott ids_ we can interact with the synthetic Open Tree.
+
 For this purpose, we will use functions starting with "tol_".
 
-### Get an induced subtree
+### Getting an induced subtree
 
-The function `tol_induced_subtree() allows us to get a tree of various taxa at different taxonomic ranks.
+The function `tol_induced_subtree()`` allows us to get a tree of various taxa at different taxonomic ranks.
 
 
 ~~~
@@ -73,8 +102,12 @@ mrcaott9830ott18206, mrcaott18206ott60413, Sphenisciformes ott494366
 ~~~
 {: .error}
 
-This is not an error, it is a warning. What does it mean?
+This is **not an error**, it is a warning (because we got an output!).
 
+> ## Challenge! Have you seen it before? What does it mean?
+{: .challenge}
+
+Let's look at the output.
 
 ~~~
 my_tree
@@ -97,6 +130,8 @@ Node labels:
 Rooted; no branch lengths.
 ~~~
 {: .output}
+
+It is, indeed, a tree. Plot it.
 
 ~~~
 ape::plot.phylo(my_tree, cex = 2)

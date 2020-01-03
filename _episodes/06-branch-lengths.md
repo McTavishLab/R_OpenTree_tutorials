@@ -6,14 +6,15 @@ title: "Getting branch length information (proportional to time) for you taxa"
 teaching: 5
 exercises: 5
 questions:
-- "How do I find supporting trees?"
-- "How do I know if they include branch lengths"
+- "How do I find supporting trees that include branch lengths?"
+- "How do I subset them to include just the taxa I am interested in?"
 objectives:
 - "Learn about the opentree_chronograms object from datelife"
 - "Get source chronograms from the opentree_chronograms object for a set of taxa"
 keypoints:
-- "datelife gets chronograms using source trees from the Open Tree of Life phylesystem"
-- "chronograms are retrieved at the species level only (for now)"
+- "datelife stored chronograms from source trees from the Open Tree of Life phylesystem"
+- "chronograms are stored in the opentree-chronograms object"
+- "source chronograms are retrieved at the species level only (for now)"
 ---
 
 
@@ -58,20 +59,6 @@ are in the "name" format (and not the default "name_and_id").
 
 ~~~
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id, label = "name")
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
-labels: Lycaon, Cuon alpinus, Eucyon, Atelocynus, Chrysocyon, Canis mesomelas
-~~~
-{: .error}
-
-
-
-~~~
 canis_node_subtree
 ~~~
 {: .language-r}
