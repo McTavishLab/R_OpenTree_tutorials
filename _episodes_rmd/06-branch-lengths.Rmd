@@ -1,0 +1,62 @@
+---
+source: Rmd
+title: "Getting branch length information (proportional to time) for you taxa"
+teaching: 5
+exercises: 5
+questions:
+- "How do I find supporting trees?"
+- "How do I know if they include branch lengths"
+objectives:
+- ""
+keypoints:
+- "..."
+---
+```{r, eval = TRUE, echo = FALSE}
+source("../bin/chunk-options.R")
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+rownames(resolved_names) <- resolved_names$unique_name
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
+```
+
+### Subset a list of studies or trees by some criteria
+
+We can get a list of study and tree properties available with the function `studies_properties()`.
+The values that this properties can take are listed in the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON).
+
+
+To get get all trees with branch lengths poprotional to time, we will use the function
+`studies_find_trees()`, with the property "ot:branchLengthMode" and the value "ot:time".
+```{r, eval = TRUE}
+chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
+class(chronograms)
+names(chronograms)
+```
+
+We should be able to use `list_trees()` to get all trees matching our criteria.
+```{r}
+rotl:::list_trees()
+```
+
+But it does not work.
+
+In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
+It only works at the species level.
+
+```{r, eval = TRUE}
+apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
+resolved_names <- rotl::tnrs_match_names(apes)
+```
+
+```{r, eval = TRUE, results = 'hide'}
+apes_dr <- datelife::get_datelife_result(resolved_names$unique_name, get_spp_from_taxon = TRUE)
+```
+```{r, eval = TRUE}
+names(apes_dr)
+apes_dr[1] # look at the first element of the list
+apes_dr[length(apes_dr)] # look at the last element of the list
+```
+
+We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
+Lists are named by the study citation, so we have that information handy at all times.

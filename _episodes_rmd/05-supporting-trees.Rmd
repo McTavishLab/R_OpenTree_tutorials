@@ -1,0 +1,55 @@
+---
+source: Rmd
+title: "Getting studies supporting relationships from an induced subtree"
+teaching: 5
+exercises: 5
+questions:
+- "What are the original studies supporting relationships in my synthetic subtree?"
+objectives:
+- "Learn sapply"
+- "Use datelife"
+keypoints:
+- "..."
+---
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
+source("../bin/chunk-options.R")
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+rownames(resolved_names) <- resolved_names$unique_name
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
+```
+
+```{r}
+canis_node_studies <- rotl::source_list(canis_node_info)
+canis_node_studies
+```
+To get the actual trees, we will need the function `get_study_tree()`.
+It takes one _study id_ and _tree id_ at a time.
+
+```{r}
+x <- 1
+rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_node_studies$tree_id[x], tip_label="ott_taxon_name", deduplicate = TRUE)
+```
+
+#### **Challenge!** Use a "for" loop or an `apply()` function to get all trees.
+
+With a "for" loop.
+
+```{r}
+canis_source_trees <- vector(mode = "list") # generate an empty list
+for (i in seq(nrow(canis_node_studies))){
+  source_tree <- rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE)
+  canis_source_trees <- c(canis_source_trees, list(source_tree))
+}
+canis_source_trees
+```
+
+With an `apply()` function.
+
+```{r}
+canis_source_trees <- sapply(seq(nrow(canis_node_studies)), function(i)
+  rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE))
+canis_source_trees
+```
+{: .challenge}

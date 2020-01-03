@@ -5,6 +5,7 @@
 # http://yihui.name/knitr/options#chunk_options
 
 library("knitr")
+library("emo")
 
 fix_fig_path <- function(pth) file.path("..", pth)
 

@@ -186,8 +186,14 @@ list(contesting_trees = list(`ot_278@tree1` = list(attachment_points = list(list
 ~~~
 {: .error}
 
-Why am I getting an error saying that the _node id_ was not found and that my taxon is "broken"??
+## 😱 😱 😱
 
-Generally, this happens when phylogenetic information does not match taxonomic information.
-For example, extinct lineages are sometimes phylogenetically included within the taxon but are taxonomically excluded, making the taxon appear as paraphyletic.
-On the [Open Tree of Life browser](https://tree.opentreeoflife.org/opentree/argus/ottol@372706), you can still get to the subtree. From R, you need to do something else first.
+What does this error mean??
+
+A "broken" taxon error usually happens when phylogenetic information does not match taxonomic information.
+
+For example, extinct lineages are sometimes phylogenetically included within a taxon but are taxonomically excluded, making the taxon appear as paraphyletic.
+
+On the [Open Tree of Life browser](https://tree.opentreeoflife.org/opentree/argus/ottol@372706), we can still get to the subtree ([check it out here](https://tree.opentreeoflife.org/opentree/argus/opentree12.3@mrcaott47497ott110766)).
+
+From R, we will need to do something else first.

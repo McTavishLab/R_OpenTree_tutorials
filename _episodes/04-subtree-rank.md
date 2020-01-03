@@ -15,8 +15,9 @@ keypoints:
 ---
 
 
-### Get
-We have implemented a function in `datelife` to extract all taxa of a given rank. It is also sligthly faster.
+There is not a specific function to get all taxa from a given rank.
+Of course, we can always hack our way through it.
+In the package `datelife`, we have implemented a function to extract _ott ids_ of all taxa from a given rank.
 
 
 ~~~
@@ -52,4 +53,11 @@ ape::plot.phylo(amphibia_families_subtree, cex = 0.5)
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
-Awesome!
+Super cool!
+
+#### **Challenge!** Find a way to do this using `rotl` functions only.
+
+#### Solution
+
+{: .solution}
+{: .challenge}

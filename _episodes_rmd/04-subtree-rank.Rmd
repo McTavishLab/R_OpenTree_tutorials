@@ -19,8 +19,9 @@ rownames(resolved_names) <- resolved_names$unique_name
 amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ```
 
-### Get
-We have implemented a function in `datelife` to extract all taxa of a given rank. It is also sligthly faster.
+There is not a specific function to get all taxa from a given rank.
+Of course, we can always hack our way through it.
+In the package `datelife`, we have implemented a function to extract _ott ids_ of all taxa from a given rank.
 
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
@@ -33,4 +34,11 @@ amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibi
 amphibia_families_subtree
 ape::plot.phylo(amphibia_families_subtree, cex = 0.5)
 ```
-Awesome!
+Super cool!
+
+#### **Challenge!** Find a way to do this using `rotl` functions only.
+
+#### Solution
+
+{: .solution}
+{: .challenge}

@@ -13,7 +13,7 @@ objectives:
 - "Getting ott ids for some taxa."
 - "Understanding tnrs approximate matching and its sensitivity."
 - "Finding the utility of taxonomic contexts"
-- "Discovering functions to handle a match_names object."
+- 'Discovering functions to handle a "match_names" object.'
 keypoints:
 - "_ott ids_ are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
 - "taxonomic context is very important to find the correct _ott ids_ for our taxa."
@@ -69,9 +69,9 @@ resolved_names
 ~~~
 {: .output}
 
-> #### **Challenge!** Get the _ott ids_ from a match names object
+> #### **Challenge!** Get the _ott ids_ from a "match_names" object
 >
-> There are two main ways to extract the _ott ids_ from a match_names object. Can you figure them out?
+> There are two main ways to extract the _ott ids_ from a "match_names" object. Can you figure them out?
 >
 > > #### Solution
 > >
@@ -128,7 +128,7 @@ resolved_names
 
 > #### **Hack!**
 >
-> To facilitate the use of _ott ids_ later, you can name the rows of your match_names object.
+> To facilitate the use of _ott ids_ later, you can name the rows of your "match_names" object.
 >
 > 
 > ~~~
@@ -136,11 +136,11 @@ resolved_names
 > ~~~
 > {: .language-r}
 >
-> This will allow an easy access to elements of the match_names object by calling the taxon name.
+> This will allow an easy access to elements of the "match_names" object by calling the taxon name.
 >
 > 
 > ~~~
-> resolved_names["Amphibia",]$ott_id
+> resolved_names["Amphibia",]$ott_id # or resolved_names["Amphibia","ott_id"]
 > ~~~
 > {: .language-r}
 > 
@@ -152,9 +152,9 @@ resolved_names
 > {: .output}
 {: .callout}
 
-> #### **Extra!** Accessing other elements of a match_names object
+> #### **Extra!** Accessing other elements of a "match_names" object
 >
-> Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
+> Most elements of a "match_names" object can only be accessed as a vector, using the "$" symbol.
 >
 > The only other element that can be accessed as a list are "flags"
 >
@@ -188,8 +188,10 @@ resolved_names
 > {: .output}
 {: .testimonial}
 
-> Challenge: What are the elements of a match_names object?
->
+#### **Challenge!** What do other elements of a "match_names" object tell us?
+
+#### Solution
+{: .solution}
 {: .challenge}
 
 
@@ -197,13 +199,17 @@ resolved_names
 
 Running a tnrs match can take some time, so if you just want to update a few elements from your match_names object, you can use the functions `inspect()` and `update()`.
 
-**Hack**
+The _Mus_ example.
 
-Put together two match_names objects
+#### **Hack!**
 
-**Extra**
+Put together two "match_names" objects with `c()` or `rbind()`
+{: .callout}
+
+#### **Extra!**
 
 Going from common name to scientific name
+{: .challenge}
 
 
 {% include links.md %}
