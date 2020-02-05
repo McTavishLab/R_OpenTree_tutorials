@@ -1,5 +1,5 @@
-# Using the Open Tree of Life for your Research --using R!
-## Secyion of the Workshop "Using the Open Tree of Life for your Research", SSB 2020, Gainesville, Florida.
+# Using the Open Tree of Life for your Research -- with R!
+## Section of the Workshop "Using the Open Tree of Life for your Research", SSB 2020, Gainesville, Florida.
 
 
 This repository contains the lesson website for the R section of the workshop "Using the Open Tree of Life for your Research",
