@@ -25,15 +25,22 @@ In the package `datelife`, we have implemented a function to extract _ott ids_ o
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
 ```
-Now, get the subtree of families only.
+Get the induced subtree of amphibia families _ott ids_.
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
 ```
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 13}
+
+Look at the output.
+```{r, eval = TRUE, warning= FALSE, error = TRUE, fig.height = 13}
 amphibia_families_subtree
 ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ```
 Super cool!
+
+## Challenge! Get a family subtreewithout ott ids in the tip labels
+
+Hint: Look at the arguments of function `tol_induced_subtree()`
+{: . challenge}
 
 > ## **Challenge!** Find a way to do this using `rotl` functions only.
 >

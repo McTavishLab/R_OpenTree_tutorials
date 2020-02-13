@@ -49,9 +49,9 @@ The function `tol_induced_subtree()`` allows us to get a tree of various taxa at
 my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
 ```
 
-This is **not an error**, it is a warning (because we got an output!).
+<!-- This is **not an error**, it is a warning (because we got an output!). -->
 
-> ## Challenge! Have you seen it before? What does it mean?
+> ## Challenge! Have you seen this warning before? What does it mean?
 {: .challenge}
 
 Let's look at the output.
@@ -66,7 +66,7 @@ ape::plot.phylo(my_tree, cex = 2)
 
 This is cool!
 
-But, why did my _Canis_ disappeared?
+But, why did my _Canis_ disappear?
 
 Well, it did not actually disappear, it was replaced by the label "`r my_tree$tip.label[2]`".
 

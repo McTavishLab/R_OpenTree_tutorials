@@ -100,11 +100,11 @@ ott241846, mrcaott246ott5481, mrcaott246ott5021, mrcaott246ott7145,
 mrcaott246ott5272, mrcaott5272ott9830, mrcaott9830ott86672, mrcaott9830ott90560,
 mrcaott9830ott18206, mrcaott18206ott60413, Sphenisciformes ott494366
 ~~~
-{: .error}
+{: .warning}
 
-This is **not an error**, it is a warning (because we got an output!).
+<!-- This is **not an error**, it is a warning (because we got an output!). -->
 
-> ## Challenge! Have you seen it before? What does it mean?
+> ## Challenge! Have you seen this warning before? What does it mean?
 {: .challenge}
 
 Let's look at the output.
@@ -142,7 +142,7 @@ ape::plot.phylo(my_tree, cex = 2)
 
 This is cool!
 
-But, why did my _Canis_ disappeared?
+But, why did my _Canis_ disappear?
 
 Well, it did not actually disappear, it was replaced by the label "mrcaott47497ott110766".
 

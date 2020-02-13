@@ -14,3 +14,5 @@ _site
 .docker-vendor/
 Gemfile.lock
 ssb2020_workshop.Rproj
+citations.txt
+code/

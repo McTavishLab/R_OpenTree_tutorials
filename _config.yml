@@ -2,13 +2,6 @@
 # Values for this lesson.
 #------------------------------------------------------------
 
-# Which carpentry is this ("swc", "dc", "lc", or "cp")?
-# swc: Software Carpentry
-# dc: Data Carpentry
-# lc: Library Carpentry
-# cp: Carpentries (to use for instructor traning for instance)
-carpentry: "swc"
-
 # Overall title for pages.
 title: "Using the Open Tree of Life for your Research, R section"
 

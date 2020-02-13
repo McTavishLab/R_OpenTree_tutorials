@@ -18,7 +18,7 @@ keypoints:
 ---
 
 
-### Subset a list of studies or trees by some criteria
+### Subset a list of studies (or trees) by some criteria
 
 We can get a list of study and tree properties available with the function `studies_properties()`.
 The values that this properties can take are listed in the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON).
@@ -51,10 +51,17 @@ It takes some time for it to get all the information.
 > Except, it does not really work.
 {: .testimonial}
 
+
+### Search the opentree chronogram database from `datelife`
+
 In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
 
 You can get all source chronograms from an induced subtree, as long as the tip labels
 are in the "name" format (and not the default "name_and_id").
+
+`datelife` takes as input either a tree with tip labels as scientific names (andd not names and ids), or a vector of scientific names.
+
+Get a _Canis_ subtree with tip labels that do not contain the _ott id_.
 
 
 ~~~
@@ -78,7 +85,7 @@ Unrooted; no branch lengths.
 ~~~
 {: .output}
 
-Use that tree as input for the `get_datelife_result()`.
+Now, you can use that tree as input for the `get_datelife_result()` function.
 
 
 ~~~
@@ -348,8 +355,9 @@ Vulpes ferrilata                25.20000              0.0
 ~~~
 {: .output}
 
+### Summarize your results
 
-Then, it is really easy to go from a matrix to a tree, using the function `summarize_datelife_result()` with the option `summary_format = "phylo_all"`.
+Then, it is really easy to go from a matrix to a tree, using the function `summarize_datelife_result()` with the option `summary_format = "phylo_all"`. Note the printed output returns a summary of taxa that have branch length information in the database.
 
 
 ~~~
@@ -357,16 +365,179 @@ canis_phylo_all <-  datelife::summarize_datelife_result(canis_dr, summary_format
 ~~~
 {: .language-r}
 
-~~~
-for (i in seq(length(canis_phylo_all))){
-  ape::plot.phylo(canis_phylo_all[[i]])
-  ape::axisPhylo()
-}
-~~~
-{: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-2.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-3.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-4.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-5.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-6.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-7.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
-You can also use the function `plot_phylo_all()`, that plots the chronograms with the study citation as title.
+
+~~~
+Source chronograms from:
+~~~
+{: .output}
+
+
+
+~~~
+1: Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512
+~~~
+{: .output}
+
+
+
+~~~
+2: Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512
+~~~
+{: .output}
+
+
+
+~~~
+3: Bininda-Emonds, Olaf R. P., Marcel Cardillo, Kate E. Jones, Ross D. E. MacPhee, Robin M. D. Beck, Richard Grenyer, Samantha A. Price, Rutger A. Vos, John L. Gittleman, Andy Purvis. 2007. The delayed rise of present-day mammals. Nature 446 (7135): 507-512
+~~~
+{: .output}
+
+
+
+~~~
+4: Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12
+~~~
+{: .output}
+
+
+
+~~~
+5: Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12
+~~~
+{: .output}
+
+
+
+~~~
+6: Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12
+~~~
+{: .output}
+
+
+
+~~~
+7: Hedges, S. Blair, Julie Marin, Michael Suleski, Madeline Paymer, Sudhir Kumar. 2015. Tree of life reveals clock-like speciation and diversification. Molecular Biology and Evolution 32 (4): 835-845
+~~~
+{: .output}
+
+
+
+~~~
+Input taxa presence across source chronograms:
+~~~
+{: .output}
+
+
+
+~~~
+                   taxon chronograms
+1            Canis rufus         3/7
+2          Canis latrans         7/7
+3         Canis simensis         7/7
+4          Canis adustus         7/7
+5           Canis aureus         7/7
+6     Lycalopex culpaeus         7/7
+7      Lycalopex griseus         7/7
+8  Lycalopex gymnocercus         7/7
+9     Lycalopex sechurae         7/7
+10     Lycalopex vetulus         7/7
+11   Atelocynus microtis         7/7
+12       Cerdocyon thous         7/7
+13 Chrysocyon brachyurus         7/7
+14         Lycaon pictus         7/7
+15    Speothos venaticus         7/7
+16      Vulpes ferrilata         7/7
+17    Dusicyon australis         4/7
+18    Lycalopex fulvipes         4/7
+~~~
+{: .output}
+
+
+
+~~~
+Input taxa completely absent from source chronograms:
+~~~
+{: .output}
+
+
+
+~~~
+                        taxon
+1          Canis himalayensis
+2                Canis indica
+3  Canis environmental sample
+4                Canis anthus
+5            Canis antarticus
+6                 Canis dingo
+7             Canis ameghinoi
+8            Canis argentinus
+9              Canis cautleyi
+10               Canis chanco
+11            Canis chrysurus
+12         Canis curvipalatus
+13          Canis dukhunensis
+14             Canis etruscus
+15                 Canis gezi
+16           Canis himalaicus
+17               Canis kokree
+18                Canis lanka
+19            Canis lateralis
+20                Canis naria
+21             Canis nehringi
+22             Canis pallipes
+23            Canis palustris
+24             Canis peruanus
+25            Canis primaevus
+26              Canis sladeni
+27           Canis tarijensis
+28              Canis ursinus
+29                Canis ferox
+30       Canis lupus pallipes
+31         Canis lupus chanco
+32        Canis lupus baileyi
+33        Canis lupus laniger
+34         Canis lupus hattai
+35     Canis lupus desertorum
+36     Canis lupus familiaris
+37  Canis lupus mogollonensis
+38     Canis lupus hodophilax
+39          Canis lupus dingo
+40    Canis lupus labradorius
+41       Canis lupus signatus
+42          Canis lupus lupus
+43         Canis lupus lycaon
+44       Canis lupus lupaster
+45     Canis lupus campestris
+46         Canis lupus arctos
+47     Canis lupus variabilis
+48          Canis lupus orion
+49                Canis dirus
+50          Canis armbrusteri
+51         Speothos pacivorus
+52             Cuon primaevus
+53             Cuon javanicus
+54              Cuon stehlini
+55      Cuon alpinus lepturus
+56             Canis edwardii
+57           Canis lepophagus
+58          Canis cedazoensis
+59               Canis davisi
+60              Dusicyon avus
+61           Dusicyon darwini
+62       Dusicyon gymnocercus
+63      Dusicyon proplatensis
+64  Lycalopex sp. Fuegian dog
+65      Lycalopex fulvicaudus
+66    Canis mesomelas elongae
+67     Cerdocyon ensenadensis
+~~~
+{: .output}
+
+### Plot your results
+
+To plot the resulting tree, you can use the `plot.phylo()` function from `ape`.
+You can also use the function `plot_phylo_all()`, that adds the study citation as title and a geostratigraphic axis.
 
 
 ~~~
@@ -374,7 +545,7 @@ datelife::plot_phylo_all(trees = canis_phylo_all)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -384,7 +555,7 @@ Stage 2: 12
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-2.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-2.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -394,7 +565,7 @@ Stage 2: 12
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-3.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-3.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -404,7 +575,7 @@ Stage 2: 12
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-4.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-4.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -414,7 +585,7 @@ Stage 2: 12
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-5.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-5.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -424,7 +595,7 @@ Stage 2: 12
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-6.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-6.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -434,7 +605,7 @@ Stage 2: 12
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-7.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-7.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 ~~~
 

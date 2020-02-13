@@ -81,4 +81,4 @@ Note that supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.
 
-Also, tip labels have different names, so we have to standardize them with tnrs before trying to subset.
+Also, tip labels have different names. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with tnrs before trying to subset.

@@ -23,18 +23,23 @@ In the package `datelife`, we have implemented a function to extract _ott ids_ o
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
 ~~~
 {: .language-r}
-Now, get the subtree of families only.
+Get the induced subtree of amphibia families _ott ids_.
 
 ~~~
 amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
 ~~~
 {: .language-r}
 
+Look at the output.
+
 ~~~
 amphibia_families_subtree
 ~~~
 {: .language-r}
 
+
+
+~~~
 
 Phylogenetic tree with 61 tips and 58 internal nodes.
 
@@ -44,6 +49,9 @@ Node labels:
 	Amphibia ott544595, Batrachia ott471197, Anura ott991547, mrcaott114ott3129, mrcaott114ott37876, mrcaott114ott18818, ...
 
 Rooted; no branch lengths.
+~~~
+{: .output}
+
 
 
 ~~~
@@ -53,6 +61,11 @@ ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 
 <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 Super cool!
+
+## Challenge! Get a family subtreewithout ott ids in the tip labels
+
+Hint: Look at the arguments of function `tol_induced_subtree()`
+{: . challenge}
 
 > ## **Challenge!** Find a way to do this using `rotl` functions only.
 >
