@@ -1,35 +1,44 @@
 ---
 source: Rmd
-title: "Finding your taxa in the Open Tree of Life Taxonomy"
+title: "1. Finding your taxa in the Open Tree of Life Taxonomy"
 teaching: 5
 exercises: 5
 questions:
 - "What is the Open Tree Taxonomy?"
-- "What are _ott ids_?"
-- 'What is "tnrs"?'
+- "What are OTT ids?"
+- 'What does TNRS stand for?'
 objectives:
-- "Getting ott ids for some taxa."
-- "Understanding tnrs approximate matching and its sensitivity."
+- "Getting OTT ids for some taxa."
+- "Understanding TNRS approximate matching and its sensitivity."
 # - "Finding the utility of taxonomic contexts"
 # - 'Discovering functions to handle a "match_names" object.'
 keypoints:
-- "_ott ids_ are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
+- "OTT ids are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
 # - "taxonomic context is very important to find the correct _ott ids_ for our taxa."
-- "You can go from a scientific name to an _ott id_ with tnrs matching."
-- "You cannot go from a common name to _ott id_."
+- "You can go from a scientific name to an OTT id with TNRS matching."
+- "You cannot go from a common name to OTT id with the Open Tree of Life tools."
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
 ```
+<br/>
+<br/>
 
-### The Open Tree Taxonomy and its identifiers
+<!-- ### The Open Tree Taxonomy and its identifiers -->
 
-The Open Tree Taxonomy stores information about taxa and assigns eaxh taxon a unique identifies which we cal the **_ott id_**.
+The [Open Tree Taxonomy](https://tree.opentreeoflife.org/about/taxonomy-version/ott3.2) (or **OTT**) synthesizes taxonomic information and assigns each taxon a unique identifier, which we know as the **OTT id**.
 
+To deal with synonyms and scientific name misspellings, the Open Tree Taxonomy uses
+the [Taxonomic Name Resolution Service](http://tnrs.iplantcollaborative.org/) (**TNRS**
+from now on), that allows linking scientific names to a unique OTT id when necessary.
 
-To get the _ott ids_ of your taxa we will use the function `tnrs_match_names()`. This function generates a "match_names" object.
+To interact with the OTT, we will learn how to use a number of function from the `rotl` package.
+Go to setup if you need to check if you have `rotl` installed or if you need to install it.
 
-"tnrs" stands for Taxonomic Name Resolution Service.
+To get OTT ids for a set of taxa we will use the `rotl` function `tnrs_match_names()`.
+
+This function will get you a **match_names object**, which is a data frame with a certain number of columns. Let's generate a match_names object and check it out.
+
 
 ```{r, eval = TRUE}
 my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
@@ -37,10 +46,12 @@ resolved_names <- rotl::tnrs_match_names(my_taxa)
 class(resolved_names)
 resolved_names
 ```
+<br/>
+<br/>
 
-> ## **Challenge!** Get the _ott ids_ from a "match_names" object
+> ## **Challenge!** Get the OTT ids from a match_names object
 >
-> There are two main ways to extract the _ott ids_ from a "match_names" object. Can you figure them out?
+> You now have a match_names object that we called resolved_names. There are two main ways to extract the OTT ids from it. Can you figure them out?
 >
 > > ## Solution
 > >
@@ -56,31 +67,38 @@ resolved_names
 > > resolved_names$ott_id
 > > ```
 > >
-> > Most of the functions we will explore take an argument of _ott ids_ as a numeric vector, so I will usually prefer the second approach.
+> > Most of the functions we will explore here take an argument called _ott ids_ as a numeric vector, so I will usually prefer the second approach.
 > {: .solution}
 {: .challenge}
 
+<br/>
+<br/>
 
 > ## **Hack!**
 >
-> To facilitate the use of _ott ids_ later, you can name the rows of your "match_names" object.
+> To facilitate the use of OTT ids later, you can name the rows of your match_names object.
 >
 > ```{r}
 > rownames(resolved_names) <- resolved_names$unique_name
 > ```
 >
-> This will allow an easy access to elements of the "match_names" object by calling the taxon name.
+> This will allow an easy access to elements of the match_names object by calling the taxon name.
 >
-> ```{r}
-> resolved_names["Amphibia",]$ott_id # or resolved_names["Amphibia","ott_id"]
+> ```{r, results = "asis"}
+> resolved_names["Amphibia",]$ott_id
+> # or
+> resolved_names["Amphibia","ott_id"]
 > ```
 {: .callout}
 
-> ## **Extra!** Accessing other elements of a "match_names" object
+<br/>
+<br/>
+
+> ## **Extra!** Accessing other elements of a match_names object
 >
-> Most elements of a "match_names" object can only be accessed as a vector, using the "$" symbol.
+> Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
 >
-> The only other element that can be accessed as a list are "flags"
+> The only other element that can be accessed as a list are **flags**.
 >
 > ```{r}
 > rotl::flags(resolved_names)
@@ -94,7 +112,7 @@ resolved_names
 {: .challenge}
 
 
-### Taxonomic contexts and updating a "match_names" object
+### Taxonomic contexts and updating a match_names object
 
 Running a tnrs match can take some time, so if you just want to update a few elements from your match_names object, you can use the functions `inspect()` and `update()`.
 
@@ -104,11 +122,15 @@ The _Mus_ example is fixed.
 
 Put together two "match_names" objects with `c()` or `rbind()`
 {: .callout} -->
+<br/>
+<br/>
 
 > ## **Extra!**
 >
 > Going from common name to scientific name can be achieved with other tools. Check out [phylotastic](https://phylo.cs.nmsu.edu/) or [OneZoom](https://github.com/OneZoom/OZtree) APIs for that.
 {: .testimonial}
 
+<br/>
+<br/>
 
 {% include links.md %}

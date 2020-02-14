@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Getting an induced subtree of all taxa within a taxonomic rank"
+title: "4. Getting an induced subtree of all taxa within a taxonomic rank"
 teaching: 5
 exercises: 5
 questions:

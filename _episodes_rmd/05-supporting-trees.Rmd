@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Getting studies and trees supporting relationships in a synthetic subtree"
+title: "5. Getting studies and trees supporting relationships in a synthetic subtree"
 teaching: 5
 exercises: 5
 questions:

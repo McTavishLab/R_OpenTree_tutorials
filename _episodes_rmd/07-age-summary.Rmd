@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Summarizing branch length information"
+title: "7. Summarizing branch length information"
 teaching: 5
 exercises: 5
 questions:

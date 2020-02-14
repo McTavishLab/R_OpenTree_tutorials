@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Getting a piece of the Synthetic Open Tree of Life"
+title: "2. Getting a piece of the Synthetic Open Tree of Life"
 teaching: 5
 exercises: 5
 questions:
@@ -67,6 +67,8 @@ ape::plot.phylo(my_tree, cex = 2)
 This is cool!
 
 But, why did my _Canis_ disappear?
+
+`r paste(rep(emo::ji("scream"), 3), collapse = " ")`
 
 Well, it did not actually disappear, it was replaced by the label "`r my_tree$tip.label[2]`".
 
