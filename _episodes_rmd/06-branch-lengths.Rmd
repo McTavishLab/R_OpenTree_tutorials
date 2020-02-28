@@ -124,7 +124,7 @@ canis_phylo_all <-  datelife::summarize_datelife_result(canis_dr, summary_format
 To plot the resulting tree, you can use the `plot.phylo()` function from `ape`.
 You can also use the function `plot_phylo_all()`, that adds the study citation as title and a geostratigraphic axis.
 
-```{r, eval = TRUE, warning = FALSE, message = FALSE}
+```{r datelife-plots, eval = TRUE, warning = FALSE, message = FALSE}
 datelife::plot_phylo_all(trees = canis_phylo_all)
 ```
 

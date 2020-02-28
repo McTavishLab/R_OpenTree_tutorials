@@ -98,9 +98,9 @@ canis_node_studies_citations <- sapply(seq(length(canis_node_studies_meta)), fun
 ```
 
 Finally, let's plot the supporting trees along with their citations.
-```{r, eval = TRUE, warning = FALSE, fig.height = 24}
+```{r canis-support-trees, eval = TRUE, warning = FALSE, fig.height = 24}
 for (i in seq(length(canis_source_trees))){
-  print(paste("The chronogram below has", length(canis_source_trees[[i]]$tip.label), "tips."))
+  print(paste("The supporting tree below has", length(canis_source_trees[[i]]$tip.label), "tips."))
   print(paste("Citation is:", canis_node_studies_citations[i]))
   ape::plot.phylo(canis_source_trees[[i]])
 }

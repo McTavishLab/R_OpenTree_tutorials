@@ -284,7 +284,7 @@ Finally, let's plot the supporting trees along with their citations.
 
 ~~~
 for (i in seq(length(canis_source_trees))){
-  print(paste("The chronogram below has", length(canis_source_trees[[i]]$tip.label), "tips."))
+  print(paste("The supporting tree below has", length(canis_source_trees[[i]]$tip.label), "tips."))
   print(paste("Citation is:", canis_node_studies_citations[i]))
   ape::plot.phylo(canis_source_trees[[i]])
 }
@@ -294,44 +294,44 @@ for (i in seq(length(canis_source_trees))){
 
 
 ~~~
-[1] "The chronogram below has 142 tips."
+[1] "The supporting tree below has 142 tips."
 [1] "Citation is: Tedford, Richard H.; Wang, Xiaoming; Taylor, Beryl E. (2009). Phylogenetic systematics of the North American fossil Caninae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 325. http://hdl.handle.net/2246/5999\n\nWang, Xiaoming; Tedford, Richard H.; Taylor, Beryl E. (1999). Phylogenetic systematics of the Borophaginae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 243. http://hdl.handle.net/2246/1588\n\nWang, Xiaoming (1994). Phylogenetic systematics of the Hesperocyoninae (Carnivora, Canidae). Bulletin of the  American Museum of Natural History, no. 221. http://hdl.handle.net/2246/829\n"
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-canis-support-trees-1.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram below has 294 tips."
+[1] "The supporting tree below has 294 tips."
 [1] "Citation is: Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12"
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-2.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-canis-support-trees-2.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram below has 169 tips."
+[1] "The supporting tree below has 169 tips."
 [1] "Citation is: Meredith, R.W., Janecka J., Gatesy J., Ryder O.A., Fisher C., Teeling E., Goodbla A., Eizirik E., Simao T., Stadler T., Rabosky D., Honeycutt R., Flynn J., Ingram C., Steiner C., Williams T., Robinson T., Herrick A., Westerman M., Ayoub N., Springer M., & Murphy W. 2011. Impacts of the Cretaceous Terrestrial Revolution and KPg Extinction on Mammal Diversification. Science 334 (6055): 521-524."
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-3.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-canis-support-trees-3.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram below has 86 tips."
+[1] "The supporting tree below has 86 tips."
 [1] "Citation is: O'Leary, M. A., J. I. Bloch, J. J. Flynn, T. J. Gaudin, A. Giallombardo, N. P. Giannini, S. L. Goldberg, B. P. Kraatz, Z.-X. Luo, J. Meng, X. Ni, M. J. Novacek, F. A. Perini, Z. S. Randall, G. W. Rougier, E. J. Sargis, M. T. Silcox, N. B. Simmons, M. Spaulding, P. M. Velazco, M. Weksler, J. R. Wible, A. L. Cirranello. 2013. The placental mammal ancestor and the post-K-Pg radiation of placentals. Science 339 (6120): 662-667."
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-4.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-canis-support-trees-4.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram below has 78 tips."
+[1] "The supporting tree below has 78 tips."
 [1] "Citation is: Lartillot, Nicolas, Frédéric Delsuc. 2012. Joint reconstruction of divergence times and life-history evolution in placental mammals using a phylogenetic covariance model. Evolution 66 (6): 1773-1787."
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-10-5.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-canis-support-trees-5.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
 
 <br/>
 
