@@ -66,8 +66,6 @@ This function takes a character vector of one or more taxon scientific names as 
 Ok, we ran the function successfully. Now Let's explore its output.
 
 ~~~
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "ave")
-resolved_names <- rotl::tnrs_match_names(names = my_taxa)
 resolved_names
 ~~~
 {: .language-r}
@@ -100,7 +98,12 @@ class(resolved_names)
 [1] "match_names" "data.frame" 
 ~~~
 {: .output}
-As you can see, an object can belong to oneor more classes. Indeed, R is telling us that the output of `tnrs_match_names()` is a data frame (a type of table) and a **'match_names' object**, which is in turn a data frame with exactly 7 named columns: `search_string`, `unique_name`, `approximate_match`, `ott_id`, `is_synonym`, `flags`, and `number_matches`.
+
+<br/>
+
+As you can see, an object can belong to one or more classes.
+
+Indeed, R is telling us that the output of `tnrs_match_names()` is a data frame (a type of table) and a **'match_names' object**, which is in turn a data frame with exactly 7 named columns: `search_string`, `unique_name`, `approximate_match`, `ott_id`, `is_synonym`, `flags`, and `number_matches`.
 <!-- **search_string**, **unique_name**, **approximate_match**, **ott_id**, **is_synonym**, **flags**, and **number_matches**. -->
 
 Ok, so we know now what is the data structure of the 'match_names' object, but _**what kind of data can I find in this class of objects?**_
@@ -122,6 +125,7 @@ The column `approximate_match` tells us whether the unique name was inferred fro
 Finally, the `flags` column tells us if our unique name has been flagged in the OTT
 (TRUE) or not (FALSE), and the type of flag if any. Flags are markers that indicate if the taxon in question should be included in further analyses of the Open Tree workflow. You can read more about flags in the [wiki](https://github.com/OpenTreeOfLife/reference-taxonomy/wiki/Taxon-flags).
 
+<br/>
 
 > ## Pro tip 1.1: Looking at "hidden" elements of a data object
 >
@@ -163,7 +167,11 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > {: .solution}
 {: .testimonial}
 
-Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool! Now, _**how can I extract specific pieces of data from my object to use elsewhere?**_
+<br/>
+
+Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool!
+
+Finally, _**how can I extract specific pieces of data from my object to use elsewhere?**_
 
 <br/>
 
@@ -172,6 +180,7 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 It is easy to access elements from a 'match_names' object using regular indexing.
 For example, using the column number, we can extract all elements from a certain column.
 Let's extract all data from the second column:
+
 
 ~~~
 resolved_names[,2]
@@ -220,6 +229,8 @@ added some functions that allow interacting with these complicated outputs.
 The functions `unique_name()`, `ott_id()`, and `flags()` extract values from the
 respective columns of a 'match_names' object, in the form of a list instead of a vector.
 To extract data from the other columns there are no specialized functions, so you will have to index.
+
+<br/>
 
 > ## Hands on!  Extract the OTT ids from a 'match_names' object
 >

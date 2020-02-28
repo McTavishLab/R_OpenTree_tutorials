@@ -200,6 +200,9 @@ Or,  you can run the function `tnrs_match_names()` again if you want.
 amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id
 ~~~
 {: .language-r}
+
+<br/>
+
 Now, extract the subtree from the synthetic OTOL using `tol_subtree()`.
 
 ~~~
@@ -228,6 +231,8 @@ Unrooted; no branch lengths.
 ~~~
 {: .output}
 This is a large tree! We will have a hard time plotting it.
+
+<br/>
 
 Now, let's extract a subtree for the genus _Canis_. It should be way smaller!
 

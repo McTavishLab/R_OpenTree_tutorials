@@ -76,8 +76,13 @@ class(canis_node_info)
 ~~~
 {: .output}
 
+<br/>
+
 So we have an object of class 'list' and 'tol_node'. When we printed it, we got some
-information. But we do not knoe how much information might not be "printed" to screen.
+information. But we do not know how much information might not be "printed" to screen.
+
+<br/>
+
 Let's use the functions `str()` or `ls()` to check out the data strcture of our 'tol_node' object.
 
 
