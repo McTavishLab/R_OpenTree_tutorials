@@ -105,6 +105,9 @@ for (i in seq(length(canis_source_trees))){
   ape::plot.phylo(canis_source_trees[[i]])
 }
 ```
+
+<br/>
+
 Note that the supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.

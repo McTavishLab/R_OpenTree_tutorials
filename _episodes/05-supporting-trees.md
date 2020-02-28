@@ -332,6 +332,9 @@ for (i in seq(length(canis_source_trees))){
 {: .output}
 
 <img src="../fig/rmd-unnamed-chunk-10-5.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+
+<br/>
+
 Note that the supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.

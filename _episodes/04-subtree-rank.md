@@ -72,6 +72,7 @@ Super cool!
 > Hint: Look at the arguments of function `tol_induced_subtree()`
 >
 > > ## Solution
+> >
 > > 
 > > ~~~
 > > amphibia_families_subtree2 <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id, label_format = "name")
