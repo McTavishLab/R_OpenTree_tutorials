@@ -8,7 +8,7 @@ questions:
 objectives:
 - "Get an induced subtree from all taxa of a certain taxonomic rank."
 keypoints:
-- "It is possible to get all types of subsets from the synthetic tree, as long as you can get the _ott ids_!"
+- "It is possible to get all types of subsets from the synthetic tree, as long as you can get the OTT ids!"
 ---
 ```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
@@ -18,14 +18,19 @@ rownames(resolved_names) <- resolved_names$unique_name
 amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ```
 
+<br/>
+<br/>
+
 There is not a specific function to get all taxa from a given rank.
 Of course, we can always hack our way through it.
-In the package `datelife`, we have implemented a function to extract _ott ids_ of all taxa from a given rank.
+In the package `datelife`, we have implemented a function called `get_ott_children()`, that extracts OTT ids of all taxa from a rank specified by the argument `ott_rank`.
+
+Let's get all amphibian families.
 
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
 ```
-Get the induced subtree of amphibia families _ott ids_.
+Now, get the induced subtree using the amphibian families' OTT ids.
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
 ```
@@ -37,14 +42,24 @@ ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ```
 Super cool!
 
-## Challenge! Get a family subtreewithout ott ids in the tip labels
-
-Hint: Look at the arguments of function `tol_induced_subtree()`
+> ## Hands on! Get a family subtree without ott ids in the tip labels
+>
+> Hint: Look at the arguments of function `tol_induced_subtree()`
+>
+> > ## Solution
+> > ```{r, eval = TRUE}
+> > amphibia_families_subtree2 <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id, label_format = "name")
+> > ape::plot.phylo(amphibia_families_subtree2, cex = 1.2)
+> > ```
+> {: .solution}
 {: . challenge}
 
-> ## **Challenge!** Find a way to do this using `rotl` functions only.
+> ## Hack: Get all taxa from a taxonomic rank.
+>
+> There are several ways to do this using `rotl` functions only. Try it out!
 >
 > > ## Look at a possible solution
+> >
 > > ```{r, eval = TRUE}
 > > amphibia_taxonomy <- rotl::taxonomy_subtree(resolved_names["Amphibia",]$ott_id)
 > > ls(amphibia_taxonomy)
@@ -65,3 +80,7 @@ Hint: Look at the arguments of function `tol_induced_subtree()`
 > > ```
 > {: .solution}
 {: .challenge}
+
+We have seen up to now how to get a portion of the synthetic OTOL. How do I inspect the source phylogenetic trees that support the subtrees?
+
+<br/>

@@ -10,21 +10,23 @@ questions:
 - "How do I interact with it?"
 - "Why is my taxon not in the tree?"
 objectives:
-- "Extract an induced subtree"
-- "Extract a subtree"
+- "Get an induced subtree"
+- "Get a subtree"
 keypoints:
-- "Portions if the synthetic tree canbe extracted from a single _ott id_ and from a bunch of _ott_ids"
-- "It is not possible to get a subtre from an _ott id_ that is not in the synthetic tree"
+- "OTT ids and node ids allow us to interact with the synthetic OTOL."
+- "Portions of the synthetic OTOL can be extracted from a single OTT id or from a bunch of them."
+- "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
 
+<br/>
+<br/>
 
-The Synthetic Open Tree of Life summarizes information from 1216
-trees from 1162 studies.
+The **synthetic Open Tree of Life** (synthetic OTOL from now on) summarizes information from 1216
+trees from 1162 peer-reviewed and published studies, that have been uploaded to the OTOL database through a [curator system](https://tree.opentreeoflife.org/curator).
 
-<!-- The latest one was created in 2019-12-23 11:41:23 -->
+Functions from the `rotl` package that interact with the synthetic OTOL start with "tol_".
 
-To access general information about the current synthetic otol, we can use the function `tol_about()`.
-This function requires no argument.
+To access general information about the current synthetic OTOL, we can use the function `tol_about()`. This function requires no argument.
 
 
 ~~~
@@ -52,15 +54,18 @@ Root node_id: ott93302
 {: .output}
 This is nice!
 
-But, **_what if we just want a small piece of the whole synthetic Open Tree of Life?_**
+As you can note, the current synthetic OTOL was created not too long ago, on 2019-12-23 11:41:23.
 
-Well, now that we have some interesting taxon _ott ids_ we can interact with the synthetic Open Tree.
+This is also telling us that there are currently more than 2 million tips on the synthetic OTOL.
 
-For this purpose, we will use functions starting with "tol_".
+It is indeed a large tree. So, **_what if we just want a small piece of the whole synthetic OTOL?_**
+
+Well, now that we have some interesting taxon OTT ids, we can easily do this.
+
 
 ### Getting an induced subtree
 
-The function `tol_induced_subtree()`` allows us to get a tree of various taxa at different taxonomic ranks.
+The function `tol_induced_subtree()` allows us to get a tree of taxa from different taxonomic ranks.
 
 
 ~~~
@@ -102,12 +107,20 @@ mrcaott9830ott18206, mrcaott18206ott60413, Sphenisciformes ott494366
 ~~~
 {: .warning}
 
-<!-- This is **not an error**, it is a warning (because we got an output!). -->
+<br/>
 
-> ## Challenge! Have you seen this warning before? What does it mean?
-{: .challenge}
+> ## Note: What does this warning mean?
+>
+> This warning has to do with the way the synthetic OTOL is generated.
+> You can look at the [overview of the synthesis algorithm](https://docs.google.com/presentation/d/1RwoNTUK3LKgBupBNOc1TNsIpucuMUddlYW6rC56We10/edit?usp=sharing) for more information.
+>
+>
+{: .discussion}
 
-Let's look at the output.
+<br/>
+
+Let's look at the output of `tol_induced_subtree()`.
+
 
 ~~~
 my_tree
@@ -131,10 +144,28 @@ Rooted; no branch lengths.
 ~~~
 {: .output}
 
-It is, indeed, a tree. Plot it.
+R is telling us that we have a rooted tree with no branch lengths and 5 tips.
+If we check the class of the output, we will verify that it is a **'phylo' object**.
+
 
 ~~~
-ape::plot.phylo(my_tree, cex = 2)
+class(my_tree)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "phylo"
+~~~
+{: .output}
+
+A 'phylo' object is a data structure that stores the necessary information to build a tree.
+There are several functions from different packages to plot trees or 'phylo' objects in R (e.g., [phytools](https://cran.r-project.org/web/packages/phytools/phytools.pdf)). For now, we will use the one from the legendary `ape` package `plot.phylo()`:
+
+
+~~~
+ape::plot.phylo(my_tree, cex = 2) # or just plot(my_tree, cex = 2)
 ~~~
 {: .language-r}
 
@@ -142,48 +173,40 @@ ape::plot.phylo(my_tree, cex = 2)
 
 This is cool!
 
-But, why did my _Canis_ disappear?
-
-😱 😱 😱
+But, why oh why did my _Canis_ disappear? 😢
 
 Well, it did not actually disappear, it was replaced by the label "mrcaott47497ott110766".
 
-We will explain why this happens in the next section.
+We will explain why this happens in the [next section](../03-broken-taxa/index.html).
 
-Now, **_what if you want a synthetic tree containing some or all descendants from your taxa of interest?_**
+Now, **_what if you want a piece of the synthetic OTOL containing all descendants of your taxa of interest?_**
 
-### Get a subtree of one taxon
+### Getting a subtree of one taxon
 
-We can extract a subtree of all descendants of one taxon at a time using the function `tol_subtree()` and the amphibians _ott id_.
+We can extract a subtree of all descendants of one taxon at a time using the function `tol_subtree()` and an OTT id of your choosing.
 
-Try to extract a subtree of all amphibians.
-Its _ott id_  is already stored in the `resolved_names` object, but you can run the function `tnrs_match_names()` again if you want.
+Let's extract a subtree of all amphibians.
 
-~~~
-resolved_names["Amphibia",]$ott_id # extract the ott id from resolved_names
-~~~
-{: .language-r}
-
+First, get its OTT id. It is already stored in our `resolved_names` object:
 
 
 ~~~
-[1] 544595
-~~~
-{: .output}
-
-
-
-~~~
-amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id # OR run tnrs again
+amphibia_ott_id <- resolved_names["Amphibia",]$ott_id
 ~~~
 {: .language-r}
+Or,  you can run the function `tnrs_match_names()` again if you want.
 
-Now, extract the subtree from the Open Tree synthetic tree using `tol_subtree()`.
+~~~
+amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id
+~~~
+{: .language-r}
+Now, extract the subtree from the synthetic OTOL using `tol_subtree()`.
 
 ~~~
 amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ~~~
 {: .language-r}
+Let's look at the output:
 
 ~~~
 amphibia_subtree
@@ -206,7 +229,7 @@ Unrooted; no branch lengths.
 {: .output}
 This is a large tree! We will have a hard time plotting it.
 
-Try to extract a subtree for the genus _Canis_. It should be way smaller!
+Now, let's extract a subtree for the genus _Canis_. It should be way smaller!
 
 
 ~~~
@@ -233,4 +256,6 @@ For example, extinct lineages are sometimes phylogenetically included within a t
 
 On the [Open Tree of Life browser](https://tree.opentreeoflife.org/opentree/argus/ottol@372706), we can still get to the subtree ([check it out here](https://tree.opentreeoflife.org/opentree/argus/opentree12.3@mrcaott47497ott110766)).
 
-From R, we will need to do something else first.
+From R, we will need to do something else first. We will get to that on the next episode.
+
+<br/>

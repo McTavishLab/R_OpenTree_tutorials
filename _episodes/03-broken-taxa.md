@@ -11,12 +11,18 @@ objectives:
 - "Use the function is_in_tree()"
 - "Understand outputs from those functions"
 keypoints:
-- "It is not possible to get a subtre from an _ott id_ that is not in the synthetic tree"
+- "It is not possible to get a subtre from an OTT id that is not in the synthetic tree."
+- "OTT ids and node ids allow us to interact with the synthetic OTOL."
 ---
 
-We say that a taxon is "broken" when its _ott id_ is not assigned to a node in the synthetic tree.
-In practice, this means the the _ott id_ is **not** in the tree.
-This is the reason why we get an error when we try to get a synthetic subtree using that _ott id_.
+
+<br/>
+<br/>
+
+We say that a taxon is "broken" when its OTT id is not assigned to a node in the synthetic tree.
+As mentioned before, this happens when the OTT id belongs to a taxon that is not monophyletic in the synthetic tree.
+This is the reason why we get an error when we try to get a synthetic subtree including that OTT id: it is **not** in the tree.
+
 
 There is a way to find out that a group is "broken" before trying to get the subtree and getting an error.
 
@@ -25,11 +31,18 @@ rotl::is_in_tree(resolved_names["Canis",]$ott_id)
 ~~~
 {: .language-r}
 
-To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
 
-### Getting a subtree using the _node id_ instead of the _ott id_
 
-`rotl` has a function that gets for you all info from the node containing a taxon. That includes the actual _node id_.
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+Indeed, our _Canis_ is **not** in the synthetic OTOL. To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
+
+### Getting the MRCA of a taxon
+
+The function `tol_node_info()` gets for you all relevant information of the node that is the ancestor or MRCA of a taxon. That also includes the actual node id.
 
 ~~~
 canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
@@ -48,27 +61,116 @@ Number of terminal descendants: 85
 Is taxon: FALSE
 ~~~
 {: .output}
-
-> ## **Extra: tol_lineage()**
->
-> `tol_lineage()` gets information from all ancestral nodes from a given _node id_.
->
-> Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
-{: .testimonial}
-
-> ## **Extra: tol_mrca()**
->
-> `tol_mrca()` gets the mrca of a group of _ott ids_.
->
-> Can we use it to get the mrca of _Canis_?
-{: .testimonial}
-
-
-The _node_ that contains _Canis_ is "mrcaott47497ott110766". We can use it to get a subtree with `tol_subtree()`.
+Let's explore the class of the output.
 
 
 ~~~
-canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
+class(canis_node_info)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "tol_node" "list"    
+~~~
+{: .output}
+
+So we have an object of class 'list' and 'tol_node'. When we printed it, we got some
+information. But we do not knoe how much information might not be "printed" to screen.
+Let's use the functions `str()` or `ls()` to check out the data strcture of our 'tol_node' object.
+
+
+~~~
+str(canis_node_info)
+~~~
+{: .language-r}
+
+
+
+~~~
+List of 8
+ $ node_id      : chr "mrcaott47497ott110766"
+ $ num_tips     : int 85
+ $ query        : chr "ott372706"
+ $ resolves     :List of 1
+  ..$ pg_2812@tree6545: chr "node1135827"
+ $ source_id_map:List of 5
+  ..$ ot_278@tree1    :List of 3
+  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ study_id: chr "ot_278"
+  .. ..$ tree_id : chr "tree1"
+  ..$ ot_328@tree1    :List of 3
+  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ study_id: chr "ot_328"
+  .. ..$ tree_id : chr "tree1"
+  ..$ pg_1428@tree2855:List of 3
+  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ study_id: chr "pg_1428"
+  .. ..$ tree_id : chr "tree2855"
+  ..$ pg_2647@tree6169:List of 3
+  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ study_id: chr "pg_2647"
+  .. ..$ tree_id : chr "tree6169"
+  ..$ pg_2812@tree6545:List of 3
+  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ study_id: chr "pg_2812"
+  .. ..$ tree_id : chr "tree6545"
+ $ supported_by :List of 2
+  ..$ ot_278@tree1: chr "node233"
+  ..$ ot_328@tree1: chr "node495"
+ $ synth_id     : chr "opentree12.3"
+ $ terminal     :List of 2
+  ..$ pg_1428@tree2855: chr "node610132"
+  ..$ pg_2647@tree6169: chr "ott247333"
+ - attr(*, "class")= chr [1:2] "tol_node" "list"
+~~~
+{: .output}
+
+This is telling us that `tol_node_info()` extracted 8 different pieces of information from my node.
+Right now we are only interested in the node ir. Where do you think it is?
+
+<br/>
+
+> ## Hands on! Get the node id of _Canis_ MRCA
+>
+> Extract it from your `canis_node_info` object and call it `canis_node_id`.
+>
+> 
+> ~~~
+> canis_node_id <- canis_node_info$node_id
+> ~~~
+> {: .language-r}
+{: .challenge}
+
+<!-- > > ## **Extra: tol_lineage()**
+> >
+> > `tol_lineage()` gets information from all ancestral nodes from a given node id.
+> >
+> > Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
+> {: .solution}
+{: .testimonial} -->
+<br/>
+
+> ## Pro tip 3.1: Get the node id of the MRCA of a group of OTT ids
+>
+> Sometimes you want the MRCA of a bunch of lineages. The function `tol_mrca()` gets the node if of the MRCA of a group of OTT ids.
+>
+> Can you use it to get the mrca of _Canis_?
+{: .testimonial}
+
+
+The _node_ that contains _Canis_ is "mrcaott47497ott110766".
+
+<br/>
+
+### Getting a subtree using a node id instead of the taxon OTT id
+
+Now that we have a node id, we can use it to get a subtree with `tol_subtree()`, using the argument `node_id`.
+
+
+~~~
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_id)
 ~~~
 {: .language-r}
 
@@ -77,20 +179,21 @@ ape::plot.phylo(canis_node_subtree, cex = 1.2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 Nice! We got a subtree of 85 tips, containing all descendants from the node that also contains _Canis_.
 
 This includes species assigned to genera other than _Canis_.
 
 
-> ## **Extra!** Get an induced subtree of taxonomic children
+> ## Note: Get an induced subtree of taxonomic children
 >
 > It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
 >
-> We can get the _ott ids_ of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
+> We can get the OTT ids of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
 >
-> > ## Look at the hack
+> > ## So, here is my hack, enjoy!
+> >
 > > First, get the taxonomic children.
 > > 
 > > ~~~
@@ -197,7 +300,7 @@ This includes species assigned to genera other than _Canis_.
 > > [3] "Canis_ott372706"          
 > > ~~~
 > > {: .output}
-> > Now, extract the _ott ids_.
+> > Now, extract the OTT ids.
 > > 
 > > ~~~
 > > canis_taxonomy_ott_ids <- datelife::extract_ott_ids(x = canis_taxonomy$tip_label)
@@ -269,8 +372,14 @@ This includes species assigned to genera other than _Canis_.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
 > >
 > > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
 > {: .solution}
-{: .testimonial}
+{: .discussion}
+
+<br/>
+
+What if I want a subtree of certain taxonomic ranks withing my group? Go to the next episode and find out how you can do this!
+
+<br/>

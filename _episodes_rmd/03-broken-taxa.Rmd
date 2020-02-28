@@ -9,7 +9,8 @@ objectives:
 - "Use the function is_in_tree()"
 - "Understand outputs from those functions"
 keypoints:
-- "It is not possible to get a subtre from an _ott id_ that is not in the synthetic tree"
+- "It is not possible to get a subtre from an OTT id that is not in the synthetic tree."
+- "OTT ids and node ids allow us to interact with the synthetic OTOL."
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
@@ -17,44 +18,84 @@ my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
 resolved_names <- rotl::tnrs_match_names(my_taxa)
 rownames(resolved_names) <- resolved_names$unique_name
 ```
-We say that a taxon is "broken" when its _ott id_ is not assigned to a node in the synthetic tree.
-In practice, this means the the _ott id_ is **not** in the tree.
-This is the reason why we get an error when we try to get a synthetic subtree using that _ott id_.
+
+<br/>
+<br/>
+
+We say that a taxon is "broken" when its OTT id is not assigned to a node in the synthetic tree.
+As mentioned before, this happens when the OTT id belongs to a taxon that is not monophyletic in the synthetic tree.
+This is the reason why we get an error when we try to get a synthetic subtree including that OTT id: it is **not** in the tree.
+
 
 There is a way to find out that a group is "broken" before trying to get the subtree and getting an error.
-```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+```{r, eval = TRUE, warning= FALSE, error = TRUE}
 rotl::is_in_tree(resolved_names["Canis",]$ott_id)
 ```
 
-To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
+Indeed, our _Canis_ is **not** in the synthetic OTOL. To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
 
-### Getting a subtree using the _node id_ instead of the _ott id_
+### Getting the MRCA of a taxon
 
-`rotl` has a function that gets for you all info from the node containing a taxon. That includes the actual _node id_.
+The function `tol_node_info()` gets for you all relevant information of the node that is the ancestor or MRCA of a taxon. That also includes the actual node id.
 ```{r, eval = TRUE, warning= FALSE, error = TRUE}
 canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
 canis_node_info
 ```
+Let's explore the class of the output.
 
-> ## **Extra: tol_lineage()**
+```{r, eval = TRUE, warning= FALSE, error = TRUE}
+class(canis_node_info)
+```
+
+So we have an object of class 'list' and 'tol_node'. When we printed it, we got some
+information. But we do not knoe how much information might not be "printed" to screen.
+Let's use the functions `str()` or `ls()` to check out the data strcture of our 'tol_node' object.
+
+```{r, eval = TRUE, warning= FALSE, error = TRUE}
+str(canis_node_info)
+```
+
+This is telling us that `tol_node_info()` extracted 8 different pieces of information from my node.
+Right now we are only interested in the node ir. Where do you think it is?
+
+<br/>
+
+> ## Hands on! Get the node id of _Canis_ MRCA
 >
-> `tol_lineage()` gets information from all ancestral nodes from a given _node id_.
+> Extract it from your `canis_node_info` object and call it `canis_node_id`.
 >
-> Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
+> ```{r, eval = TRUE}
+> canis_node_id <- canis_node_info$node_id
+> ```
+{: .challenge}
+
+<!-- > > ## **Extra: tol_lineage()**
+> >
+> > `tol_lineage()` gets information from all ancestral nodes from a given node id.
+> >
+> > Setting up include_lineage = TRUE in `tol_node_info()` will call this function and include that information along the output that can be accessed with `tax_lineage()`.
+> {: .solution}
+{: .testimonial} -->
+<br/>
+
+> ## Pro tip 3.1: Get the node id of the MRCA of a group of OTT ids
+>
+> Sometimes you want the MRCA of a bunch of lineages. The function `tol_mrca()` gets the node if of the MRCA of a group of OTT ids.
+>
+> Can you use it to get the mrca of _Canis_?
 {: .testimonial}
 
-> ## **Extra: tol_mrca()**
->
-> `tol_mrca()` gets the mrca of a group of _ott ids_.
->
-> Can we use it to get the mrca of _Canis_?
-{: .testimonial}
 
+The _node_ that contains _Canis_ is "`r canis_node_info$node_id`".
 
-The _node_ that contains _Canis_ is "`r canis_node_info$node_id`". We can use it to get a subtree with `tol_subtree()`.
+<br/>
+
+### Getting a subtree using a node id instead of the taxon OTT id
+
+Now that we have a node id, we can use it to get a subtree with `tol_subtree()`, using the argument `node_id`.
 
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
-canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_id)
 ```
 ```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 13}
 ape::plot.phylo(canis_node_subtree, cex = 1.2)
@@ -65,13 +106,14 @@ Nice! We got a subtree of 85 tips, containing all descendants from the node that
 This includes species assigned to genera other than _Canis_.
 
 
-> ## **Extra!** Get an induced subtree of taxonomic children
+> ## Note: Get an induced subtree of taxonomic children
 >
 > It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
 >
-> We can get the _ott ids_ of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
+> We can get the OTT ids of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
 >
-> > ## Look at the hack
+> > ## So, here is my hack, enjoy!
+> >
 > > First, get the taxonomic children.
 > > ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 > > canis_taxonomy <- rotl::taxonomy_subtree(resolved_names["Canis",]$ott_id)
@@ -79,7 +121,7 @@ This includes species assigned to genera other than _Canis_.
 > > ```{r, eval = TRUE, warning= FALSE, error = TRUE}
 > > canis_taxonomy
 > > ```
-> > Now, extract the _ott ids_.
+> > Now, extract the OTT ids.
 > > ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 > > canis_taxonomy_ott_ids <- datelife::extract_ott_ids(x = canis_taxonomy$tip_label)
 > > ```
@@ -108,4 +150,10 @@ This includes species assigned to genera other than _Canis_.
 > >
 > > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
 > {: .solution}
-{: .testimonial}
+{: .discussion}
+
+<br/>
+
+What if I want a subtree of certain taxonomic ranks withing my group? Go to the next episode and find out how you can do this!
+
+<br/>

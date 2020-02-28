@@ -7,11 +7,11 @@ questions:
 - "How do I find supporting trees that include branch lengths?"
 - "How do I subset them to include just the taxa I am interested in?"
 objectives:
-- "Learn about the opentree_chronograms object from datelife."
-- "Get source chronograms from the opentree_chronograms object for a set of taxa."
+- "Learn about the `opentree_chronograms` object from datelife."
+- "Get source chronograms from the `opentree_chronograms` object for a set of taxa."
 keypoints:
 - "datelife stores all chronograms from the Open Tree of Life phylesystem."
-- "chronograms are stored in the opentree_chronograms object."
+- "chronograms are stored in the `opentree_chronograms` object."
 - "source chronograms are retrieved at the species level only (for now)."
 ---
 ```{r, eval = TRUE, echo = FALSE, warning = FALSE, results = 'hide'}
@@ -21,34 +21,54 @@ resolved_names <- rotl::tnrs_match_names(my_taxa)
 rownames(resolved_names) <- resolved_names$unique_name
 canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
 library(datelife)
+all_properties <- rotl::studies_properties()
 ```
 
-### Subset a list of studies (or trees) by some criteria
+<br/>
+<br/>
 
-We can get a list of study and tree properties available with the function `studies_properties()`.
-The values that this properties can take are listed in the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON).
+What if I want to search the OTOL database (phylesystem) for studies and trees matching some criteria?
+
+The `rotl` package has functions that allow getting a list of studies or source trees matching specific criteria.
+
+You will recognise these functions because they start with the word `studies_`.
+
+Now, what kind of properties can we search for in the OTOL database?
+The function `studies_properties()` gets for us two lists, one for studies and another one for tree properties available for search.
+
+Take a look at them:
+```{r, eval = TRUE}
+rotl::studies_properties()
+```
+
+As you can see, the actual values that this properties can take are not available in the output of the function. Go to the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON) to get them, along with an explanation of their meaning.
+
+<!-- `studies_find_studies()` -->
 
 
-To get get all trees with branch lengths poprotional to time, we use the function
-`studies_find_trees()`, with the property "ot:branchLengthMode" and the value "ot:time".
-It takes some time for it to get all the information.
+To get all trees with branch lengths poprotional to time we need the function
+`studies_find_trees()`, using the property "ot:branchLengthMode" and the value "ot:time".
+It takes some time for it to get all the information, so we will not do it now.
+Go to [Instructor Notes](../guide/index.html###6.1) later for more information on how to do this.
 
-> ## Extra! Try it yourself.
->
-> ```{r, eval = FALSE}
-> chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
-> ```
-> ```{r, eval = FALSE}
-> class(chronograms)
-> names(chronograms)
-> ```
-> We should be able to use `list_trees()` to get all trees matching our criteria.
-> ```{r, eval = FALSE}
-> rotl:::list_trees(chronograms)
-> ```
->
-> Except, it does not really work.
-{: .testimonial}
+<!--
+> > ## Extra! Try it yourself.
+> >
+> > ```{r, eval = TRUE}
+> > chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
+> > ```
+> > ```{r, eval = TRUE}
+> > class(chronograms)
+> > names(chronograms)
+> > ```
+> > We should be able to use `list_trees()` to get all trees matching our criteria.
+> > ```{r, eval = TRUE}
+> > rotl:::list_trees(chronograms)
+> > ```
+> >
+> > Except, it does not really work.
+> {: .solution}
+{: .testimonial} -->
 
 
 ### Search the opentree chronogram database from `datelife`
@@ -60,7 +80,14 @@ are in the "name" format (and not the default "name_and_id").
 
 `datelife` takes as input either a tree with tip labels as scientific names (andd not names and ids), or a vector of scientific names.
 
-Get a _Canis_ subtree with tip labels that do not contain the _ott id_.
+Get a _Canis_ subtree with tip labels that do not contain the OTT id.
+
+```{r, eval = TRUE, warning = FALSE, echo = FALSE}
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+rownames(resolved_names) <- resolved_names$unique_name
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
+```
 
 ```{r, eval = TRUE, warning = FALSE}
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id, label = "name")
@@ -84,7 +111,7 @@ canis_dr[1] # look at the first element of the list
 canis_dr[length(canis_dr)] # look at the last element of the list
 ```
 
-### Summarize your results
+### Get your chronograms
 
 Then, it is really easy to go from a matrix to a tree, using the function `summarize_datelife_result()` with the option `summary_format = "phylo_all"`. Note the printed output returns a summary of taxa that have branch length information in the database.
 
@@ -100,3 +127,6 @@ You can also use the function `plot_phylo_all()`, that adds the study citation a
 ```{r, eval = TRUE, warning = FALSE, message = FALSE}
 datelife::plot_phylo_all(trees = canis_phylo_all)
 ```
+
+<br/>
+<br/>

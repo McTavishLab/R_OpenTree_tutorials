@@ -9,47 +9,1443 @@ questions:
 - "How do I find supporting trees that include branch lengths?"
 - "How do I subset them to include just the taxa I am interested in?"
 objectives:
-- "Learn about the opentree_chronograms object from datelife."
-- "Get source chronograms from the opentree_chronograms object for a set of taxa."
+- "Learn about the `opentree_chronograms` object from datelife."
+- "Get source chronograms from the `opentree_chronograms` object for a set of taxa."
 keypoints:
 - "datelife stores all chronograms from the Open Tree of Life phylesystem."
-- "chronograms are stored in the opentree_chronograms object."
+- "chronograms are stored in the `opentree_chronograms` object."
 - "source chronograms are retrieved at the species level only (for now)."
 ---
 
 
-### Subset a list of studies (or trees) by some criteria
+<br/>
+<br/>
 
-We can get a list of study and tree properties available with the function `studies_properties()`.
-The values that this properties can take are listed in the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON).
+What if I want to search the OTOL database (phylesystem) for studies and trees matching some criteria?
+
+The `rotl` package has functions that allow getting a list of studies or source trees matching specific criteria.
+
+You will recognise these functions because they start with the word `studies_`.
+
+Now, what kind of properties can we search for in the OTOL database?
+The function `studies_properties()` gets for us two lists, one for studies and another one for tree properties available for search.
+
+Take a look at them:
+
+~~~
+rotl::studies_properties()
+~~~
+{: .language-r}
 
 
-To get get all trees with branch lengths poprotional to time, we use the function
-`studies_find_trees()`, with the property "ot:branchLengthMode" and the value "ot:time".
-It takes some time for it to get all the information.
 
-> ## Extra! Try it yourself.
->
-> 
-> ~~~
-> chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
-> ~~~
-> {: .language-r}
-> 
-> ~~~
-> class(chronograms)
-> names(chronograms)
-> ~~~
-> {: .language-r}
-> We should be able to use `list_trees()` to get all trees matching our criteria.
-> 
-> ~~~
-> rotl:::list_trees(chronograms)
-> ~~~
-> {: .language-r}
->
-> Except, it does not really work.
-{: .testimonial}
+~~~
+$study_properties
+ [1] "dc:subject"                    "dc:date"                      
+ [3] "ot:messages"                   "dc:title"                     
+ [5] "skos:changeNote"               "ot:studyPublicationReference" 
+ [7] "ot:candidateTreeForSynthesis"  "ot:taxonLinkPrefixes"         
+ [9] "treebaseId"                    "ot:focalCladeOTTTaxonName"    
+[11] "prism:modificationDate"        "dc:contributor"               
+[13] "dc:creator"                    "xmlns"                        
+[15] "ot:curatorName"                "prism:number"                 
+[17] "tb:identifier.study.tb1"       "id"                           
+[19] "ot:otusElementOrder"           "ot:dataDeposit"               
+[21] "skos:historyNote"              "ot:treesElementOrder"         
+[23] "prism:endingPage"              "prism:section"                
+[25] "nexml2json"                    "ot:notIntendedForSynthesis"   
+[27] "ntrees"                        "treesById"                    
+[29] "about"                         "prism:publicationName"        
+[31] "tb:identifier.study"           "ot:studyYear"                 
+[33] "otusById"                      "nexmljson"                    
+[35] "ot:annotationEvents"           "prism:doi"                    
+[37] "ot:studyId"                    "prism:pageRange"              
+[39] "dc:publisher"                  "ot:studyPublication"          
+[41] "prism:volume"                  "tb:title.study"               
+[43] "ot:agents"                     "generator"                    
+[45] "prism:publicationDate"         "ot:tag"                       
+[47] "ot:comment"                    "ot:focalClade"                
+[49] "prism:startingPage"            "xhtml:license"                
+[51] "prism:creationDate"            "version"                      
+[53] "dcterms:bibliographicCitation"
+
+$tree_properties
+ [1] "ot:messages"                      "xsi:type"                        
+ [3] "ot:nearestTaxonMRCAName"          "meta"                            
+ [5] "ot:specifiedRoot"                 "ot:reasonsToExcludeFromSynthesis"
+ [7] "tb:quality.tree"                  "ot:branchLengthTimeUnit"         
+ [9] "ot:nodeLabelMode"                 "ot:rootNodeId"                   
+[11] "ot:inGroupClade"                  "ot:ottTaxonName"                 
+[13] "ot:branchLengthDescription"       "ot:studyId"                      
+[15] "ot:MRCAName"                      "ot:unrootedTree"                 
+[17] "tb:kind.tree"                     "tb:type.tree"                    
+[19] "edgeBySourceId"                   "ot:nodeLabelDescription"         
+[21] "nodeById"                         "ot:curatedType"                  
+[23] "ot:nearestTaxonMRCAOttId"         "ot:tag"                          
+[25] "rootedge"                         "label"                           
+[27] "ntips"                            "tb:ntax.tree"                    
+[29] "ot:ottId"                         "ot:nodeLabelTimeUnit"            
+[31] "ot:outGroupEdge"                  "ot:branchLengthMode"             
+[33] "ot:MRCAOttId"                    
+~~~
+{: .output}
+
+As you can see, the actual values that this properties can take are not available in the output of the function. Go to the [phylesystem API wiki](https://github.com/OpenTreeOfLife/phylesystem-api/wiki/NexSON) to get them, along with an explanation of their meaning.
+
+<!-- `studies_find_studies()` -->
+
+
+To get all trees with branch lengths poprotional to time we need the function
+`studies_find_trees()`, using the property "ot:branchLengthMode" and the value "ot:time".
+It takes some time for it to get all the information, so we will not do it now.
+Go to [Instructor Notes](../guide/index.html###6.1) later for more information on how to do this.
+
+<!--
+> > ## Extra! Try it yourself.
+> >
+> > 
+> > ~~~
+> > chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
+> > ~~~
+> > {: .language-r}
+> > 
+> > ~~~
+> > class(chronograms)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "matched_studies" "data.frame"     
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > names(chronograms)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "study_ids"       "n_trees"         "tree_ids"        "candidate"      
+> > [5] "study_year"      "title"           "study_doi"       "n_matched_trees"
+> > [9] "match_tree_ids" 
+> > ~~~
+> > {: .output}
+> > We should be able to use `list_trees()` to get all trees matching our criteria.
+> > 
+> > ~~~
+> > rotl:::list_trees(chronograms)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > $pg_2641
+> > $pg_2641[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1100
+> > $ot_1100[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_435
+> > $pg_435[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2400
+> > $pg_2400[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_334
+> > $ot_334[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1437
+> > $ot_1437[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1807
+> > $pg_1807[[1]]
+> > NULL
+> > 
+> > $pg_1807[[2]]
+> > NULL
+> > 
+> > $pg_1807[[3]]
+> > NULL
+> > 
+> > 
+> > $ot_122
+> > $ot_122[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_237
+> > $ot_237[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_755
+> > $ot_755[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_731
+> > $ot_731[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_771
+> > $ot_771[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1310
+> > $ot_1310[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_409
+> > $ot_409[[1]]
+> > NULL
+> > 
+> > $ot_409[[2]]
+> > NULL
+> > 
+> > 
+> > $pg_1103
+> > $pg_1103[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_642
+> > $ot_642[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1150
+> > $ot_1150[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_647
+> > $ot_647[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1246
+> > $ot_1246[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_425
+> > $ot_425[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_485
+> > $ot_485[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_979
+> > $ot_979[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2616
+> > $pg_2616[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1327
+> > $ot_1327[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_488
+> > $ot_488[[1]]
+> > NULL
+> > 
+> > $ot_488[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_328
+> > $ot_328[[1]]
+> > NULL
+> > 
+> > $ot_328[[2]]
+> > NULL
+> > 
+> > $ot_328[[3]]
+> > NULL
+> > 
+> > 
+> > $ot_1053
+> > $ot_1053[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2659
+> > $pg_2659[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2656
+> > $pg_2656[[1]]
+> > NULL
+> > 
+> > $pg_2656[[2]]
+> > NULL
+> > 
+> > $pg_2656[[3]]
+> > NULL
+> > 
+> > $pg_2656[[4]]
+> > NULL
+> > 
+> > 
+> > $pg_2654
+> > $pg_2654[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1344
+> > $ot_1344[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1112
+> > $ot_1112[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2798
+> > $pg_2798[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_209
+> > $ot_209[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_806
+> > $ot_806[[1]]
+> > NULL
+> > 
+> > $ot_806[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_659
+> > $ot_659[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1000
+> > $ot_1000[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2843
+> > $pg_2843[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1769
+> > $pg_1769[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_415
+> > $ot_415[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1766
+> > $pg_1766[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_809
+> > $ot_809[[1]]
+> > NULL
+> > 
+> > $ot_809[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_125
+> > $ot_125[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_722
+> > $ot_722[[1]]
+> > NULL
+> > 
+> > $ot_722[[2]]
+> > NULL
+> > 
+> > 
+> > $pg_2926
+> > $pg_2926[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1023
+> > $ot_1023[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1021
+> > $ot_1021[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1236
+> > $ot_1236[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_965
+> > $ot_965[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1180
+> > $ot_1180[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1185
+> > $ot_1185[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1952
+> > $pg_1952[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_531
+> > $ot_531[[1]]
+> > NULL
+> > 
+> > $ot_531[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_1044
+> > $ot_1044[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2655
+> > $pg_2655[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_214
+> > $ot_214[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_213
+> > $ot_213[[1]]
+> > NULL
+> > 
+> > $ot_213[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_1041
+> > $ot_1041[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1043
+> > $ot_1043[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_412
+> > $pg_412[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1519
+> > $ot_1519[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1372
+> > $pg_1372[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_116
+> > $ot_116[[1]]
+> > NULL
+> > 
+> > $ot_116[[2]]
+> > NULL
+> > 
+> > $ot_116[[3]]
+> > NULL
+> > 
+> > $ot_116[[4]]
+> > NULL
+> > 
+> > $ot_116[[5]]
+> > NULL
+> > 
+> > 
+> > $ot_117
+> > $ot_117[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_110
+> > $ot_110[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2913
+> > $pg_2913[[1]]
+> > NULL
+> > 
+> > $pg_2913[[2]]
+> > NULL
+> > 
+> > 
+> > $pg_710
+> > $pg_710[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_711
+> > $pg_711[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1532
+> > $ot_1532[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_813
+> > $ot_813[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1195
+> > $ot_1195[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2850
+> > $pg_2850[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_814
+> > $ot_814[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2853
+> > $pg_2853[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_753
+> > $ot_753[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_750
+> > $ot_750[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2859
+> > $pg_2859[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1804
+> > $pg_1804[[1]]
+> > NULL
+> > 
+> > $pg_1804[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_290
+> > $ot_290[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1969
+> > $pg_1969[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1763
+> > $pg_1763[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1424
+> > $ot_1424[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1420
+> > $ot_1420[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_952
+> > $ot_952[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_955
+> > $ot_955[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1178
+> > $ot_1178[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_188
+> > $ot_188[[1]]
+> > NULL
+> > 
+> > $ot_188[[2]]
+> > NULL
+> > 
+> > $ot_188[[3]]
+> > NULL
+> > 
+> > $ot_188[[4]]
+> > NULL
+> > 
+> > $ot_188[[5]]
+> > NULL
+> > 
+> > $ot_188[[6]]
+> > NULL
+> > 
+> > 
+> > $ot_1286
+> > $ot_1286[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_892
+> > $ot_892[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2636
+> > $pg_2636[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1177
+> > $ot_1177[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_103
+> > $ot_103[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_510
+> > $ot_510[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1339
+> > $pg_1339[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1004
+> > $ot_1004[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2335
+> > $pg_2335[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1748
+> > $pg_1748[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_945
+> > $ot_945[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_934
+> > $ot_934[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1873
+> > $ot_1873[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1872
+> > $ot_1872[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_532
+> > $ot_532[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_533
+> > $ot_533[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1877
+> > $ot_1877[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1876
+> > $ot_1876[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1592
+> > $ot_1592[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1214
+> > $ot_1214[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1953
+> > $pg_1953[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2702
+> > $pg_2702[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_948
+> > $ot_948[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_313
+> > $ot_313[[1]]
+> > NULL
+> > 
+> > $ot_313[[2]]
+> > NULL
+> > 
+> > $ot_313[[3]]
+> > NULL
+> > 
+> > $ot_313[[4]]
+> > NULL
+> > 
+> > 
+> > $ot_278
+> > $ot_278[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_311
+> > $ot_311[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_770
+> > $ot_770[[1]]
+> > NULL
+> > 
+> > $ot_770[[2]]
+> > NULL
+> > 
+> > 
+> > $pg_2870
+> > $pg_2870[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_772
+> > $ot_772[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_773
+> > $ot_773[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_83
+> > $ot_83[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2878
+> > $pg_2878[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_525
+> > $ot_525[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_524
+> > $ot_524[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_939
+> > $ot_939[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_520
+> > $ot_520[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_523
+> > $ot_523[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1440
+> > $ot_1440[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1441
+> > $ot_1441[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1208
+> > $ot_1208[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1597
+> > $pg_1597[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_254
+> > $ot_254[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1001
+> > $ot_1001[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1448
+> > $ot_1448[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2735
+> > $pg_2735[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1207
+> > $ot_1207[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2881
+> > $pg_2881[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1013
+> > $ot_1013[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1012
+> > $ot_1012[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1703
+> > $ot_1703[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_764
+> > $ot_764[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_769
+> > $ot_769[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_768
+> > $ot_768[[1]]
+> > NULL
+> > 
+> > $ot_768[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_1957
+> > $ot_1957[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1385
+> > $ot_1385[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1384
+> > $ot_1384[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2689
+> > $pg_2689[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2688
+> > $pg_2688[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1917
+> > $pg_1917[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2685
+> > $pg_2685[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2686
+> > $pg_2686[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1961
+> > $ot_1961[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1655
+> > $pg_1655[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1144
+> > $ot_1144[[1]]
+> > NULL
+> > 
+> > $ot_1144[[2]]
+> > NULL
+> > 
+> > 
+> > $pg_2355
+> > $pg_2355[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1960
+> > $ot_1960[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1372
+> > $ot_1372[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1373
+> > $ot_1373[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1370
+> > $ot_1370[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2026
+> > $pg_2026[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_534
+> > $ot_534[[1]]
+> > NULL
+> > 
+> > $ot_534[[2]]
+> > NULL
+> > 
+> > $ot_534[[3]]
+> > NULL
+> > 
+> > $ot_534[[4]]
+> > NULL
+> > 
+> > $ot_534[[5]]
+> > NULL
+> > 
+> > $ot_534[[6]]
+> > NULL
+> > 
+> > $ot_534[[7]]
+> > NULL
+> > 
+> > $ot_534[[8]]
+> > NULL
+> > 
+> > $ot_534[[9]]
+> > NULL
+> > 
+> > $ot_534[[10]]
+> > NULL
+> > 
+> > $ot_534[[11]]
+> > NULL
+> > 
+> > $ot_534[[12]]
+> > NULL
+> > 
+> > $ot_534[[13]]
+> > NULL
+> > 
+> > $ot_534[[14]]
+> > NULL
+> > 
+> > $ot_534[[15]]
+> > NULL
+> > 
+> > $ot_534[[16]]
+> > NULL
+> > 
+> > $ot_534[[17]]
+> > NULL
+> > 
+> > 
+> > $ot_312
+> > $ot_312[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_747
+> > $ot_747[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_310
+> > $ot_310[[1]]
+> > NULL
+> > 
+> > $ot_310[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_742
+> > $ot_742[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1123
+> > $ot_1123[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1122
+> > $ot_1122[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1251
+> > $ot_1251[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1250
+> > $ot_1250[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1253
+> > $ot_1253[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1003
+> > $ot_1003[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1255
+> > $ot_1255[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1129
+> > $ot_1129[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_753
+> > $pg_753[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1684
+> > $pg_1684[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_504
+> > $ot_504[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_502
+> > $ot_502[[1]]
+> > NULL
+> > 
+> > $ot_502[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_500
+> > $ot_500[[1]]
+> > NULL
+> > 
+> > $ot_500[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_1391
+> > $ot_1391[[1]]
+> > NULL
+> > 
+> > $ot_1391[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_794
+> > $ot_794[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1393
+> > $ot_1393[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_509
+> > $ot_509[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_508
+> > $ot_508[[1]]
+> > NULL
+> > 
+> > $ot_508[[2]]
+> > NULL
+> > 
+> > $ot_508[[3]]
+> > NULL
+> > 
+> > $ot_508[[4]]
+> > NULL
+> > 
+> > $ot_508[[5]]
+> > NULL
+> > 
+> > $ot_508[[6]]
+> > NULL
+> > 
+> > $ot_508[[7]]
+> > NULL
+> > 
+> > $ot_508[[8]]
+> > NULL
+> > 
+> > 
+> > $ot_1092
+> > $ot_1092[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1091
+> > $ot_1091[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1094
+> > $ot_1094[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1927
+> > $pg_1927[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_1646
+> > $pg_1646[[1]]
+> > NULL
+> > 
+> > $pg_1646[[2]]
+> > NULL
+> > 
+> > $pg_1646[[3]]
+> > NULL
+> > 
+> > 
+> > $ot_891
+> > $ot_891[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_996
+> > $ot_996[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_859
+> > $ot_859[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1499
+> > $ot_1499[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2614
+> > $pg_2614[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1155
+> > $ot_1155[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2591
+> > $pg_2591[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_812
+> > $ot_812[[1]]
+> > NULL
+> > 
+> > $ot_812[[2]]
+> > NULL
+> > 
+> > $ot_812[[3]]
+> > NULL
+> > 
+> > $ot_812[[4]]
+> > NULL
+> > 
+> > 
+> > $ot_986
+> > $ot_986[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1640
+> > $ot_1640[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1641
+> > $ot_1641[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_307
+> > $ot_307[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_306
+> > $ot_306[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_308
+> > $ot_308[[1]]
+> > NULL
+> > 
+> > $ot_308[[2]]
+> > NULL
+> > 
+> > $ot_308[[3]]
+> > NULL
+> > 
+> > 
+> > $pg_2576
+> > $pg_2576[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2575
+> > $pg_2575[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_757
+> > $ot_757[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_799
+> > $ot_799[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1724
+> > $ot_1724[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2822
+> > $pg_2822[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_896
+> > $ot_896[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2829
+> > $pg_2829[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2828
+> > $pg_2828[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_783
+> > $ot_783[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2740
+> > $pg_2740[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_707
+> > $ot_707[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_708
+> > $ot_708[[1]]
+> > NULL
+> > 
+> > 
+> > $pg_2371
+> > $pg_2371[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1312
+> > $ot_1312[[1]]
+> > NULL
+> > 
+> > $ot_1312[[2]]
+> > NULL
+> > 
+> > 
+> > $pg_2374
+> > $pg_2374[[1]]
+> > NULL
+> > 
+> > $pg_2374[[2]]
+> > NULL
+> > 
+> > 
+> > $ot_984
+> > $ot_984[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_1318
+> > $ot_1318[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_863
+> > $ot_863[[1]]
+> > NULL
+> > 
+> > 
+> > $ot_864
+> > $ot_864[[1]]
+> > NULL
+> > ~~~
+> > {: .output}
+> >
+> > Except, it does not really work.
+> {: .solution}
+{: .testimonial} -->
 
 
 ### Search the opentree chronogram database from `datelife`
@@ -61,7 +1457,9 @@ are in the "name" format (and not the default "name_and_id").
 
 `datelife` takes as input either a tree with tip labels as scientific names (andd not names and ids), or a vector of scientific names.
 
-Get a _Canis_ subtree with tip labels that do not contain the _ott id_.
+Get a _Canis_ subtree with tip labels that do not contain the OTT id.
+
+
 
 
 ~~~
@@ -355,7 +1753,7 @@ Vulpes ferrilata                25.20000              0.0
 ~~~
 {: .output}
 
-### Summarize your results
+### Get your chronograms
 
 Then, it is really easy to go from a matrix to a tree, using the function `summarize_datelife_result()` with the option `summary_format = "phylo_all"`. Note the printed output returns a summary of taxa that have branch length information in the database.
 
@@ -545,4 +1943,7 @@ datelife::plot_phylo_all(trees = canis_phylo_all)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-2.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-3.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-4.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-5.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-6.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-9-7.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-11-2.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-11-3.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-11-4.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-11-5.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-11-6.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-unnamed-chunk-11-7.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+
+<br/>
+<br/>

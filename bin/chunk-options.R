@@ -6,6 +6,7 @@
 
 library("knitr")
 library("emo")
+library("ape")
 
 fix_fig_path <- function(pth) file.path("..", pth)
 

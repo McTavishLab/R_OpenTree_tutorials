@@ -10,30 +10,61 @@ questions:
 objectives:
 - "Get supporting trees for certain regions of the synthetic Open Tree of Life."
 keypoints:
-- "Supporting trees usually contains more taxa than the ones we are interested in."
+- "Supporting trees usually contain more taxa than the ones we are interested in."
 ---
 
 
+<br/>
+<br/>
 
-~~~
-canis_node_studies <- rotl::source_list(canis_node_info)
-canis_node_studies
-~~~
-{: .language-r}
+To get the source trees supporting a node from our synthetic tree we will need two functions.
+The function `source_list`() gets the study and tree ids (and other info) from source studies (not the trees). It is applied to a 'tol_node' object.
 
+We already have one that we generated with `tol_node_info()`, do you remember how we called it?
 
+> ## Hands on! Get all supporting trees.
+> Get the supporting study metadata from the _Canis_ node info. Store it in an object called `canis_node_studies`.
+> Look at its class and the information it contains.
+>
+> 
+> ~~~
+> canis_node_studies <- rotl::source_list(canis_node_info)
+> ~~~
+> {: .language-r}
+>
+> 
+> ~~~
+> class(canis_node_studies)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] "data.frame"
+> ~~~
+> {: .output}
+>
+> 
+> ~~~
+> str(canis_node_studies)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> 'data.frame':	5 obs. of  3 variables:
+>  $ study_id: chr  "ot_278" "ot_328" "pg_1428" "pg_2647" ...
+>  $ tree_id : chr  "tree1" "tree1" "tree2855" "tree6169" ...
+>  $ git_sha : chr  "3008105691283414a18a6c8a728263b2aa8e7960" "3008105691283414a18a6c8a728263b2aa8e7960" "3008105691283414a18a6c8a728263b2aa8e7960" "3008105691283414a18a6c8a728263b2aa8e7960" ...
+> ~~~
+> {: .output}
+>
+{: .challenge}
 
-~~~
-                 study_id  tree_id                                  git_sha
-ot_278@tree1       ot_278    tree1 3008105691283414a18a6c8a728263b2aa8e7960
-ot_328@tree1       ot_328    tree1 3008105691283414a18a6c8a728263b2aa8e7960
-pg_1428@tree2855  pg_1428 tree2855 3008105691283414a18a6c8a728263b2aa8e7960
-pg_2647@tree6169  pg_2647 tree6169 3008105691283414a18a6c8a728263b2aa8e7960
-pg_2812@tree6545  pg_2812 tree6545 3008105691283414a18a6c8a728263b2aa8e7960
-~~~
-{: .output}
-To get the actual trees, we will need the function `get_study_tree()`.
-It takes one _study id_ and _tree id_ at a time.
+Now that we have the ids, we can use the function `get_study_tree()`, which will get us the actual supporting trees.
+This function takes one _study id_ and _tree id_ at a time, like this:
 
 
 ~~~
@@ -65,15 +96,15 @@ Rooted; includes branch lengths.
 ~~~
 {: .output}
 
-> ## **Challenge!** Get all supporting trees.
+> ## Hands on! Get all supporting trees.
 >
-> Call the output `canis_source_trees`
+> Call the output _canis_source_trees_
 >
-> Hint: You can use a "for" loop or an `apply()` function to get them all.
+> Hint: You can use a **"for" loop** or an `apply()` function to get them all.
 >
 > > ## Solution
 > >
-> > With a "for" loop.
+> > With a 'for' loop.
 > >
 > > 
 > > ~~~
@@ -230,73 +261,81 @@ Rooted; includes branch lengths.
 > {: .solution}
 {: .challenge}
 
-Get the citations for this source trees.
+The object `canis_node_studies` contains a lot of information. You can get it using a 'for' loop, or an `apply()` function.
+
+A key piece of information are the citations from the supporting studies. We can get these for each source trees with the function `get_study_meta()`. Let's do it. First we need the study meta:
+
 
 ~~~
 canis_node_studies_meta <- lapply(seq(nrow(canis_node_studies)), function(i)
   rotl::get_study_meta(study_id = canis_node_studies$study_id[i]))
+~~~
+{: .language-r}
+
+Now we can get the citations:
+
+
+~~~
 canis_node_studies_citations <- sapply(seq(length(canis_node_studies_meta)), function (i) canis_node_studies_meta[[i]]$nexml$`^ot:studyPublicationReference`)
 ~~~
 {: .language-r}
 
-Let's plot the supporting trees.
+Finally, let's plot the supporting trees along with their citations.
 
 ~~~
 for (i in seq(length(canis_source_trees))){
+  print(paste("The chronogram below has", length(canis_source_trees[[i]]$tip.label), "tips."))
+  print(paste("Citation is:", canis_node_studies_citations[i]))
   ape::plot.phylo(canis_source_trees[[i]])
-  print(paste("The chronogram above has", length(canis_source_trees[[i]]$tip.label), "tips."))
-  print("Citations is:")
-  print(canis_node_studies_citations[i])
 }
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+
 
 ~~~
-[1] "The chronogram above has 142 tips."
-[1] "Citations is:"
-[1] "Tedford, Richard H.; Wang, Xiaoming; Taylor, Beryl E. (2009). Phylogenetic systematics of the North American fossil Caninae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 325. http://hdl.handle.net/2246/5999\n\nWang, Xiaoming; Tedford, Richard H.; Taylor, Beryl E. (1999). Phylogenetic systematics of the Borophaginae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 243. http://hdl.handle.net/2246/1588\n\nWang, Xiaoming (1994). Phylogenetic systematics of the Hesperocyoninae (Carnivora, Canidae). Bulletin of the  American Museum of Natural History, no. 221. http://hdl.handle.net/2246/829\n"
+[1] "The chronogram below has 142 tips."
+[1] "Citation is: Tedford, Richard H.; Wang, Xiaoming; Taylor, Beryl E. (2009). Phylogenetic systematics of the North American fossil Caninae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 325. http://hdl.handle.net/2246/5999\n\nWang, Xiaoming; Tedford, Richard H.; Taylor, Beryl E. (1999). Phylogenetic systematics of the Borophaginae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 243. http://hdl.handle.net/2246/1588\n\nWang, Xiaoming (1994). Phylogenetic systematics of the Hesperocyoninae (Carnivora, Canidae). Bulletin of the  American Museum of Natural History, no. 221. http://hdl.handle.net/2246/829\n"
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-7-2.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram above has 294 tips."
-[1] "Citations is:"
-[1] "Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12"
+[1] "The chronogram below has 294 tips."
+[1] "Citation is: Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12"
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-7-3.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-10-2.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram above has 169 tips."
-[1] "Citations is:"
-[1] "Meredith, R.W., Janecka J., Gatesy J., Ryder O.A., Fisher C., Teeling E., Goodbla A., Eizirik E., Simao T., Stadler T., Rabosky D., Honeycutt R., Flynn J., Ingram C., Steiner C., Williams T., Robinson T., Herrick A., Westerman M., Ayoub N., Springer M., & Murphy W. 2011. Impacts of the Cretaceous Terrestrial Revolution and KPg Extinction on Mammal Diversification. Science 334 (6055): 521-524."
+[1] "The chronogram below has 169 tips."
+[1] "Citation is: Meredith, R.W., Janecka J., Gatesy J., Ryder O.A., Fisher C., Teeling E., Goodbla A., Eizirik E., Simao T., Stadler T., Rabosky D., Honeycutt R., Flynn J., Ingram C., Steiner C., Williams T., Robinson T., Herrick A., Westerman M., Ayoub N., Springer M., & Murphy W. 2011. Impacts of the Cretaceous Terrestrial Revolution and KPg Extinction on Mammal Diversification. Science 334 (6055): 521-524."
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-7-4.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-10-3.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram above has 86 tips."
-[1] "Citations is:"
-[1] "O'Leary, M. A., J. I. Bloch, J. J. Flynn, T. J. Gaudin, A. Giallombardo, N. P. Giannini, S. L. Goldberg, B. P. Kraatz, Z.-X. Luo, J. Meng, X. Ni, M. J. Novacek, F. A. Perini, Z. S. Randall, G. W. Rougier, E. J. Sargis, M. T. Silcox, N. B. Simmons, M. Spaulding, P. M. Velazco, M. Weksler, J. R. Wible, A. L. Cirranello. 2013. The placental mammal ancestor and the post-K-Pg radiation of placentals. Science 339 (6120): 662-667."
+[1] "The chronogram below has 86 tips."
+[1] "Citation is: O'Leary, M. A., J. I. Bloch, J. J. Flynn, T. J. Gaudin, A. Giallombardo, N. P. Giannini, S. L. Goldberg, B. P. Kraatz, Z.-X. Luo, J. Meng, X. Ni, M. J. Novacek, F. A. Perini, Z. S. Randall, G. W. Rougier, E. J. Sargis, M. T. Silcox, N. B. Simmons, M. Spaulding, P. M. Velazco, M. Weksler, J. R. Wible, A. L. Cirranello. 2013. The placental mammal ancestor and the post-K-Pg radiation of placentals. Science 339 (6120): 662-667."
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-7-5.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-10-4.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 ~~~
-[1] "The chronogram above has 78 tips."
-[1] "Citations is:"
-[1] "Lartillot, Nicolas, Frédéric Delsuc. 2012. Joint reconstruction of divergence times and life-history evolution in placental mammals using a phylogenetic covariance model. Evolution 66 (6): 1773-1787."
+[1] "The chronogram below has 78 tips."
+[1] "Citation is: Lartillot, Nicolas, Frédéric Delsuc. 2012. Joint reconstruction of divergence times and life-history evolution in placental mammals using a phylogenetic covariance model. Evolution 66 (6): 1773-1787."
 ~~~
 {: .output}
-Note that supporting trees for a node can be larger than the subtree itself.
+
+<img src="../fig/rmd-unnamed-chunk-10-5.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+Note that the supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.
 
-Also, tip labels have different names. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with tnrs before trying to subset.
+Moreover, the tip labels have different taxon names in the source trees and the synthetic subtrees. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with TNRS before trying to subset, and that takes some time and often visual inspection.
+
+<br/>

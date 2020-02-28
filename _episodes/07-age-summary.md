@@ -6,7 +6,7 @@ title: "7. Summarizing branch length information"
 teaching: 5
 exercises: 5
 questions:
-- "How do I summarize infromation from different source chronograms?"
+- "How do I summarize information from different source chronograms?"
 - "How do I choose a preferred source chronogram?"
 objectives:
 - "Understanding the depth of uncertainty around age estimates."
@@ -15,18 +15,35 @@ keypoints:
 ---
 
 
-We can summarize it.
+<br/>
+<br/>
+
+Now that we have a collection of chronograms containing our taxa of interest, we can go on to summarize the information in them.
+
+There is no consensus on the best way to do this.
+
+We have implemented two ways of summarizing information from several chronograms into a single one.
+The fastest one is using the median of node ages for each node with available information, and then evenly distributing ages across nodes.
+
 
 ~~~
 canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_median")
 ~~~
 {: .language-r}
 
+<br/>
+<br/>
+
+Check that we actually went from a list of matrices to a tree with branch lengths:
+
 ~~~
 canis_phylo_median
 ~~~
 {: .language-r}
 
+
+
+~~~
 
 Phylogenetic tree with 18 tips and 13 internal nodes.
 
@@ -36,19 +53,30 @@ Node labels:
 	n1, n2, n3, n4, n5, n6, ...
 
 Unrooted; includes branch lengths.
+~~~
+{: .output}
+
+<br/>
+<br/>
+
+Good. Now we can plot our chronogram!
 
 
 ~~~
 ape::plot.phylo(canis_phylo_median, cex = 1.2)
+# Add the time axis:
 ape::axisPhylo()
+# And a little hack to add the axis name:
+graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo",envir = .PlotPhyloEnv)$xx) * 0.5)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-plot60-1.png" title="plot of chunk plot60" alt="plot of chunk plot60" width="612" style="display: block; margin: auto;" />
 
-> ## Challenge! Get other types of summary opentree_chronograms
+> ## Challenge! Get the other type of summary chronogram
 >
-> > Hint: Use the argument summary_format = "phylo_sdm" from the funtion `summarize_datelife_result()`
+> Hint: Explore options from the argument **summary_format** in the function `summarize_datelife_result()`
+>
 > >
 > > ## Solution
 > > 
@@ -63,6 +91,9 @@ ape::axisPhylo()
 > > {: .language-r}
 > > 
 > > 
+> > 
+> > ~~~
+> > 
 > > Phylogenetic tree with 18 tips and 13 internal nodes.
 > > 
 > > Tip labels:
@@ -71,16 +102,27 @@ ape::axisPhylo()
 > > 	n1, n2, n3, n4, n5, n6, ...
 > > 
 > > Unrooted; includes branch lengths.
-> > 
+> > ~~~
+> > {: .output}
 > > 
 > > ~~~
 > > ape::plot.phylo(canis_phylo_sdm, cex = 1.2)
 > > ape::axisPhylo()
+> > graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo",envir = .PlotPhyloEnv)$xx) * 0.5)
 > > ~~~
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-plot61-1.png" title="plot of chunk plot61" alt="plot of chunk plot61" width="612" style="display: block; margin: auto;" />
+> >
+> > As you can note, the SDM sumary chronogram is slightly older than the median summary chronogram!
 > {: .solution}
 {: .challenge}
 
-#### You can also try the web browser of [datelife](http://datelife.org/query/).
+<br/>
+<br/>
+
+Finally, give it a try on the web browser of [datelife](http://datelife.org/query/), too.
+You can do the same things using a graphical user interface. It is fun!
+
+<br/>
+<br/>

@@ -11,12 +11,12 @@ questions:
 - 'What does TNRS stand for?'
 objectives:
 - "Getting OTT ids for some taxa."
-- "Understanding TNRS approximate matching and its sensitivity."
+- "Understanding TNRS, approximate matching and its sensitivity."
 # - "Finding the utility of taxonomic contexts"
-# - 'Discovering functions to handle a "match_names" object.'
+# - "Discovering functions to handle a 'match_names' object."
 keypoints:
-- "OTT ids are the Open Tree of Life Taxonomy handlers, they allow us to interact with the Open Tree synthetic tree."
-# - "taxonomic context is very important to find the correct _ott ids_ for our taxa."
+- "OTT ids are the Open Tree of Life Taxonomy handlers; they identify taxa."
+# - "taxonomic context is very important to find the correct OTT ids for our taxa."
 - "You can go from a scientific name to an OTT id with TNRS matching."
 - "You cannot go from a common name to OTT id with the Open Tree of Life tools."
 ---
@@ -26,24 +26,70 @@ keypoints:
 
 <!-- ### The Open Tree Taxonomy and its identifiers -->
 
-The [Open Tree Taxonomy](https://tree.opentreeoflife.org/about/taxonomy-version/ott3.2) (or **OTT**) synthesizes taxonomic information and assigns each taxon a unique identifier, which we know as the **OTT id**.
+The [Open Tree Taxonomy](https://tree.opentreeoflife.org/about/taxonomy-version/ott3.2) (**OTT** from now on) synthesizes taxonomic information from different sources and assigns each taxon a unique identifier, which we refer to as the **OTT id**. To interact with the OTT (and other Open Tree of Life services) using R, we will learn how to use the functions from the `rotl` package. If you don't know if you have the package installed, go to [setup](../setup.html) and follow the instructions there.
 
 To deal with synonyms and scientific name misspellings, the Open Tree Taxonomy uses
 the [Taxonomic Name Resolution Service](http://tnrs.iplantcollaborative.org/) (**TNRS**
-from now on), that allows linking scientific names to a unique OTT id when necessary.
+from now on), that allows linking scientific names to a unique OTT id, while dealing
+with misspellings, synonyms and scientific name variants. The functions from `rotl` that interact
+with the OTT start with "tnrs_".
 
-To interact with the OTT, we will learn how to use a number of function from the `rotl` package.
-Go to setup if you need to check if you have `rotl` installed or if you need to install it.
+> ## Note: Going from a common name to a scientific name
+>
+>  TNRS only deals with scientific names. If you want to work with common names, you will have to use a service that can get the scientific name of a list of common names. There are no functions in `rotl` to deal with this. We know of at least two places that have implemented this otherwise. The phylotastic project has implemented a [common name to scientific name service](https://github.com/phylotastic/phylo_services_docs/tree/master/ServiceDescription#common-name-to-scientific-name) that is also available in the r package [rphylotastic](https://github.com/phylotastic/rphylotastic). The [OneZoom](https://github.com/OneZoom/OZtree) project has also developed a service that matches common names from the Encyclopedia of Life to scientific names.
+{: .discussion}
 
-To get OTT ids for a set of taxa we will use the `rotl` function `tnrs_match_names()`.
+<br/>
 
-This function will get you a **match_names object**, which is a data frame with a certain number of columns. Let's generate a match_names object and check it out.
+To get OTT ids for a set of taxa we will use the function `tnrs_match_names()`.
+This function takes a character vector of one or more taxon scientific names as main argument.
 
+> ## Hands on! Run TNRS
+>
+> Do a `tnrs_match_names()` run on the amphibians, the genus of the dog (_Canis_),
+> the genus of the cat (_Felis_), the family of dolphins (Delphinidae) and the class
+> of birds (Aves). Save the output to an object named `resolved_names`.
+>
+> 
+> ~~~
+> my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "ave")
+> resolved_names <- rotl::tnrs_match_names(names = my_taxa)
+> ~~~
+> {: .language-r}
+>
+> You can try different misspellings and synonyms of your taxa to see TNRS in action.
+>
+{: .challenge}
+
+<br/>
+
+Ok, we ran the function successfully. Now Let's explore its output.
+
+~~~
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "ave")
+resolved_names <- rotl::tnrs_match_names(names = my_taxa)
+resolved_names
+~~~
+{: .language-r}
+
+~~~
+  search_string unique_name approximate_match ott_id is_synonym flags number_matches
+1    amphibians    Amphibia              TRUE 544595      FALSE                    6
+2         canis       Canis             FALSE 372706      FALSE                    2
+3         felis       Felis             FALSE 563165      FALSE                    1
+4   delphinidae Delphinidae             FALSE 698406      FALSE                    1
+5           ave        Aves              TRUE  81461      FALSE                    6
+~~~
+{: .output}
+
+<br/>
+
+The output of the function is a data table. In R (and other coding languages), objects are assigned to [**classes**](https://www.datamentor.io/r-programming/object-class-introduction/) to make their manipulation with other functions much easier.
+A class is basically a data structure that is the same among all objects that belong to the same class.
+Let's explore the class of the `tnrs_match_names()` output.
 
 
 ~~~
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
-resolved_names <- rotl::tnrs_match_names(my_taxa)
 class(resolved_names)
 ~~~
 {: .language-r}
@@ -54,45 +100,143 @@ class(resolved_names)
 [1] "match_names" "data.frame" 
 ~~~
 {: .output}
+As you can see, an object can belong to oneor more classes. Indeed, R is telling us that the output of `tnrs_match_names()` is a data frame (a type of table) and a **'match_names' object**, which is in turn a data frame with exactly 7 named columns: `search_string`, `unique_name`, `approximate_match`, `ott_id`, `is_synonym`, `flags`, and `number_matches`.
+<!-- **search_string**, **unique_name**, **approximate_match**, **ott_id**, **is_synonym**, **flags**, and **number_matches**. -->
+
+Ok, so we know now what is the data structure of the 'match_names' object, but _**what kind of data can I find in this class of objects?**_
+
+<br/>
+
+#### Kinds of data stored in a 'match_names' object
+
+You should have a good idea by now of what type of data is stored in the `ott_ids` column.
+
+Can you guess what type of data is displayed in the column `search_string` and `unique_name`?
+
+How about `is_synonym`?
+
+The column `approximate_match` tells us whether the unique name was inferred from the search string using approximate matching (TRUE) or not (FALSE).
+
+<!-- The column `number_matches` tells us how many -->
+
+Finally, the `flags` column tells us if our unique name has been flagged in the OTT
+(TRUE) or not (FALSE), and the type of flag if any. Flags are markers that indicate if the taxon in question should be included in further analyses of the Open Tree workflow. You can read more about flags in the [wiki](https://github.com/OpenTreeOfLife/reference-taxonomy/wiki/Taxon-flags).
 
 
+> ## Pro tip 1.1: Looking at "hidden" elements of a data object
+>
+> The 'match_names' object actually has more data that is not exposed on the screen and is not part of the main data structure. This "hidden" data is stored in the attributes of the object.
+> All objects have at least one attribute, the class. Attributes can be accesed with the function `attributes()`, and are stored as a named list.
+>
+> > ## Explore the attributes of the 'match_names' object
+> >
+> > 
+> > ~~~
+> > names(attributes(resolved_names))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "names"              "row.names"          "original_order"    
+> > [4] "original_response"  "match_id"           "has_original_match"
+> > [7] "class"             
+> > ~~~
+> > {: .output}
+> >
+> > Look at the attributes of other objects:
+> > 
+> > ~~~
+> > attributes(my_taxa)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > NULL
+> > ~~~
+> > {: .output}
+> >
+> > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
+> {: .solution}
+{: .testimonial}
+
+Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool! Now, _**how can I extract specific pieces of data from my object to use elsewhere?**_
+
+<br/>
+
+#### Extracting data from a 'match_names' object
+
+It is easy to access elements from a 'match_names' object using regular indexing.
+For example, using the column number, we can extract all elements from a certain column.
+Let's extract all data from the second column:
 
 ~~~
-resolved_names
+resolved_names[,2]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-  search_string  unique_name approximate_match ott_id is_synonym flags
-1    amphibians     Amphibia              TRUE 544595      FALSE      
-2         canis        Canis             FALSE 372706      FALSE      
-3         felis        Felis             FALSE 563165      FALSE      
-4   delphinidae  Delphinidae             FALSE 698406      FALSE      
-5  spheniscidae Spheniscidae             FALSE 494367      FALSE      
-  number_matches
-1              6
-2              2
-3              1
-4              1
-5              1
+[1] "Amphibia"    "Canis"       "Felis"       "Delphinidae" "Aves"       
 ~~~
 {: .output}
-<br/>
-<br/>
+We can also use the name of the column so we do not have to remember its position:
 
-> ## **Challenge!** Get the OTT ids from a match_names object
+~~~
+resolved_names[,"unique_name"]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Amphibia"    "Canis"       "Felis"       "Delphinidae" "Aves"       
+~~~
+{: .output}
+Because it is a 'data.frame', we can also access the values of any column by using
+the "$" and the column name to index it, like this:
+
+
+~~~
+resolved_names$unique_name
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Amphibia"    "Canis"       "Felis"       "Delphinidae" "Aves"       
+~~~
+{: .output}
+
+The 'match_names' object has a relatively simple structure that is easy to explore and mine.
+We will see later that the outputs of other `rotl` functions are way more complicated
+and accesing their elements requires a lot of hacking. Fortunately, the `rotl` creators have
+added some functions that allow interacting with these complicated outputs.
+The functions `unique_name()`, `ott_id()`, and `flags()` extract values from the
+respective columns of a 'match_names' object, in the form of a list instead of a vector.
+To extract data from the other columns there are no specialized functions, so you will have to index.
+
+> ## Hands on!  Extract the OTT ids from a 'match_names' object
 >
-> You now have a match_names object that we called resolved_names. There are two main ways to extract the OTT ids from it. Can you figure them out?
+> You now have a 'match_names' object that we called `resolved_names`. There are at least two ways to extract the OTT ids from it. Can you figure them out? Store them in an object we will call `my_ott_ids`.
 >
-> > ## Solution
+> **Hint**: You can find one solution by browsing the [rotl package documentation](https://cran.r-project.org/web/packages/rotl/rotl.pdf) to find a function that will do this for a 'match_names' object.
+>
+> You will find a second solution by using your knowledge on data frames and tables to extract the data from the `ott_id` column.
+>
+> > ## Look at some solutions
 > >
-> > As a list, with the function `ott_id()`:
+> > Get the OTT ids as a list, with the function `ott_id()`:
 > >
 > > 
 > > ~~~
-> > rotl::ott_id(resolved_names)
+> > my_ott_ids <- rotl::ott_id(resolved_names) # rotl:::ott_id.match_names(resolved_names) is the same.
+> > my_ott_ids
 > > ~~~
 > > {: .language-r}
 > > 
@@ -111,39 +255,88 @@ resolved_names
 > > $Delphinidae
 > > [1] 698406
 > > 
-> > $Spheniscidae
-> > [1] 494367
+> > $Aves
+> > [1] 81461
 > > 
 > > attr(,"class")
 > > [1] "otl_ott_id" "list"      
 > > ~~~
 > > {: .output}
 > >
-> > Or, as a vector:
+> > Or, get the OTT ids as a vector:
 > >
 > > 
 > > ~~~
-> > resolved_names$ott_id
+> > my_ott_ids <- resolved_names$ott_id # or resolved_names[, "ott_id"]
+> > my_ott_ids
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] 544595 372706 563165 698406 494367
+> > [1] 544595 372706 563165 698406  81461
 > > ~~~
 > > {: .output}
 > >
-> > Most of the functions we will explore here take an argument called _ott ids_ as a numeric vector, so I will usually prefer the second approach.
+<!-- > > Most of the functions we will explore later take an argument called _**ott_ids**_ in the form of a vector, not a list (?), so I usually prefer the second approach. -->
 > {: .solution}
 {: .challenge}
 
 <br/>
+
+There are no specialized functions to extract values from a row of a 'match_names' object, so we have to do some indexing.
+You can get values from all columns of one row:
+
+
+~~~
+resolved_names[1,]
+~~~
+{: .language-r}
+
+
+
+~~~
+  search_string unique_name approximate_match ott_id is_synonym flags
+1    amphibians    Amphibia              TRUE 544595      FALSE      
+  number_matches
+1              6
+~~~
+{: .output}
+
+Or get just one specific value from a certain column, using the column name:
+
+~~~
+resolved_names[1,"unique_name"]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Amphibia"
+~~~
+{: .output}
+Or using the column position:
+
+~~~
+resolved_names[1,2]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Amphibia"
+~~~
+{: .output}
 <br/>
 
-> ## **Hack!**
+> ## Hack: Name the rows of your 'match_names' object
 >
-> To facilitate the use of OTT ids later, you can name the rows of your match_names object.
+> To facilitate the use of OTT ids later, you can name the rows of your 'match_names' object using the function `rownames()`.
+>
+> You can name them whatever you want. For example, you can use the `unique_name` identifier:
 >
 > 
 > ~~~
@@ -151,91 +344,125 @@ resolved_names
 > ~~~
 > {: .language-r}
 >
-> This will allow an easy access to elements of the match_names object by calling the taxon name.
+> Or simply call them something short that makes sense to you and is easy to remember:
 >
 > 
 > ~~~
-> resolved_names["Amphibia",]$ott_id
+> rownames(resolved_names) <- c("amphs", "dogs", "cats", "flippers", "birds")
 > ~~~
 > {: .language-r}
-> 
-> [1] 544595
-> 
-> 
-> ~~~
-> # or
-> resolved_names["Amphibia","ott_id"]
-> ~~~
-> {: .language-r}
-> 
-> [1] 544595
-{: .callout}
-
-<br/>
-<br/>
-
-> ## **Extra!** Accessing other elements of a match_names object
 >
-> Most elements of a match_names object can only be accessed as a vector, using the "$" symbol.
+> This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).
 >
-> The only other element that can be accessed as a list are **flags**.
->
-> 
-> ~~~
-> rotl::flags(resolved_names)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> $Amphibia
-> NULL
-> 
-> $Canis
-> NULL
-> 
-> $Felis
-> NULL
-> 
-> $Delphinidae
-> NULL
-> 
-> $Spheniscidae
-> NULL
-> 
-> attr(,"class")
-> [1] "otl_flags" "list"     
-> ~~~
-> {: .output}
-{: .testimonial}
-
-<!-- ## **Challenge!** What do other elements of a "match_names" object tell us?
-
-## Solution
-{: .solution}
+> > ## There are at least two ways to do this.
+> >
+> > You can use the "$" to acces a named column of the data frame:
+> > 
+> > ~~~
+> > resolved_names["flippers",]$ott_id
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 698406
+> > ~~~
+> > {: .output}
+> > Or you can use the column name as column index:
+> > 
+> > ~~~
+> > resolved_names["flippers","ott_id"]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 698406
+> > ~~~
+> > {: .output}
+> > In both cases, you will get the OTT id of the Delphinidae. Cool!
+> {: .solution}
 {: .challenge}
 
 
-### Taxonomic contexts and updating a match_names object
 
-Running a tnrs match can take some time, so if you just want to update a few elements from your match_names object, you can use the functions `inspect()` and `update()`.
+<br/>
+
+> ## Pro tip 1.2: Extract data from the attributes of a 'match_names' object
+>
+> On the previous `pro tip` we saw that there is more data stored in the attributes of the 'match_names' object.
+> The structure of this data is complicated and extracting it requires some hacking.
+> There is one inbuilt function in the package `rotl` that will extract the synonyms from the attributes of a 'match_names' object.
+>
+> > ## The function `synonyms()`
+> >
+> > 
+> > ~~~
+> > rotl::synonyms(resolved_names)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > $Amphibia
+> > [1] "Lissamphibia" "Amphibia"    
+> > 
+> > $Canis
+> >  [1] "Vulpicanis" "Lupulella"  "Chaon"      "Dasycyon"   "Simenia"   
+> >  [6] "Lupulus"    "Dimenia"    "Alopedon"   "Thos"       "Schaeffia" 
+> > [11] "Canix"      "Jacalius"   "Mamcanisus" "Sacalius"   "Oxygous"   
+> > [16] "Neocyon"    "Lupus"      "Aenocyon"   "Canis"      "Alopsis"   
+> > [21] "Oxygonus"   "Lyciscus"   "Oreocyon"   "Dieba"     
+> > 
+> > $Felis
+> >  [1] "Felis"        "Felix"        "Microfelis"   "Trichaelurus" "Poliailurus" 
+> >  [6] "Chaus"        "Catolynx"     "Felia"        "Folis"        "Otocolobus"  
+> > [11] "Otocalobus"   "Mamfelisus"   "Otailurus"    "Eremaelurus"  "Avitofelis"  
+> > [16] "Octolobus"    "Ictalurus"    "Catus"        "Octalobus"   
+> > 
+> > $Delphinidae
+> >  [1] "Orcinae"             "Orcini"              "Orcadae"            
+> >  [4] "Orcaelidae"          "Trispondylus kleini" "Stenidae"           
+> >  [7] "Globicephalidae"     "Orcininae"           "Delphinusideae"     
+> > [10] "Globidelphinidae"    "Delphinidae"         "Orcaellidae"        
+> > [13] "Orcadina"            "Delphinapteridae"    "Delphinoidae"       
+> > [16] "Grampidelphidae"     "Trispondylus"        "Cephalorhynchinae"  
+> > [19] "Tursiops miocaenus"  "Grampidae"           "Globiocephalidae"   
+> > [22] "Steno cudmorei"     
+> > 
+> > $Aves
+> > [1] "Aves"        "avian"       "Lophorus"    "Lepturus"    "Phyllomanes"
+> > 
+> > attr(,"class")
+> > [1] "otl_synonyms" "list"        
+> > ~~~
+> > {: .output}
+> >
+> > Neat!
+> >
+> {: .solution}
+{: .testimonial}
+
+<!--
+
+### Taxonomic contexts and updating a 'match_names' object
+
+Running a TNRS match can take some time, so if you just want to update a few elements from your 'match_names' object, you can use the functions `inspect()` and `update()`.
 
 The _Mus_ example is fixed.
 
 ## **Hack!**
 
-Put together two "match_names" objects with `c()` or `rbind()`
+Put together two 'match_names' objects with `c()` or `rbind()`
 {: .callout} -->
-<br/>
-<br/>
-
-> ## **Extra!**
->
-> Going from common name to scientific name can be achieved with other tools. Check out [phylotastic](https://phylo.cs.nmsu.edu/) or [OneZoom](https://github.com/OneZoom/OZtree) APIs for that.
-{: .testimonial}
 
 <br/>
+
+There you go! Now we know how to get OTT ids from a bunch of taxa of interest. Let's see what we can do with these on the next section.
+
 <br/>
 
 {% include links.md %}
