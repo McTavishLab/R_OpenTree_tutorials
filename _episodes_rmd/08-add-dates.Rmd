@@ -1,0 +1,32 @@
+---
+source: Rmd
+title: "8. Using age data to date a tree."
+teaching: 10
+exercises: 10
+questions:
+- "How do I use information from different source chronograms to date a tree?"
+- "How do I choose a preferred source chronogram?"
+objectives:
+- "Understanding the depth of uncertainty around age estimates."
+keypoints:
+- "Source chronograms have a wide range of variation in age estimates."
+---
+```{r, eval = TRUE, echo = FALSE, message = FALSE, results = 'hide', warning = FALSE}
+source("../bin/chunk-options.R")
+# apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
+# resolved_names <- rotl::tnrs_match_names(apes)
+# apes_dr <- datelife::get_datelife_result(resolved_names$unique_name, get_spp_from_taxon = TRUE)
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+resolved_names <- rotl::tnrs_match_names(my_taxa)
+rownames(resolved_names) <- resolved_names$unique_name
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id, label = "name")
+canis_dr <- datelife::get_datelife_result(canis_node_subtree)
+```
+
+<br/>
+<br/>
+
+
+<br/>
+<br/>
