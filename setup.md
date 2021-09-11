@@ -21,7 +21,8 @@ An exception to this, are functions from packages that are "preloaded" --such as
 **Code chunk**:
 
 ```{r}
-install.packages(c("rotl", "ape", "devtools", "stringr"))
+packages <- c("rotl", "ape", "devtools", "stringr")
+install.packages(packages)
 library(rotl)
 library(devtools)
 library(stringr)
