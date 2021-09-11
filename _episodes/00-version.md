@@ -12,7 +12,7 @@ objectives:
 - "Install the package versions used for this tutorial"
 
 keypoints:
-- "Package version is key for science reproducibility, and it is important to document it."
+- "Package version is key for science reproducibility, and you can document it with function packageVersion."
 ---
 
 <br/>
@@ -22,7 +22,7 @@ Scientific reproducibility is key for the advancement of Science.
 In this first episode, we will check that you have the same package versions that we will use throughout the tutorial.
 
 We will use the function `packageVersion` from the `utils` package to register the package version we are using for this tutorial.
-It only takes a single element character vector as input, so you will have to type the function and the package name each time:
+It only takes a single element character vector as input, so you will have to type the function and the package name each time, as follows:
 
 
 ~~~
@@ -33,7 +33,7 @@ packageVersion("rotl")
 
 
 ~~~
-[1] '3.0.11'
+[1] '3.0.0'
 ~~~
 {: .output}
 
@@ -93,6 +93,8 @@ packageVersion("datelife")
 ~~~
 {: .output}
 
+<br/>
+
 Alternatively, you can create a character vector of package names and use `lapply`:
 
 
@@ -108,7 +110,7 @@ lapply(packages, packageVersion)
 
 ~~~
 $rotl
-[1] '3.0.11'
+[1] '3.0.0'
 
 $ape
 [1] '5.5'
@@ -124,9 +126,11 @@ $datelife
 ~~~
 {: .output}
 
+<br/>
+
 If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them as explained in the [setup of this tutorial](). It seems from this [stackoverflow discussion](https://stackoverflow.com/questions/21461649/how-to-update-a-package-in-r) that the function `update.packages` does not really do what one would expect.
 
-If you have a more recent version than the one used for this tutorial, hopefully the examples will run the same for you, but it is likely that something will be different. If you would like to install an older version of an R package, please check out [RStudio's support page for installing older packages](https://support.rstudio.com/hc/en-us/articles/219949047-Installing-older-versions-of-packages). It is very well written and has everything you should need for a successful install. For example, if you want to install the older version 2.9 from the `rotl` package from CRAN, you can do:
+If you have a more recent version than the one used for this tutorial, hopefully the examples will run the same for you, but it is likely that something will be different. If you would like to install an older version of an R package, please check out [RStudio's support page for installing older packages](https://support.rstudio.com/hc/en-us/articles/219949047-Installing-older-versions-of-packages). It is very well written and has everything you should need for a successful install. For example, if you want to install an older version from the `rotl` package from CRAN, first go to the [package CRAN archive](http://lib.stat.cmu.edu/R/CRAN/src/contrib/Archive/rotl/) to choose a version, and then do:
 
 
 ~~~
@@ -141,20 +145,7 @@ Downloading package from url: http://cran.us.r-project.org/src/contrib/Archive/r
 ~~~
 {: .output}
 
-
-
-~~~
-openssl (1.4.4    -> 1.4.5   ) [CRAN]
-XML     (3.99-0.6 -> 3.99-0.7) [CRAN]
-~~~
-{: .output}
-
-
-
-~~~
-Installing 2 packages: openssl, XML
-~~~
-{: .output}
+<br/>
 
 Finally, it is always useful to also print the R session info with `sessionInfo`:
 
