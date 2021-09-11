@@ -130,16 +130,31 @@ If you have a more recent version than the one used for this tutorial, hopefully
 
 
 ~~~
-devtools::install_version("rotl", version = "2.9", repos = "http://cran.us.r-project.org")
+devtools::install_version("rotl", version = "3.0.0", repos = "http://cran.us.r-project.org")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in download_version_url(package, version, repos, type): version '2.9' is invalid for package 'rotl'
+Downloading package from url: http://cran.us.r-project.org/src/contrib/Archive/rotl/rotl_3.0.0.tar.gz
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+openssl (1.4.4    -> 1.4.5   ) [CRAN]
+XML     (3.99-0.6 -> 3.99-0.7) [CRAN]
+~~~
+{: .output}
+
+
+
+~~~
+Installing 2 packages: openssl, XML
+~~~
+{: .output}
 
 Finally, it is always useful to also print the R session info with `sessionInfo`:
 

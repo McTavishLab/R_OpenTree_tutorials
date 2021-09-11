@@ -47,7 +47,7 @@ If you have a more recent version than the one used for this tutorial, hopefully
 
 ```{r, eval = TRUE}
 
-devtools::install_version("rotl", version = "2.9", repos = "http://cran.us.r-project.org")
+devtools::install_version("rotl", version = "3.0.0", repos = "http://cran.us.r-project.org")
 
 ```
 
