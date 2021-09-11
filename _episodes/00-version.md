@@ -12,7 +12,7 @@ objectives:
 - "Install the package versions used for this tutorial"
 
 keypoints:
-- "Package version is key for science reproducibility, and you can document it with function packageVersion."
+- "Package version is key for science reproducibility, and you can document it using the function packageVersion()."
 ---
 
 <br/>
