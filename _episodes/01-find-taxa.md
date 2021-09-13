@@ -60,7 +60,7 @@ This function takes a character vector of one or more scientific names as main a
 <br/>
 
 
-#### The 'match_names' object
+### The 'match_names' object
 
 Ok, we were able to run the function `tnrs_match_names` successfully. Now, let's explore its output by printing it to screen:
 
@@ -105,7 +105,7 @@ Next we will explore the kinds of data that are stored in each of the columns of
 
 <br/>
 
-#### Kinds of data stored in a 'match_names' object
+### Kinds of data stored in a 'match_names' object
 
 You should have a good idea by now of what type of data is stored in the `ott_ids` column.
 
@@ -166,7 +166,7 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 
 Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool!
 
-#### Getting OTT ids for multiple taxon names at a time
+### Getting OTT ids for multiple taxon names at a time
 
 Now that we know about classes and the data structure of the `tnrs_match_names` output, we will learn how to use the tnrs_match_names function for multiple taxa.
 In this case, you will have to create a character vector with your taxon names and use it as input for `tnrs_match_names`:
@@ -198,13 +198,15 @@ In this case, you will have to create a character vector with your taxon names a
 
 <br/>
 
-If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time.
+### ❗  
+
+If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time using `tnrs_match_names`.
 
 <br/>
 
 
 > ## Pro Tip 1.2: Getting OTT ids for multiple taxa, the hacker way.
-
+> 
 > If you get a warning message saying that any of your taxon names "are not matched", it means that the `tnrs_match_names` function is not implementig TNRS for inputs with more than one name. This is an unexpected behaviour. See [this GitHub issue](https://github.com/ropensci/rotl/issues/134) for updates.
 >
 > As you already know, running `tnrs_match_names` using one name at a time, works as expected:
@@ -219,7 +221,7 @@ If you do not get a match for all your taxa, and you get an unexpected warning m
 > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 >
 >
-> > ## Use `sapply`
+> > ## Using `sapply`
 > >
 > > 
 > > ~~~
@@ -301,11 +303,13 @@ If you do not get a match for all your taxa, and you get an unexpected warning m
 > {: .solution}
 {: .testimonial}
 
+<br/>
+
 Finally,we are going to learn how to extract specific pieces of data from a `match_names` object to use in other functions and workflows.
 
 <br/>
 
-#### Extracting data from a 'match_names' object
+### Extracting data from a 'match_names' object
 
 It is easy to access elements from a 'match_names' object using regular indexing.
 For example, using the column number, we can extract all elements from a certain column.
