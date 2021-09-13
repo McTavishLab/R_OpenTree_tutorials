@@ -27,61 +27,9 @@ It only takes a single element character vector as input, so you will have to ty
 
 ~~~
 packageVersion("rotl")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] '3.0.0'
-~~~
-{: .output}
-
-
-
-~~~
 packageVersion("ape")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] '5.5'
-~~~
-{: .output}
-
-
-
-~~~
 packageVersion("devtools")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] '2.4.2'
-~~~
-{: .output}
-
-
-
-~~~
 packageVersion("stringi")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] '1.7.4'
-~~~
-{: .output}
-
-
-
-~~~
 packageVersion("datelife")
 ~~~
 {: .language-r}
@@ -89,13 +37,17 @@ packageVersion("datelife")
 
 
 ~~~
+[1] '3.0.0'
+[1] '5.5'
+[1] '2.4.2'
+[1] '1.7.4'
 [1] '0.3.3'
 ~~~
 {: .output}
 
 <br/>
 
-Alternatively, you can create a character vector of package names and use `lapply`:
+Alternatively, you can create a character vector of package names and use an `lapply` to get versions of all packages at once:
 
 
 ~~~
@@ -128,7 +80,15 @@ $datelife
 
 <br/>
 
-If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them as explained in the [setup of this tutorial](). It seems from this [stackoverflow discussion](https://stackoverflow.com/questions/21461649/how-to-update-a-package-in-r) that the function `update.packages` does not really do what one would expect.
+If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them anew, following instructions in the [setup of this tutorial](). 
+The function `update.packages` does not allow updating single packages. Instead, it will try to update all packages already installed.
+You can use it as follows:
+
+
+~~~
+update.packages(ask = TRUE)
+~~~
+{: .language-r}
 
 If you have a more recent version than the one used for this tutorial, hopefully the examples will run the same for you, but it is likely that something will be different. If you would like to install an older version of an R package, please check out [RStudio's support page for installing older packages](https://support.rstudio.com/hc/en-us/articles/219949047-Installing-older-versions-of-packages). It is very well written and has everything you should need for a successful install. For example, if you want to install an older version from the `rotl` package from CRAN, first go to the [package CRAN archive](http://lib.stat.cmu.edu/R/CRAN/src/contrib/Archive/rotl/) to choose a version, and then do:
 
@@ -137,13 +97,6 @@ If you have a more recent version than the one used for this tutorial, hopefully
 devtools::install_version("rotl", version = "3.0.0", repos = "http://cran.us.r-project.org")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Downloading package from url: http://cran.us.r-project.org/src/contrib/Archive/rotl/rotl_3.0.0.tar.gz
-~~~
-{: .output}
 
 <br/>
 
@@ -177,17 +130,12 @@ other attached packages:
 [4] requirements_0.0.0.9000 remotes_2.4.0          
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7        compiler_4.1.0    prettyunits_1.1.1 tools_4.1.0      
- [5] testthat_3.0.3    digest_0.6.27     pkgbuild_1.2.0    pkgload_1.2.1    
- [9] lifecycle_1.0.0   lubridate_1.7.10  evaluate_0.14     memoise_2.0.0    
-[13] nlme_3.1-152      lattice_0.20-44   rlang_0.4.11      cli_3.0.1        
-[17] yaml_2.2.1        parallel_4.1.0    xfun_0.24         fastmap_1.1.0    
-[21] withr_2.4.2       stringr_1.4.0     desc_1.3.0        generics_0.1.0   
-[25] fs_1.5.0          devtools_2.4.2    rprojroot_2.0.2   grid_4.1.0       
-[29] glue_1.4.2        R6_2.5.1          processx_3.5.2    rmarkdown_2.9    
-[33] sessioninfo_1.1.1 purrr_0.3.4       callr_3.7.0       magrittr_2.0.1   
-[37] usethis_2.0.1     ps_1.6.0          htmltools_0.5.1.1 ellipsis_0.3.2   
-[41] assertthat_0.2.1  stringi_1.7.4     cachem_1.0.5      crayon_1.4.1     
+ [1] Rcpp_1.0.7        lattice_0.20-44   lubridate_1.7.10  digest_0.6.27    
+ [5] crayon_1.4.1      assertthat_0.2.1  grid_4.1.0        nlme_3.1-152     
+ [9] magrittr_2.0.1    evaluate_0.14     rlang_0.4.11      stringi_1.7.4    
+[13] generics_0.1.0    rmarkdown_2.9     tools_4.1.0       stringr_1.4.0    
+[17] glue_1.4.2        purrr_0.3.4       parallel_4.1.0    xfun_0.24        
+[21] yaml_2.2.1        compiler_4.1.0    htmltools_0.5.1.1
 ~~~
 {: .output}
 <!--

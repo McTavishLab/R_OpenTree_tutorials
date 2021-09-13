@@ -24,7 +24,7 @@ In this first episode, we will check that you have the same package versions tha
 We will use the function `packageVersion` from the `utils` package to register the package version we are using for this tutorial.
 It only takes a single element character vector as input, so you will have to type the function and the package name each time, as follows:
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, results = "hold"}
 packageVersion("rotl")
 packageVersion("ape")
 packageVersion("devtools")
@@ -34,7 +34,7 @@ packageVersion("datelife")
 
 <br/>
 
-Alternatively, you can create a character vector of package names and use `lapply`:
+Alternatively, you can create a character vector of package names and use an `lapply` to get versions of all packages at once:
 
 ```{r, eval = TRUE}
 packages <- c("rotl", "ape", "devtools", "stringr", "datelife")
@@ -45,11 +45,17 @@ lapply(packages, packageVersion)
 
 <br/>
 
-If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them as explained in the [setup of this tutorial](). It seems from this [stackoverflow discussion](https://stackoverflow.com/questions/21461649/how-to-update-a-package-in-r) that the function `update.packages` does not really do what one would expect.
+If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them anew, following instructions in the [setup of this tutorial](). 
+The function `update.packages` does not allow updating single packages. Instead, it will try to update all packages already installed.
+You can use it as follows:
+
+```{r, eval = FALSE}
+update.packages(ask = TRUE)
+```
 
 If you have a more recent version than the one used for this tutorial, hopefully the examples will run the same for you, but it is likely that something will be different. If you would like to install an older version of an R package, please check out [RStudio's support page for installing older packages](https://support.rstudio.com/hc/en-us/articles/219949047-Installing-older-versions-of-packages). It is very well written and has everything you should need for a successful install. For example, if you want to install an older version from the `rotl` package from CRAN, first go to the [package CRAN archive](http://lib.stat.cmu.edu/R/CRAN/src/contrib/Archive/rotl/) to choose a version, and then do:
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 
 devtools::install_version("rotl", version = "3.0.0", repos = "http://cran.us.r-project.org")
 
