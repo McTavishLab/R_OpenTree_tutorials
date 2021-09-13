@@ -16,3 +16,6 @@ Gemfile.lock
 ssb2020_workshop.Rproj
 citations.txt
 code/
+
+*.Rproj
+_episodes_rmd/*.html
