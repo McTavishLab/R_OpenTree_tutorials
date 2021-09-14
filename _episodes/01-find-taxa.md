@@ -147,16 +147,16 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > > > Look at the attributes of other objects:
 > > > 
 > > > ~~~
-> > > attributes(my_taxa)
+> > > attributes(c("hello!", "my", "name", "is", "Luna."))
 > > > ~~~
 > > > {: .language-r}
 > > > 
 > > > 
 > > > 
 > > > ~~~
-> > > Error in eval(expr, envir, enclos): object 'my_taxa' not found
+> > > NULL
 > > > ~~~
-> > > {: .error}
+> > > {: .output}
 > > >
 > > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
 > > {: .checklist}
