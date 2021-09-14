@@ -102,29 +102,29 @@ List of 8
   ..$ pg_2812@tree6545: chr "node1135827"
  $ source_id_map:List of 5
   ..$ ot_278@tree1    :List of 3
-  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ git_sha : chr ""
   .. ..$ study_id: chr "ot_278"
   .. ..$ tree_id : chr "tree1"
   ..$ ot_328@tree1    :List of 3
-  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ git_sha : chr ""
   .. ..$ study_id: chr "ot_328"
   .. ..$ tree_id : chr "tree1"
   ..$ pg_1428@tree2855:List of 3
-  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ git_sha : chr ""
   .. ..$ study_id: chr "pg_1428"
   .. ..$ tree_id : chr "tree2855"
   ..$ pg_2647@tree6169:List of 3
-  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ git_sha : chr ""
   .. ..$ study_id: chr "pg_2647"
   .. ..$ tree_id : chr "tree6169"
   ..$ pg_2812@tree6545:List of 3
-  .. ..$ git_sha : chr "3008105691283414a18a6c8a728263b2aa8e7960"
+  .. ..$ git_sha : chr ""
   .. ..$ study_id: chr "pg_2812"
   .. ..$ tree_id : chr "tree6545"
  $ supported_by :List of 2
   ..$ ot_278@tree1: chr "node233"
   ..$ ot_328@tree1: chr "node495"
- $ synth_id     : chr "opentree12.3"
+ $ synth_id     : chr "opentree13.4"
  $ terminal     :List of 2
   ..$ pg_1428@tree2855: chr "node610132"
   ..$ pg_2647@tree6169: chr "ott247333"
@@ -157,11 +157,12 @@ Right now we are only interested in the node ir. Where do you think it is?
 {: .testimonial} -->
 <br/>
 
-> ## Pro tip 3.1: Get the node id of the MRCA of a group of OTT ids
->
-> Sometimes you want the MRCA of a bunch of lineages. The function `tol_mrca()` gets the node if of the MRCA of a group of OTT ids.
->
-> Can you use it to get the mrca of _Canis_?
+> > ## Pro tip 3.1: Get the node id of the MRCA of a group of OTT ids
+> >
+> > Sometimes you want the MRCA of a bunch of lineages. The function `tol_mrca()` gets the node of the MRCA of a group of OTT ids.
+> >
+> > Can you use it to get the mrca of _Canis_?
+> {: .solution}
 {: .testimonial}
 
 
@@ -176,8 +177,24 @@ Now that we have a node id, we can use it to get a subtree with `tol_subtree()`,
 
 ~~~
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_id)
+canis_node_subtree
 ~~~
 {: .language-r}
+
+
+
+~~~
+
+Phylogenetic tree with 85 tips and 28 internal nodes.
+
+Tip labels:
+  Canis_lupus_pallipes_ott47497, Canis_lupus_chanco_ott47500, Canis_lupus_baileyi_ott67371, Canis_lupus_laniger_ott80830, Canis_lupus_hattai_ott83897, Canis_lupus_desertorum_ott234374, ...
+Node labels:
+  , , , , , , ...
+
+Unrooted; no branch lengths.
+~~~
+{: .output}
 
 ~~~
 ape::plot.phylo(canis_node_subtree, cex = 1.2)
@@ -188,18 +205,19 @@ ape::plot.phylo(canis_node_subtree, cex = 1.2)
 
 Nice! We got a subtree of 85 tips, containing all descendants from the node that also contains _Canis_.
 
-This includes species assigned to genera other than _Canis_.
+If you explore the taxon names at the tip, you will notice that this includes species assigned to genera other than _Canis_.
+
+Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to the next episode and find out how you can do this!
 
 
-> ## Note: Get an induced subtree of taxonomic children
->
-> It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
->
-> We can get the OTT ids of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
->
-> > ## So, here is my hack, enjoy!
+> > ## Pro Tip 3.2: Get an induced subtree of taxonomic children
 > >
-> > First, get the taxonomic children.
+> > What if I _really, really_ need a tree containing species within the genus _Canis_ only, excluding everything that does not belong to the genus taxonomically, even if it does phylogenetically?
+> >
+> > We can get the OTT ids of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
+> >
+> >
+> > First, we will get the taxonomic children.
 > > 
 > > ~~~
 > > canis_taxonomy <- rotl::taxonomy_subtree(resolved_names["Canis",]$ott_id)
@@ -381,10 +399,6 @@ This includes species assigned to genera other than _Canis_.
 > >
 > > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
 > {: .solution}
-{: .discussion}
-
-<br/>
-
-What if I want a subtree of certain taxonomic ranks withing my group? Go to the next episode and find out how you can do this!
+{: .testimonial}
 
 <br/>

@@ -83,11 +83,12 @@ Right now we are only interested in the node ir. Where do you think it is?
 {: .testimonial} -->
 <br/>
 
-> ## Pro tip 3.1: Get the node id of the MRCA of a group of OTT ids
->
-> Sometimes you want the MRCA of a bunch of lineages. The function `tol_mrca()` gets the node if of the MRCA of a group of OTT ids.
->
-> Can you use it to get the mrca of _Canis_?
+> > ## Pro tip 3.1: Get the node id of the MRCA of a group of OTT ids
+> >
+> > Sometimes you want the MRCA of a bunch of lineages. The function `tol_mrca()` gets the node of the MRCA of a group of OTT ids.
+> >
+> > Can you use it to get the mrca of _Canis_?
+> {: .solution}
 {: .testimonial}
 
 
@@ -99,27 +100,29 @@ The _node_ that contains _Canis_ is "`r canis_node_info$node_id`".
 
 Now that we have a node id, we can use it to get a subtree with `tol_subtree()`, using the argument `node_id`.
 
-```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
+```{r, eval = TRUE, results= 'hold', warning= FALSE, error = TRUE}
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_id)
+canis_node_subtree
 ```
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 13}
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 15}
 ape::plot.phylo(canis_node_subtree, cex = 1.2)
 ```
 
 Nice! We got a subtree of 85 tips, containing all descendants from the node that also contains _Canis_.
 
-This includes species assigned to genera other than _Canis_.
+If you explore the taxon names at the tip, you will notice that this includes species assigned to genera other than _Canis_.
+
+Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to the next episode and find out how you can do this!
 
 
-> ## Note: Get an induced subtree of taxonomic children
->
-> It might seem non phylogenetic, but what if I _really, really_ need a tree containing species within the genus _Canis_ only?
->
-> We can get the OTT ids of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
->
-> > ## So, here is my hack, enjoy!
+> > ## Pro Tip 3.2: Get an induced subtree of taxonomic children
 > >
-> > First, get the taxonomic children.
+> > What if I _really, really_ need a tree containing species within the genus _Canis_ only, excluding everything that does not belong to the genus taxonomically, even if it does phylogenetically?
+> >
+> > We can get the OTT ids of the taxonomic children of our taxon of interest and use the function `tol_induced_subtree()`.
+> >
+> >
+> > First, we will get the taxonomic children.
 > > ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 > > canis_taxonomy <- rotl::taxonomy_subtree(resolved_names["Canis",]$ott_id)
 > > ```
@@ -155,10 +158,6 @@ This includes species assigned to genera other than _Canis_.
 > >
 > > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
 > {: .solution}
-{: .discussion}
-
-<br/>
-
-What if I want a subtree of certain taxonomic ranks withing my group? Go to the next episode and find out how you can do this!
+{: .testimonial}
 
 <br/>

@@ -12,7 +12,7 @@ objectives:
 - "Get a subtree"
 keypoints:
 - "OTT ids and node ids allow us to interact with the synthetic OTOL."
-- "Portions of the synthetic OTOL can be extracted from a single OTT id or from a bunch of them."
+- "Portions of the synthetic OTOL can be extracted from a single OTT id or from a bunch of OTT ids"
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
 ```{r, eval = TRUE, echo = FALSE}

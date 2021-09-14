@@ -14,15 +14,15 @@ objectives:
 - "Get a subtree"
 keypoints:
 - "OTT ids and node ids allow us to interact with the synthetic OTOL."
-- "Portions of the synthetic OTOL can be extracted from a single OTT id or from a bunch of them."
+- "Portions of the synthetic OTOL can be extracted from a single OTT id or from a bunch of OTT ids"
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
 
 <br/>
 <br/>
 
-The **synthetic Open Tree of Life** (synthetic OTOL from now on) summarizes information from 1216
-trees from 1162 peer-reviewed and published studies, that have been uploaded to the OTOL database through a [curator system](https://tree.opentreeoflife.org/curator).
+The **synthetic Open Tree of Life** (synthetic OTOL from now on) summarizes information from 1239
+trees from 1184 peer-reviewed and published studies, that have been uploaded to the OTOL database through a [curator system](https://tree.opentreeoflife.org/curator).
 
 Functions from the `rotl` package that interact with the synthetic OTOL start with "tol_".
 
@@ -40,12 +40,12 @@ rotl::tol_about()
 
 OpenTree Synthetic Tree of Life.
 
-Tree version: opentree12.3
-Taxonomy version: 3.2draft9
-Constructed on: 2019-12-23 11:41:23
-Number of terminal taxa: 2391916
-Number of source trees: 1216
-Number of source studies: 1162
+Tree version: opentree13.4
+Taxonomy version: 3.3draft1
+Constructed on: 2021-06-18 11:13:49
+Number of terminal taxa: 2392042
+Number of source trees: 1239
+Number of source studies: 1184
 Source list present: false
 Root taxon: cellular organisms
 Root ott_id: 93302
@@ -54,7 +54,7 @@ Root node_id: ott93302
 {: .output}
 This is nice!
 
-As you can note, the current synthetic OTOL was created not too long ago, on 2019-12-23 11:41:23.
+As you can note, the current synthetic OTOL was created not too long ago, on 2021-06-18 11:13:49.
 
 This is also telling us that there are currently more than 2 million tips on the synthetic OTOL.
 
@@ -134,11 +134,9 @@ my_tree
 Phylogenetic tree with 5 tips and 4 internal nodes.
 
 Tip labels:
-[1] "Delphinidae_ott698406"  "mrcaott47497ott110766"  "Felis_ott563165"       
-[4] "Spheniscidae_ott494367" "Amphibia_ott544595"    
+  Delphinidae_ott698406, mrcaott47497ott110766, Felis_ott563165, Spheniscidae_ott494367, Amphibia_ott544595
 Node labels:
-[1] "Tetrapoda ott229562" "Amniota ott229560"   "mrcaott1548ott4697" 
-[4] "mrcaott4697ott6940" 
+  Tetrapoda ott229562, Amniota ott229560, mrcaott1548ott4697, mrcaott4697ott6940
 
 Rooted; no branch lengths.
 ~~~
@@ -220,12 +218,12 @@ amphibia_subtree
 
 ~~~
 
-Phylogenetic tree with 10012 tips and 3100 internal nodes.
+Phylogenetic tree with 10020 tips and 4669 internal nodes.
 
 Tip labels:
-	Odorrana_geminata_ott114, Odorrana_supranarina_ott14375, Odorrana_narina_ott14379, Odorrana_amamiensis_ott14384, Odorrana_utsunomiyaorum_ott14377, Odorrana_swinhoana_ott14392, ...
+  Odorrana_geminata_ott114, Odorrana_chapaensis_ott214633, Odorrana_grahami_ott43280, Odorrana_margaretae_ott440550, Odorrana_kuangwuensis_ott3618367, Odorrana_junlianensis_ott656728, ...
 Node labels:
-	Amphibia ott544595, Batrachia ott471197, Anura ott991547, , , , ...
+  Amphibia ott544595, Batrachia ott471197, Anura ott991547, , , , ...
 
 Unrooted; no branch lengths.
 ~~~
