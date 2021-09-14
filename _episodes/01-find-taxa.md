@@ -301,7 +301,7 @@ If you do not get a match for all your taxa, and you get an unexpected warning m
 > > {: .output}
 > >
 > {: .solution}
-{: .testimonial}
+{: .discussion}
 
 <br/>
 
@@ -530,13 +530,14 @@ resolved_name[1,2]
 
 <br/>
 
-> ## Pro tip 1.3: Extract data from the attributes of a 'match_names' object
->
-> On Pro Tip 1.1, we saw that there is more data stored in the attributes of the 'match_names' object.
+> > ## Pro tip 1.3: Extract data from the attributes of a 'match_names' object
+> >
+> > On Pro Tip 1.1, we saw that there is more data stored in the attributes of the 'match_names' object.
 > The structure of this data is complicated and extracting it requires some hacking.
-> There is one inbuilt function in the package `rotl` that will extract the synonyms from the attributes of a 'match_names' object.
->
-> > ## The function `synonyms()`
+> >
+> > ## Using the function `synonyms()`
+> >
+> > There is one inbuilt function in the package `rotl` that will extract the synonyms from the attributes of a 'match_names' object.
 > >
 > > 
 > > ~~~
@@ -558,7 +559,6 @@ resolved_name[1,2]
 > > Neat!
 > >
 > {: .solution}
-{: .testimonial}
 
 <!--
 
