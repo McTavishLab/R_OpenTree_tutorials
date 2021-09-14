@@ -147,7 +147,7 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > > > Look at the attributes of other objects:
 > > > 
 > > > ~~~
-> > > attributes(c("hello!", "my", "name", "is", "Luna!"))
+> > > attributes(c("Hello!", "my", "name", "is", "Luna!"))
 > > > ~~~
 > > > {: .language-r}
 > > > 
@@ -159,9 +159,9 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > > > {: .output}
 > > >
 > > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
-> > {: .discussion}
+> > {: .solution}
 > {: .solution}
-{. testimonial}
+{: .testimonial}
 
 <br/>
 

@@ -125,13 +125,13 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > > >
 > > > Look at the attributes of other objects:
 > > > ```{r, eval = TRUE}
-> > > attributes(c("hello!", "my", "name", "is", "Luna!"))
+> > > attributes(c("Hello!", "my", "name", "is", "Luna!"))
 > > > ```
 > > >
 > > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
-> > {: .discussion}
+> > {: .solution}
 > {: .solution}
-{. testimonial}
+{: .testimonial}
 
 <br/>
 
