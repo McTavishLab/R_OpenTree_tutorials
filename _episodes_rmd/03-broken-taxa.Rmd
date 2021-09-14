@@ -104,7 +104,7 @@ Now that we have a node id, we can use it to get a subtree with `tol_subtree()`,
 canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_id)
 canis_node_subtree
 ```
-```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 15}
+```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 20}
 ape::plot.phylo(canis_node_subtree, cex = 1.2)
 ```
 
@@ -152,7 +152,7 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intree)
 > > ```
 > > Plot it.
-> > ```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 9}
+> > ```{r, eval = TRUE, results= 'asis', warning= FALSE, error = TRUE, fig.height = 13}
 > > ape::plot.phylo(canis_taxonomy_subtree, cex = 1.2)
 > > ```
 > >
