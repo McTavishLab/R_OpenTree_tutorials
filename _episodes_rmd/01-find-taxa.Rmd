@@ -129,7 +129,7 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > > > ```
 > > >
 > > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
-> >
+> > {: .checklist}
 > {: .testimonial}
 
 <br/>

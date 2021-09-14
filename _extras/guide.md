@@ -14,7 +14,7 @@ title: "Instructor Notes"
 
 ### 6.1 Getting source trees with branch lengths
 
-> >
+> > ## Note
 > >
 > > ~~~
 > > chronograms <- rotl::studies_find_trees(property = "ot:branchLengthMode", value = "ot:time", verbose = TRUE, detailed = TRUE)
