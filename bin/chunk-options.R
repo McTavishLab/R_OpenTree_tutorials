@@ -11,6 +11,18 @@ library("ape")
 fix_fig_path <- function(pth) file.path("..", pth)
 
 
+my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
+# resolved_names <- rotl::tnrs_match_names(my_taxa)
+resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
+resolved_names <- t(resolved_names)
+resolved_names <- as.data.frame(resolved_names)
+class(resolved_names) <- c("match_names", "data.frame")
+rownames(resolved_names) <- unlist(resolved_names$unique_name)
+amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id[[1]])
+rownames(resolved_names) <- resolved_names$unique_name
+canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id[[1]])
+canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id[[1]])
+
 ## We set the path for the figures globally below, so if we want to
 ## customize it for individual episodes, we can append a prefix to the
 ## global path. For instance, if we call knitr_fig_path("01-") in the

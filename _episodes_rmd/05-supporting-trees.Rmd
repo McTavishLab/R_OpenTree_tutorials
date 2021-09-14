@@ -12,11 +12,7 @@ keypoints:
 ---
 ```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
-resolved_names <- rotl::tnrs_match_names(my_taxa)
-rownames(resolved_names) <- resolved_names$unique_name
-canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
-canis_node_subtree <- rotl::tol_subtree(node_id = canis_node_info$node_id)
+
 ```
 
 <br/>

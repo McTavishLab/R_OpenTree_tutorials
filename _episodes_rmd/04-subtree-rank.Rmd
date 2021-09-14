@@ -12,37 +12,33 @@ keypoints:
 ---
 ```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
-# resolved_names <- rotl::tnrs_match_names(my_taxa)
-resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
-resolved_names <- t(resolved_names)
-resolved_names <- as.data.frame(resolved_names)
-class(resolved_names) <- c("match_names", "data.frame")
-rownames(resolved_names) <- unlist(resolved_names$unique_name)
-amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id[[1]])
 ```
 
 <br/>
 <br/>
 
-There is not a specific function in the [aclage `rotl` that gets all taxa from a given taxonomic rank.
+There is not a specific function in the package `rotl` that gets all taxa from a given taxonomic rank.
 We will now shift to the `datelife` package and use the `get_ott_children()` function, that extracts OTT ids of all taxa from a rank specified by the argument `ott_rank`.
 
 Let's get all amphibian families.
 
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
+```
+```{r, eval = TRUE}
 str(amphibia_families)
 ```
 Now, get the induced subtree using the amphibian families' OTT ids.
 ```{r, eval = TRUE, results= 'hide', warning= FALSE, error = TRUE}
 amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
+```
+```{r, eval = TRUE}
 amphibia_families_subtree
 ```
 
 Let's print the output.
 
-```{r, eval = TRUE, warning= FALSE, error = TRUE, fig.height = 13}
+```{r, eval = TRUE, warning= FALSE, error = TRUE, fig.height = 14}
 ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ```
 <br/>
@@ -73,11 +69,11 @@ We have seen up to now how to get a portion of the synthetic OTOL. How do I insp
 
 > > ## Pro Tip 4.1: Get all taxa from a taxonomic rank.
 > >
-> > While `datelife` facilitates this task, there are other ways to all taxa from a taxonmic rank using `rotl` functions only. Try it out!
+> > While `datelife` facilitates this task, there are other ways to get all taxa from a taxonmic rank using mostly `rotl` functions. Try it out!
 > >
 > >
-> > ```{r, eval = TRUE}
-> > amphibia_taxonomy <- rotl::taxonomy_subtree(resolved_names["Amphibia",]$ott_id)
+> > ```{r, eval = FALSE}
+> > amphibia_taxonomy <- rotl::taxonomy_subtree(resolved_names["Amphibia",]$ott_id[[1]])
 > > ls(amphibia_taxonomy)
 > > length(amphibia_taxonomy$tip_label)
 > > head(amphibia_taxonomy$tip_label)
@@ -85,6 +81,9 @@ We have seen up to now how to get a portion of the synthetic OTOL. How do I insp
 > > amphibia_taxonomy$edge_label
 > > edges <- datelife::extract_ott_ids(x=amphibia_taxonomy$edge_label)
 > > length(edges)
+> >
+> > # The following line takes a while to run!
+> >
 > > edges_taxon_info <- rotl::taxonomy_taxon_info(edges)
 > > ls(edges_taxon_info[[1]])
 > > is_family <- unname(unlist(sapply(edges_taxon_info, "[", "rank") %in% "family"))

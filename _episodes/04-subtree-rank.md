@@ -17,7 +17,7 @@ keypoints:
 <br/>
 <br/>
 
-There is not a specific function in the [aclage `rotl` that gets all taxa from a given taxonomic rank.
+There is not a specific function in the package `rotl` that gets all taxa from a given taxonomic rank.
 We will now shift to the `datelife` package and use the `get_ott_children()` function, that extracts OTT ids of all taxa from a rank specified by the argument `ott_rank`.
 
 Let's get all amphibian families.
@@ -35,19 +35,46 @@ ott_ids is not a numeric vector; coercing to numeric.
 ~~~
 {: .output}
 
-
-
 ~~~
 str(amphibia_families)
 ~~~
 {: .language-r}
+
+
+
+~~~
+List of 1
+ $ Amphibia:'data.frame':	70 obs. of  2 variables:
+  ..$ ott_id: int [1:70] 118029 639647 639653 654645 128153 114139 114359 861429 379929 4948197 ...
+  ..$ rank  : chr [1:70] "family" "family" "family" "family" ...
+~~~
+{: .output}
 Now, get the induced subtree using the amphibian families' OTT ids.
 
 ~~~
 amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families$Amphibia$ott_id)
+~~~
+{: .language-r}
+
+~~~
 amphibia_families_subtree
 ~~~
 {: .language-r}
+
+
+
+~~~
+
+Phylogenetic tree with 60 tips and 59 internal nodes.
+
+Tip labels:
+  Ranidae_ott364560, Rhacophoridae_ott432783, Mantellidae_ott38969, Ranixalidae_ott403946, Nyctibatrachidae_ott1081210, Ceratobatrachidae_ott1081207, ...
+Node labels:
+  Amphibia ott544595, Batrachia ott471197, Anura ott991547, mrcaott114ott3129, mrcaott114ott37876, mrcaott114ott18818, ...
+
+Rooted; no branch lengths.
+~~~
+{: .output}
 
 Let's print the output.
 
@@ -57,7 +84,7 @@ ape::plot.phylo(amphibia_families_subtree, cex = 1.2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 <br/>
 
 Super cool!
@@ -96,7 +123,7 @@ Super cool!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -108,242 +135,32 @@ We have seen up to now how to get a portion of the synthetic OTOL. How do I insp
 
 > > ## Pro Tip 4.1: Get all taxa from a taxonomic rank.
 > >
-> > While `datelife` facilitates this task, there are other ways to all taxa from a taxonmic rank using `rotl` functions only. Try it out!
+> > While `datelife` facilitates this task, there are other ways to get all taxa from a taxonmic rank using mostly `rotl` functions. Try it out!
 > >
 > >
 > > 
 > > ~~~
-> > amphibia_taxonomy <- rotl::taxonomy_subtree(resolved_names["Amphibia",]$ott_id)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error: Only atomic vectors of length 1 or data frames with 1 row can be unboxed.
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
+> > amphibia_taxonomy <- rotl::taxonomy_subtree(resolved_names["Amphibia",]$ott_id[[1]])
 > > ls(amphibia_taxonomy)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning in ls(amphibia_taxonomy): 'amphibia_taxonomy' converted to character
-> > string
-> > ~~~
-> > {: .warning}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in as.environment(pos): no item called "amphibia_taxonomy" on the search list
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > length(amphibia_taxonomy$tip_label)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(expr, envir, enclos): object 'amphibia_taxonomy' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > head(amphibia_taxonomy$tip_label)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in head(amphibia_taxonomy$tip_label): object 'amphibia_taxonomy' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > tail(amphibia_taxonomy$tip_label)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in tail(amphibia_taxonomy$tip_label): object 'amphibia_taxonomy' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > amphibia_taxonomy$edge_label
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(expr, envir, enclos): object 'amphibia_taxonomy' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > edges <- datelife::extract_ott_ids(x=amphibia_taxonomy$edge_label)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in datelife::extract_ott_ids(x = amphibia_taxonomy$edge_label): object 'amphibia_taxonomy' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > length(edges)
-> > ~~~
-> > {: .language-r}
 > > 
+> > # The following line takes a while to run!
 > > 
-> > 
-> > ~~~
-> > [1] 1
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
 > > edges_taxon_info <- rotl::taxonomy_taxon_info(edges)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning in is.na(ott_ids): is.na() applied to non-(list or vector) of type
-> > 'symbol'
-> > ~~~
-> > {: .warning}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in check_ott_ids(ott_id): 'ott_ids' must look like numbers.
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > ls(edges_taxon_info[[1]])
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning in ls(edges_taxon_info[[1]]): 'edges_taxon_info[[1]]' converted to
-> > character string
-> > ~~~
-> > {: .warning}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in as.environment(pos): no item called "edges_taxon_info[[1]]" on the search list
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > is_family <- unname(unlist(sapply(edges_taxon_info, "[", "rank") %in% "family"))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in lapply(X = X, FUN = FUN, ...): object 'edges_taxon_info' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > is_suppressed <- unname(unlist(sapply(edges_taxon_info, "[", "is_suppressed_from_synth")))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in lapply(X = X, FUN = FUN, ...): object 'edges_taxon_info' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > # flag "is suppressed from synth" is not updated, so it is useless for now.
 > > amphibia_families <- unname(unlist(sapply(edges_taxon_info, "[", "ott_id")[is_family]))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in lapply(X = X, FUN = FUN, ...): object 'edges_taxon_info' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > in_tree <- rotl::is_in_tree(amphibia_families)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in FUN(X[[i]], ...): only 1 element should be provided
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > amphibia_families_subtree <- rotl::tol_induced_subtree(amphibia_families[in_tree])
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'in_tree' not found
-> > ~~~
-> > {: .error}
 > {: .solution}
 {: .testimonial}
 

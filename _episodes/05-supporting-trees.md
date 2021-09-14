@@ -57,7 +57,7 @@ We already have one that we generated with `tol_node_info()`, do you remember ho
 > 'data.frame':	5 obs. of  3 variables:
 >  $ study_id: chr  "ot_278" "ot_328" "pg_1428" "pg_2647" ...
 >  $ tree_id : chr  "tree1" "tree1" "tree2855" "tree6169" ...
->  $ git_sha : chr  "3008105691283414a18a6c8a728263b2aa8e7960" "3008105691283414a18a6c8a728263b2aa8e7960" "3008105691283414a18a6c8a728263b2aa8e7960" "3008105691283414a18a6c8a728263b2aa8e7960" ...
+>  $ git_sha : chr  "" "" "" "" ...
 > ~~~
 > {: .output}
 >
@@ -90,7 +90,7 @@ Canis, Canis, Canis, Canis, Canis, Canidae, Cynarctoides
 Phylogenetic tree with 142 tips and 141 internal nodes.
 
 Tip labels:
-	Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
+  Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
 
 Rooted; includes branch lengths.
 ~~~
@@ -141,7 +141,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 142 tips and 141 internal nodes.
 > > 
 > > Tip labels:
-> > 	Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
+> >   Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
 > > 
 > > Rooted; includes branch lengths.
 > > 
@@ -150,7 +150,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 294 tips and 272 internal nodes.
 > > 
 > > Tip labels:
-> > 	Homo_sapiens, Rattus_norvegicus, Mus_musculus, Artibeus_jamaicensis, Mystacina_tuberculata, Tadarida_brasiliensis, ...
+> >   Homo_sapiens, Rattus_norvegicus, Mus_musculus, Artibeus_jamaicensis, Mystacina_tuberculata, Tadarida_brasiliensis, ...
 > > 
 > > Rooted; includes branch lengths.
 > > 
@@ -159,7 +159,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 169 tips and 168 internal nodes.
 > > 
 > > Tip labels:
-> > 	Xenopus_laevis, Anolis_carolinensis, Gallus_gallus, Taeniopygia_guttata, Tachyglossus_aculeatus, Ornithorhynchus_anatinus, ...
+> >   Xenopus_laevis, Anolis_carolinensis, Gallus_gallus, Taeniopygia_guttata, Tachyglossus_aculeatus, Ornithorhynchus_anatinus, ...
 > > 
 > > Rooted; includes branch lengths.
 > > 
@@ -168,7 +168,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 86 tips and 85 internal nodes.
 > > 
 > > Tip labels:
-> > 	*tip_#1_not_mapped_to_OTT._Original_label_-_Morganucodon_oehleri, *tip_#2_not_mapped_to_OTT._Original_label_-_Morganucodon_watsoni, *tip_#3_not_mapped_to_OTT._Original_label_-_Haldanodon_exspectatus, Eomaia_scansoria, Amblysomus_hottentotus, Echinops_telfairi, ...
+> >   *tip_#1_not_mapped_to_OTT._Original_label_-_Morganucodon_oehleri, *tip_#2_not_mapped_to_OTT._Original_label_-_Morganucodon_watsoni, *tip_#3_not_mapped_to_OTT._Original_label_-_Haldanodon_exspectatus, Eomaia_scansoria, Amblysomus_hottentotus, Echinops_telfairi, ...
 > > 
 > > Rooted; no branch lengths.
 > > 
@@ -177,7 +177,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 78 tips and 77 internal nodes.
 > > 
 > > Tip labels:
-> > 	Ornithorhynchus, Manis, Ailuropoda, Canis, Felis, Panthera, ...
+> >   Ornithorhynchus, Manis, Ailuropoda, Canis, Felis, Panthera, ...
 > > 
 > > Rooted; no branch lengths.
 > > ~~~
@@ -217,7 +217,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 142 tips and 141 internal nodes.
 > > 
 > > Tip labels:
-> > 	Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
+> >   Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
 > > 
 > > Rooted; includes branch lengths.
 > > 
@@ -226,7 +226,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 294 tips and 272 internal nodes.
 > > 
 > > Tip labels:
-> > 	Homo_sapiens, Rattus_norvegicus, Mus_musculus, Artibeus_jamaicensis, Mystacina_tuberculata, Tadarida_brasiliensis, ...
+> >   Homo_sapiens, Rattus_norvegicus, Mus_musculus, Artibeus_jamaicensis, Mystacina_tuberculata, Tadarida_brasiliensis, ...
 > > 
 > > Rooted; includes branch lengths.
 > > 
@@ -235,7 +235,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 169 tips and 168 internal nodes.
 > > 
 > > Tip labels:
-> > 	Xenopus_laevis, Anolis_carolinensis, Gallus_gallus, Taeniopygia_guttata, Tachyglossus_aculeatus, Ornithorhynchus_anatinus, ...
+> >   Xenopus_laevis, Anolis_carolinensis, Gallus_gallus, Taeniopygia_guttata, Tachyglossus_aculeatus, Ornithorhynchus_anatinus, ...
 > > 
 > > Rooted; includes branch lengths.
 > > 
@@ -244,7 +244,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 86 tips and 85 internal nodes.
 > > 
 > > Tip labels:
-> > 	*tip_#1_not_mapped_to_OTT._Original_label_-_Morganucodon_oehleri, *tip_#2_not_mapped_to_OTT._Original_label_-_Morganucodon_watsoni, *tip_#3_not_mapped_to_OTT._Original_label_-_Haldanodon_exspectatus, Eomaia_scansoria, Amblysomus_hottentotus, Echinops_telfairi, ...
+> >   *tip_#1_not_mapped_to_OTT._Original_label_-_Morganucodon_oehleri, *tip_#2_not_mapped_to_OTT._Original_label_-_Morganucodon_watsoni, *tip_#3_not_mapped_to_OTT._Original_label_-_Haldanodon_exspectatus, Eomaia_scansoria, Amblysomus_hottentotus, Echinops_telfairi, ...
 > > 
 > > Rooted; no branch lengths.
 > > 
@@ -253,7 +253,7 @@ Rooted; includes branch lengths.
 > > Phylogenetic tree with 78 tips and 77 internal nodes.
 > > 
 > > Tip labels:
-> > 	Ornithorhynchus, Manis, Ailuropoda, Canis, Felis, Panthera, ...
+> >   Ornithorhynchus, Manis, Ailuropoda, Canis, Felis, Panthera, ...
 > > 
 > > Rooted; no branch lengths.
 > > ~~~
