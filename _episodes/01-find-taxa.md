@@ -159,8 +159,9 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 > > > {: .output}
 > > >
 > > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
-> > {: .solution}
-> {: .testimonial}
+> > {: .discussion}
+> {: .solution}
+{. testimonial}
 
 <br/>
 
