@@ -120,52 +120,76 @@ The column `approximate_match` tells us whether the unique name was inferred fro
 Finally, the `flags` column tells us if our unique name has been flagged in the OTT
 (TRUE) or not (FALSE). It also indicates the type of flag associated to the taxon. Flags are markers that indicate if the taxon in question is problematic and should be included in further analyses of the Open Tree workflow. You can read more about flags in the [Open Tree wiki](https://github.com/OpenTreeOfLife/reference-taxonomy/wiki/Taxon-flags).
 
+Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool!
 <br/>
 
 > > ## Pro tip 1.1: Looking at "hidden" elements of a data object
 > >
 > > The 'match_names' object has more data that is not exposed on the screen and is not part of the main data structure. This "hidden" data is stored in the attributes of the object.
-> > All objects have at least one attribute, the class. Attributes can be accesed with the function `attributes()`, and are stored as a named list.
+> > All objects that are not one of the 4 basic types (character, numeric, boolean or ) have at least one attribute, the class. Attributes can be accesed with the function `attributes()`.
 > >
-> > > ## Explore the attributes of the 'match_names' object
-> > >
-> > > 
-> > > ~~~
-> > > names(attributes(resolved_name))
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > [1] "names"              "row.names"          "class"             
-> > > [4] "original_order"     "original_response"  "match_id"          
-> > > [7] "has_original_match" "json_coords"       
-> > > ~~~
-> > > {: .output}
-> > >
-> > > Look at the attributes of other objects:
-> > > 
-> > > ~~~
-> > > attributes(c("Hello!", "my", "name", "is", "Luna!"))
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > NULL
-> > > ~~~
-> > > {: .output}
-> > >
-> > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
-> > {: .solution}
+> > Try to look at the attributes of a basic object, such as a character vector:
+> >
+> > 
+> > ~~~
+> > attributes(c("Hello!", "my", "name", "is", "Luna!"))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > NULL
+> > ~~~
+> > {: .output}
+> >
+> > As you can see, basic type objects have no hidden attributes.
+> >
+> > Let's look at the attributes of our 'match_names' object:
+> >
+> > 
+> > ~~~
+> > names(attributes(resolved_name))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "names"              "row.names"          "class"             
+> > [4] "original_order"     "original_response"  "match_id"          
+> > [7] "has_original_match" "json_coords"       
+> > ~~~
+> > {: .output}
+> >
+> > The structure of the "attributes" data is complicated and extracting it requires some hacking.
+> >
+> > The function `synonyms()` in the package `rotl` will extract the synonyms from the attributes of a 'match_names' object.
+> >
+> >
+> > 
+> > ~~~
+> > rotl::synonyms(resolved_name)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > $Amphibia
+> > [1] "Lissamphibia"
+> > 
+> > attr(,"class")
+> > [1] "otl_synonyms" "list"        
+> > ~~~
+> > {: .output}
+> >
+> > Neat!
+> >
 > {: .solution}
 {: .testimonial}
 
 <br/>
-
-Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool!
 
 ### Getting OTT ids for multiple taxon names at a time
 
@@ -197,14 +221,15 @@ In this case, you will have to create a character vector with your taxon names a
 >
 {: .challenge}
 
-<br/>
-
 ### ❗
 
-If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time using `tnrs_match_names`.
+You should get a matched named for all the taxa in this example. If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time using `tnrs_match_names`.
 
 <br/>
 
+Finally,we are going to learn how to extract specific pieces of data from a `match_names` object to use in other functions and workflows.
+
+<br/>
 
 > > ## Pro Tip 1.2: Getting OTT ids for multiple taxa, the hacker way.
 > >
@@ -222,91 +247,87 @@ If you do not get a match for all your taxa, and you get an unexpected warning m
 > > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 > >
 > >
-> > > ## Using `sapply`
-> > >
-> > > 
-> > > ~~~
-> > > resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
-> > > class(resolved_names)
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > [1] "matrix" "array" 
-> > > ~~~
-> > > {: .output}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > resolved_names
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > >                   amphibians   canis   felis   delphinidae   avess  
-> > > search_string     "amphibians" "canis" "felis" "delphinidae" "avess"
-> > > unique_name       "Amphibia"   "Canis" "Felis" "Delphinidae" "Aves" 
-> > > approximate_match TRUE         FALSE   FALSE   FALSE         TRUE   
-> > > ott_id            544595       372706  563165  698406        81461  
-> > > is_synonym        FALSE        FALSE   FALSE   FALSE         FALSE  
-> > > flags             ""           ""      ""      ""            ""     
-> > > number_matches    6            2       1       1             1      
-> > > ~~~
-> > > {: .output}
-> > >
-> > > The data structure is not the same as we obtained using a single taxon name. To get that same data structure, we can transpose the output `resolved_names` with the function `t`, and make it a data.frame with the function `as.data.frame`:
-> > >
-> > > 
-> > > ~~~
-> > > resolved_names <- t(resolved_names)
-> > > resolved_names <- as.data.frame(resolved_names)
-> > > class(resolved_names)
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > [1] "data.frame"
-> > > ~~~
-> > > {: .output}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > resolved_names
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > >             search_string unique_name approximate_match ott_id is_synonym flags
-> > > amphibians     amphibians    Amphibia              TRUE 544595      FALSE      
-> > > canis               canis       Canis             FALSE 372706      FALSE      
-> > > felis               felis       Felis             FALSE 563165      FALSE      
-> > > delphinidae   delphinidae Delphinidae             FALSE 698406      FALSE      
-> > > avess               avess        Aves              TRUE  81461      FALSE      
-> > >             number_matches
-> > > amphibians               6
-> > > canis                    2
-> > > felis                    1
-> > > delphinidae              1
-> > > avess                    1
-> > > ~~~
-> > > {: .output}
+> > ## Using `sapply`
 > >
+> > 
+> > ~~~
+> > resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
+> > class(resolved_names)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "matrix" "array" 
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > resolved_names
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >                   amphibians   canis   felis   delphinidae   avess  
+> > search_string     "amphibians" "canis" "felis" "delphinidae" "avess"
+> > unique_name       "Amphibia"   "Canis" "Felis" "Delphinidae" "Aves" 
+> > approximate_match TRUE         FALSE   FALSE   FALSE         TRUE   
+> > ott_id            544595       372706  563165  698406        81461  
+> > is_synonym        FALSE        FALSE   FALSE   FALSE         FALSE  
+> > flags             ""           ""      ""      ""            ""     
+> > number_matches    6            2       1       1             1      
+> > ~~~
+> > {: .output}
 > >
-> {: .testimonial}
-
-<br/>
-
-Finally,we are going to learn how to extract specific pieces of data from a `match_names` object to use in other functions and workflows.
+> > The data structure is not the same as we obtained using a single taxon name. To get that same data structure, we can transpose the output `resolved_names` with the function `t`, and make it a data.frame with the function `as.data.frame`:
+> >
+> > 
+> > ~~~
+> > resolved_names <- t(resolved_names)
+> > resolved_names <- as.data.frame(resolved_names)
+> > class(resolved_names)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "data.frame"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > resolved_names
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >             search_string unique_name approximate_match ott_id is_synonym flags
+> > amphibians     amphibians    Amphibia              TRUE 544595      FALSE      
+> > canis               canis       Canis             FALSE 372706      FALSE      
+> > felis               felis       Felis             FALSE 563165      FALSE      
+> > delphinidae   delphinidae Delphinidae             FALSE 698406      FALSE      
+> > avess               avess        Aves              TRUE  81461      FALSE      
+> >             number_matches
+> > amphibians               6
+> > canis                    2
+> > felis                    1
+> > delphinidae              1
+> > avess                    1
+> > ~~~
+> > {: .output}
+> >
+> {: .solution}
+{: .testimonial}
 
 <br/>
 
@@ -318,27 +339,53 @@ Let's extract all data from the second column:
 
 
 ~~~
-resolved_name[,2]
+resolved_names[,2]
 ~~~
 {: .language-r}
 
 
 
 ~~~
+$amphibians
 [1] "Amphibia"
+
+$canis
+[1] "Canis"
+
+$felis
+[1] "Felis"
+
+$delphinidae
+[1] "Delphinidae"
+
+$avess
+[1] "Aves"
 ~~~
 {: .output}
 We can also use the name of the column so we do not have to remember its position:
 
 ~~~
-resolved_name[,"unique_name"]
+resolved_names[,"unique_name"]
 ~~~
 {: .language-r}
 
 
 
 ~~~
+$amphibians
 [1] "Amphibia"
+
+$canis
+[1] "Canis"
+
+$felis
+[1] "Felis"
+
+$delphinidae
+[1] "Delphinidae"
+
+$avess
+[1] "Aves"
 ~~~
 {: .output}
 Because it is a 'data.frame', we can also access the values of any column by using
@@ -346,14 +393,27 @@ the "$" and the column name to index it, like this:
 
 
 ~~~
-resolved_name$unique_name
+resolved_names$unique_name
 ~~~
 {: .language-r}
 
 
 
 ~~~
+$amphibians
 [1] "Amphibia"
+
+$canis
+[1] "Canis"
+
+$felis
+[1] "Felis"
+
+$delphinidae
+[1] "Delphinidae"
+
+$avess
+[1] "Aves"
 ~~~
 {: .output}
 
@@ -369,7 +429,7 @@ To extract data from the other columns there are no specialized functions, so yo
 
 > ## Hands on!  Extract the OTT ids from a 'match_names' object
 >
-> You now have a 'match_names' object that we called `resolved_name`. There are at least two ways to extract the OTT ids from it. Can you figure them out? Store them in an object we will call `my_ott_ids`.
+> You now have a 'match_names' object that we called `resolved_names`. There are at least two ways to extract the OTT ids from it. Can you figure them out? Store them in an object we will call `my_ott_ids`.
 >
 > **Hint**: You can find one solution by browsing the [rotl package documentation](https://cran.r-project.org/web/packages/rotl/rotl.pdf) to find a function that will do this for a 'match_names' object.
 >
@@ -381,7 +441,20 @@ To extract data from the other columns there are no specialized functions, so yo
 > >
 > > 
 > > ~~~
-> > my_ott_id <- rotl::ott_id(resolved_name) # rotl:::ott_id.match_names(resolved_name) is the same.
+> > my_ott_id <- rotl::ott_id(resolved_names) # rotl:::ott_id.match_names(resolved_names) is the same.
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in UseMethod("ott_id"): no applicable method for 'ott_id' applied to an object of class "data.frame"
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > my_ott_id
 > > ~~~
 > > {: .language-r}
@@ -389,19 +462,15 @@ To extract data from the other columns there are no specialized functions, so yo
 > > 
 > > 
 > > ~~~
-> > $Amphibia
-> > [1] 544595
-> > 
-> > attr(,"class")
-> > [1] "otl_ott_id" "list"      
+> > Error in eval(expr, envir, enclos): object 'my_ott_id' not found
 > > ~~~
-> > {: .output}
+> > {: .error}
 > >
 > > Or, get the OTT ids as a vector:
 > >
 > > 
 > > ~~~
-> > my_ott_id <- resolved_name$ott_id # or resolved_name[, "ott_id"]
+> > my_ott_id <- resolved_names$ott_id # or resolved_names[, "ott_id"]
 > > my_ott_id
 > > ~~~
 > > {: .language-r}
@@ -409,7 +478,20 @@ To extract data from the other columns there are no specialized functions, so yo
 > > 
 > > 
 > > ~~~
+> > $amphibians
 > > [1] 544595
+> > 
+> > $canis
+> > [1] 372706
+> > 
+> > $felis
+> > [1] 563165
+> > 
+> > $delphinidae
+> > [1] 698406
+> > 
+> > $avess
+> > [1] 81461
 > > ~~~
 > > {: .output}
 > >
@@ -424,141 +506,108 @@ You can get values from all columns of one row:
 
 
 ~~~
-resolved_name[1,]
+resolved_names[1,]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-  search_string unique_name approximate_match ott_id is_synonym flags
-1    amphibians    Amphibia              TRUE 544595      FALSE      
-  number_matches
-1              6
+           search_string unique_name approximate_match ott_id is_synonym flags
+amphibians    amphibians    Amphibia              TRUE 544595      FALSE      
+           number_matches
+amphibians              6
 ~~~
 {: .output}
 
 Or get just one specific value from a certain column, using the column name:
 
 ~~~
-resolved_name[1,"unique_name"]
+resolved_names[1,"unique_name"]
 ~~~
 {: .language-r}
 
 
 
 ~~~
+$amphibians
 [1] "Amphibia"
 ~~~
 {: .output}
 Or using the column position:
 
 ~~~
-resolved_name[1,2]
+resolved_names[1,2]
 ~~~
 {: .language-r}
 
 
 
 ~~~
+$amphibians
 [1] "Amphibia"
 ~~~
 {: .output}
 <br/>
+There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Let's see what we can do with these on the next section.
 
-> ## Hack: Name the rows of your 'match_names' object
->
-> To facilitate the use of OTT ids later, you can name the rows of your 'match_names' object using the function `rownames()`.
->
-> You can name them whatever you want. For example, you can use the `unique_name` identifier:
->
-> 
-> ~~~
-> rownames(resolved_name) <- resolved_name$unique_name
-> ~~~
-> {: .language-r}
->
-> Or simply call them something short that makes sense to you and is easy to remember:
->
-> 
-> ~~~
-> rownames(resolved_name) <- c("amphs", "dogs", "cats", "flippers", "birds")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in `.rowNamesDF<-`(x, value = value): invalid 'row.names' length
-> ~~~
-> {: .error}
->
-> This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).
->
-> > ## There are at least two ways to do this.
+<br/>
+
+> > ## Pro tip 1.3: Name the rows of your 'match_names' object
+> >
+> > To facilitate the use of OTT ids later, you can name the rows of your 'match_names' object using the function `rownames()`.
+> >
+> > You can name them whatever you want. For example, you can use the `unique_name` identifier:
+> >
+> > 
+> > ~~~
+> > rownames(resolved_names) <- resolved_names$unique_name
+> > ~~~
+> > {: .language-r}
+> >
+> > Or simply call them something short that makes sense to you and is easy to remember:
+> >
+> > 
+> > ~~~
+> > rownames(resolved_names) <- c("amphs", "dogs", "cats", "flippers", "birds")
+> > ~~~
+> > {: .language-r}
+> >
+> > This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).
+> >
+> > There are at least two ways to do this.
 > >
 > > You can use the "$" to acces a named column of the data frame:
 > > 
 > > ~~~
-> > resolved_name["flippers",]$ott_id
+> > resolved_names["flippers",]$ott_id
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] NA
+> > $delphinidae
+> > [1] 698406
 > > ~~~
 > > {: .output}
-> > Or you can use the column name as column index:
+> > Or, you can use the column name as column index:
 > > 
 > > ~~~
-> > resolved_name["flippers","ott_id"]
+> > resolved_names["flippers","ott_id"]
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] NA
+> > $delphinidae
+> > [1] 698406
 > > ~~~
 > > {: .output}
 > > In both cases, you will get the OTT id of the Delphinidae. Cool!
 > {: .solution}
-{: .challenge}
-
-
-
-<br/>
-
-> > ## Pro tip 1.3: Extract data from the attributes of a 'match_names' object
-> >
-> > On Pro Tip 1.1, we saw that there is more data stored in the attributes of the 'match_names' object.
-> > The structure of this data is complicated and extracting it requires some hacking.
-> > There is one inbuilt function in the package `rotl` that will extract the synonyms from the attributes of a 'match_names' object.
-> >
-> > ## The function `synonyms()`
-> >
-> > 
-> > ~~~
-> > rotl::synonyms(resolved_name)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > $Amphibia
-> > [1] "Lissamphibia"
-> > 
-> > attr(,"class")
-> > [1] "otl_synonyms" "list"        
-> > ~~~
-> > {: .output}
-> >
-> > Neat!
-> >
-> {: .testimonial}
+{: .testimonial}
 
 <!--
 
@@ -572,11 +621,6 @@ The _Mus_ example is fixed.
 
 Put together two 'match_names' objects with `c()` or `rbind()`
 {: .callout} -->
-
-
-<br/>
-
-There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Let's see what we can do with these on the next section.
 
 <br/>
 
