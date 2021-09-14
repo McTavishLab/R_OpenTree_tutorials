@@ -51,35 +51,32 @@ This function takes a character vector of one or more scientific names as main a
 > 
 > ~~~
 > resolved_name <- rotl::tnrs_match_names(names = "amphibians")
+> resolved_name
 > ~~~
 > {: .language-r}
+> 
+> 
+> 
+> ~~~
+>   search_string unique_name approximate_match ott_id is_synonym flags
+> 1    amphibians    Amphibia              TRUE 544595      FALSE      
+>   number_matches
+> 1              6
+> ~~~
+> {: .output}
 >
 >
 {: .challenge}
 
-<br/>
+Ok, we were able to run the function `tnrs_match_names` successfully. Now, let's explore the structure of the output.
 
+<br/>
 
 ### The 'match_names' object
 
-Ok, we were able to run the function `tnrs_match_names` successfully. Now, let's explore its output by printing it to screen:
-
-~~~
-resolved_name
-~~~
-{: .language-r}
-
-~~~
-  search_string unique_name approximate_match ott_id is_synonym flags number_matches
-1    amphibians    Amphibia              TRUE 544595      FALSE                    6
-~~~
-{: .output}
-
-<br/>
-
-The output of the function is a data frame table. In R (and other coding languages), objects are assigned to defined data structures called [**classes**](https://www.datamentor.io/r-programming/object-class-introduction/). This makes data manipulation of objects from different functions much easier.
-A class is basically a data structure that is the same among all objects that belong to the same class.
-To get the name of the class of the `tnrs_match_names()` output we can use the function `class`.
+As we can tell from the data printed to screen, the output of the `tnrs_match_names` function is some sort of a data table. In R (and all object-oriented programmming languages), defined data structures called [**classes**](https://www.datamentor.io/r-programming/object-class-introduction/) are assigned to objects. This makes data manipulation and usage of objects across different functions much easier.
+Redundantly, a class is defined as a data structure that is the same among all objects that belong to the same class. However, we can do more to understadn the structure of any class,
+To get the name of the class of the `tnrs_match_names()` output, we will use the function `class`.
 
 
 ~~~
@@ -121,6 +118,7 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 (TRUE) or not (FALSE). It also indicates the type of flag associated to the taxon. Flags are markers that indicate if the taxon in question is problematic and should be included in further analyses of the Open Tree workflow. You can read more about flags in the [Open Tree wiki](https://github.com/OpenTreeOfLife/reference-taxonomy/wiki/Taxon-flags).
 
 Now we know what kind of data is retrieved by the `tnrs_match_names()` function. Pretty cool!
+
 <br/>
 
 > > ## Pro tip 1.1: Looking at "hidden" elements of a data object
@@ -196,6 +194,8 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 Now that we know about classes and the data structure of the `tnrs_match_names` output, we will learn how to use the tnrs_match_names function for multiple taxa.
 In this case, you will have to create a character vector with your taxon names and use it as input for `tnrs_match_names`:
 
+<br/>
+
 > ## Hands on! Running TNRS for multiple taxa
 >
 > Do a `tnrs_match_names()` run for the amphibians (Amphibia), the genus of the dog (_Canis_),
@@ -225,8 +225,6 @@ In this case, you will have to create a character vector with your taxon names a
 
 You should get a matched named for all the taxa in this example. If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time using `tnrs_match_names`.
 
-<br/>
-
 Finally,we are going to learn how to extract specific pieces of data from a `match_names` object to use in other functions and workflows.
 
 <br/>
@@ -247,7 +245,7 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 > >
 > >
-> > ## Using `sapply`
+> > Let's try ut using `sapply`:
 > >
 > > 
 > > ~~~
@@ -284,7 +282,7 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > ~~~
 > > {: .output}
 > >
-> > The data structure is not the same as we obtained using a single taxon name. To get that same data structure, we can transpose the output `resolved_names` with the function `t`, and make it a data.frame with the function `as.data.frame`:
+> > The data structure is not the same as we obtained using a single taxon name. To get that same data frame structure, we can transpose the output `resolved_names` with the function `t`, and make it a data.frame with the function `as.data.frame`:
 > >
 > > 
 > > ~~~
@@ -302,6 +300,48 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > {: .output}
 > > 
 > > 
+> > 
+> > ~~~
+> > resolved_names
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >             search_string unique_name approximate_match ott_id is_synonym flags
+> > amphibians     amphibians    Amphibia              TRUE 544595      FALSE      
+> > canis               canis       Canis             FALSE 372706      FALSE      
+> > felis               felis       Felis             FALSE 563165      FALSE      
+> > delphinidae   delphinidae Delphinidae             FALSE 698406      FALSE      
+> > avess               avess        Aves              TRUE  81461      FALSE      
+> >             number_matches
+> > amphibians               6
+> > canis                    2
+> > felis                    1
+> > delphinidae              1
+> > avess                    1
+> > ~~~
+> > {: .output}
+> >
+> > Our object is now a data frame, but it is not a 'match_names' object
+> > As we mentioned above, classes are ysed by functions to recognise data structure of objects. To be able to use this object with other functions from the `rotl` pacakge, we will have to add 'match_names' to our object class attribute:
+> > 
+> > 
+> > ~~~
+> > class(resolved_names) <- c("match_names", "data.frame")
+> > class(resolved_names)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "match_names" "data.frame" 
+> > ~~~
+> > {: .output}
+> > 
+> > Changing the class attribute does not change the actual structure of the object:
 > > 
 > > ~~~
 > > resolved_names
@@ -442,19 +482,6 @@ To extract data from the other columns there are no specialized functions, so yo
 > > 
 > > ~~~
 > > my_ott_id <- rotl::ott_id(resolved_names) # rotl:::ott_id.match_names(resolved_names) is the same.
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in UseMethod("ott_id"): no applicable method for 'ott_id' applied to an object of class "data.frame"
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > my_ott_id
 > > ~~~
 > > {: .language-r}
@@ -462,9 +489,11 @@ To extract data from the other columns there are no specialized functions, so yo
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'my_ott_id' not found
+> > named list()
+> > attr(,"class")
+> > [1] "otl_ott_id" "list"      
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > Or, get the OTT ids as a vector:
 > >
