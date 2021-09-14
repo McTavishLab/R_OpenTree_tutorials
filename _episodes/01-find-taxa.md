@@ -122,45 +122,45 @@ Finally, the `flags` column tells us if our unique name has been flagged in the 
 
 <br/>
 
-> ## Pro tip 1.1: Looking at "hidden" elements of a data object
->
-> The 'match_names' object has more data that is not exposed on the screen and is not part of the main data structure. This "hidden" data is stored in the attributes of the object.
-> All objects have at least one attribute, the class. Attributes can be accesed with the function `attributes()`, and are stored as a named list.
->
-> > ## Explore the attributes of the 'match_names' object
+> > ## Pro tip 1.1: Looking at "hidden" elements of a data object
 > >
-> > 
-> > ~~~
-> > names(attributes(resolved_name))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "names"              "row.names"          "class"             
-> > [4] "original_order"     "original_response"  "match_id"          
-> > [7] "has_original_match" "json_coords"       
-> > ~~~
-> > {: .output}
+> > The 'match_names' object has more data that is not exposed on the screen and is not part of the main data structure. This "hidden" data is stored in the attributes of the object.
+> > All objects have at least one attribute, the class. Attributes can be accesed with the function `attributes()`, and are stored as a named list.
 > >
-> > Look at the attributes of other objects:
-> > 
-> > ~~~
-> > attributes(my_taxa)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(expr, envir, enclos): object 'my_taxa' not found
-> > ~~~
-> > {: .error}
+> > > ## Explore the attributes of the 'match_names' object
+> > >
+> > > 
+> > > ~~~
+> > > names(attributes(resolved_name))
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > > [1] "names"              "row.names"          "class"             
+> > > [4] "original_order"     "original_response"  "match_id"          
+> > > [7] "has_original_match" "json_coords"       
+> > > ~~~
+> > > {: .output}
+> > >
+> > > Look at the attributes of other objects:
+> > > 
+> > > ~~~
+> > > attributes(my_taxa)
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > > Error in eval(expr, envir, enclos): object 'my_taxa' not found
+> > > ~~~
+> > > {: .error}
+> > >
+> > > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
 > >
-> > As you can see there are many more attributes in a 'match_names' object than in simpler objects.
-> {: .solution}
-{: .testimonial}
+> {: .testimonial}
 
 <br/>
 
@@ -198,110 +198,110 @@ In this case, you will have to create a character vector with your taxon names a
 
 <br/>
 
-### ❗  
+### ❗
 
 If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time using `tnrs_match_names`.
 
 <br/>
 
 
-> ## Pro Tip 1.2: Getting OTT ids for multiple taxa, the hacker way.
-> 
-> If you get a warning message saying that any of your taxon names "are not matched", it means that the `tnrs_match_names` function is not implementig TNRS for inputs with more than one name. This is an unexpected behaviour. See [this GitHub issue](https://github.com/ropensci/rotl/issues/134) for updates.
->
-> As you already know, running `tnrs_match_names` using one name at a time, works as expected:
->
-> 
-> ~~~
-> resolved_amph <- rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
-> resolved_aves <- rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
-> ~~~
-> {: .language-r}
->
-> If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
->
->
-> > ## Using `sapply`
+> > ## Pro Tip 1.2: Getting OTT ids for multiple taxa, the hacker way.
+> >
+> > If you get a warning message saying that any of your taxon names "are not matched", it means that the `tnrs_match_names` function is not implementig TNRS for inputs with more than one name. This is an unexpected behaviour. See [this GitHub issue](https://github.com/ropensci/rotl/issues/134) for updates.
+> >
+> > As you already know, running `tnrs_match_names` using one name at a time, works as expected:
 > >
 > > 
 > > ~~~
-> > resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
-> > class(resolved_names)
+> > resolved_amph <- rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
+> > resolved_aves <- rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "matrix" "array" 
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > resolved_names
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >                   amphibians   canis   felis   delphinidae   avess  
-> > search_string     "amphibians" "canis" "felis" "delphinidae" "avess"
-> > unique_name       "Amphibia"   "Canis" "Felis" "Delphinidae" "Aves" 
-> > approximate_match TRUE         FALSE   FALSE   FALSE         TRUE   
-> > ott_id            544595       372706  563165  698406        81461  
-> > is_synonym        FALSE        FALSE   FALSE   FALSE         FALSE  
-> > flags             ""           ""      ""      ""            ""     
-> > number_matches    6            2       1       1             1      
-> > ~~~
-> > {: .output}
 > >
-> > The data structure is not the same as we obtained using a single taxon name. To get that same data structure, we can transpose the output `resolved_names` with the function `t`, and make it a data.frame with the function `as.data.frame`:
+> > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 > >
-> > 
-> > ~~~
-> > resolved_names <- t(resolved_names)
-> > resolved_names <- as.data.frame(resolved_names)
-> > class(resolved_names)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "data.frame"
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > resolved_names
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >             search_string unique_name approximate_match ott_id is_synonym flags
-> > amphibians     amphibians    Amphibia              TRUE 544595      FALSE      
-> > canis               canis       Canis             FALSE 372706      FALSE      
-> > felis               felis       Felis             FALSE 563165      FALSE      
-> > delphinidae   delphinidae Delphinidae             FALSE 698406      FALSE      
-> > avess               avess        Aves              TRUE  81461      FALSE      
-> >             number_matches
-> > amphibians               6
-> > canis                    2
-> > felis                    1
-> > delphinidae              1
-> > avess                    1
-> > ~~~
-> > {: .output}
 > >
-> {: .solution}
-{: .discussion}
+> > > ## Using `sapply`
+> > >
+> > > 
+> > > ~~~
+> > > resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
+> > > class(resolved_names)
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > > [1] "matrix" "array" 
+> > > ~~~
+> > > {: .output}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > > resolved_names
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > >                   amphibians   canis   felis   delphinidae   avess  
+> > > search_string     "amphibians" "canis" "felis" "delphinidae" "avess"
+> > > unique_name       "Amphibia"   "Canis" "Felis" "Delphinidae" "Aves" 
+> > > approximate_match TRUE         FALSE   FALSE   FALSE         TRUE   
+> > > ott_id            544595       372706  563165  698406        81461  
+> > > is_synonym        FALSE        FALSE   FALSE   FALSE         FALSE  
+> > > flags             ""           ""      ""      ""            ""     
+> > > number_matches    6            2       1       1             1      
+> > > ~~~
+> > > {: .output}
+> > >
+> > > The data structure is not the same as we obtained using a single taxon name. To get that same data structure, we can transpose the output `resolved_names` with the function `t`, and make it a data.frame with the function `as.data.frame`:
+> > >
+> > > 
+> > > ~~~
+> > > resolved_names <- t(resolved_names)
+> > > resolved_names <- as.data.frame(resolved_names)
+> > > class(resolved_names)
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > > [1] "data.frame"
+> > > ~~~
+> > > {: .output}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > > resolved_names
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > 
+> > > 
+> > > ~~~
+> > >             search_string unique_name approximate_match ott_id is_synonym flags
+> > > amphibians     amphibians    Amphibia              TRUE 544595      FALSE      
+> > > canis               canis       Canis             FALSE 372706      FALSE      
+> > > felis               felis       Felis             FALSE 563165      FALSE      
+> > > delphinidae   delphinidae Delphinidae             FALSE 698406      FALSE      
+> > > avess               avess        Aves              TRUE  81461      FALSE      
+> > >             number_matches
+> > > amphibians               6
+> > > canis                    2
+> > > felis                    1
+> > > delphinidae              1
+> > > avess                    1
+> > > ~~~
+> > > {: .output}
+> >
+> >
+> {: .testimonial}
 
 <br/>
 
@@ -533,11 +533,10 @@ resolved_name[1,2]
 > > ## Pro tip 1.3: Extract data from the attributes of a 'match_names' object
 > >
 > > On Pro Tip 1.1, we saw that there is more data stored in the attributes of the 'match_names' object.
-> The structure of this data is complicated and extracting it requires some hacking.
-> >
-> > ## Using the function `synonyms()`
-> >
+> > The structure of this data is complicated and extracting it requires some hacking.
 > > There is one inbuilt function in the package `rotl` that will extract the synonyms from the attributes of a 'match_names' object.
+> >
+> > ## The function `synonyms()`
 > >
 > > 
 > > ~~~
@@ -558,7 +557,7 @@ resolved_name[1,2]
 > >
 > > Neat!
 > >
-> {: .solution}
+> {: .testimonial}
 
 <!--
 
@@ -573,13 +572,6 @@ The _Mus_ example is fixed.
 Put together two 'match_names' objects with `c()` or `rbind()`
 {: .callout} -->
 
-<br/>
-
-> ## Note: Going from a common name to a scientific name
->
->  TNRS only deals with scientific names. If you want to work with common names, you will have to use a service that can get the scientific name of a list of common names. There are no functions in `rotl` to deal with this. We know of at least two places that have implemented this otherwise. The [OneZoom](https://github.com/OneZoom/OZtree) project has developed a service that provides all scientific names associated to common names in the Encyclopedia of Life databse.
-The phylotastic project has implemented a [common name to scientific name service](https://github.com/phylotastic/phylo_services_docs/tree/master/ServiceDescription#common-name-to-scientific-name) that is also available in the r package [rphylotastic](https://github.com/phylotastic/rphylotastic).
-{: .discussion}
 
 <br/>
 
