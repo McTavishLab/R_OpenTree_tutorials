@@ -124,9 +124,23 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 > > ## Pro tip 1.1: Looking at "hidden" elements of a data object
 > >
 > > The 'match_names' object has more data that is not exposed on the screen and is not part of the main data structure. This "hidden" data is stored in the attributes of the object.
-> > All objects that are not one of the 4 basic types (character, numeric, boolean or ) have at least one attribute, the class. Attributes can be accesed with the function `attributes()`.
+> > All objects have at least one attribute, the class. If an object has more attributes, these can be accesed with the function `attributes()`.
 > >
-> > Try to look at the attributes of a basic object, such as a character vector:
+> > Let's explore the attributes and class of a basic object, such as a character vector. It certainly has a class:
+> >
+> > 
+> > ~~~
+> > class(c("Hello!", "my", "name", "is", "Luna!"))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "character"
+> > ~~~
+> > {: .output}
+> > But what about other attributes:
 > >
 > > 
 > > ~~~
@@ -141,10 +155,32 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 > > ~~~
 > > {: .output}
 > >
-> > As you can see, basic type objects have no hidden attributes.
+> > As you can see, some objects have no hidden attributes.
 > >
-> > Let's look at the attributes of our 'match_names' object:
+> > Let's look for hidden attributes on our 'match_names' object:
 > >
+> > 
+> > ~~~
+> > attributes(resolved_name)
+> > ~~~
+> > {: .language-r}
+> >
+> > The structure of the "attributes" data is complicated and extracting it requires some exploring.
+> >
+> > 
+> > ~~~
+> > class(attributes(resolved_name))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "list"
+> > ~~~
+> > {: .output}
+> > 
+> > 
 > > 
 > > ~~~
 > > names(attributes(resolved_name))
@@ -159,10 +195,223 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 > > [7] "has_original_match" "json_coords"       
 > > ~~~
 > > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > str(attributes(resolved_name))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > List of 8
+> >  $ names             : chr [1:7] "search_string" "unique_name" "approximate_match" "ott_id" ...
+> >  $ row.names         : int 1
+> >  $ class             : chr [1:2] "match_names" "data.frame"
+> >  $ original_order    : num 1
+> >  $ original_response :List of 10
+> >   ..$ context                     : chr "All life"
+> >   ..$ governing_code              : chr "undefined"
+> >   ..$ includes_approximate_matches: logi TRUE
+> >   ..$ includes_deprecated_taxa    : logi FALSE
+> >   ..$ includes_suppressed_names   : logi FALSE
+> >   ..$ matched_names               :List of 1
+> >   .. ..$ : chr "amphibians"
+> >   ..$ results                     :List of 1
+> >   .. ..$ :List of 2
+> >   .. .. ..$ matches:List of 6
+> >   .. .. .. ..$ :List of 7
+> >   .. .. .. .. ..$ is_approximate_match: logi TRUE
+> >   .. .. .. .. ..$ is_synonym          : logi FALSE
+> >   .. .. .. .. ..$ matched_name        : chr "Amphibina"
+> >   .. .. .. .. ..$ nomenclature_code   : chr "ICZN"
+> >   .. .. .. .. ..$ score               : num 0.778
+> >   .. .. .. .. ..$ search_string       : chr "amphibians"
+> >   .. .. .. .. ..$ taxon               :List of 10
+> >   .. .. .. .. .. ..$ flags                   : list()
+> >   .. .. .. .. .. ..$ is_suppressed           : logi FALSE
+> >   .. .. .. .. .. ..$ is_suppressed_from_synth: logi FALSE
+> >   .. .. .. .. .. ..$ name                    : chr "Succinea"
+> >   .. .. .. .. .. ..$ ott_id                  : int 978937
+> >   .. .. .. .. .. ..$ rank                    : chr "genus"
+> >   .. .. .. .. .. ..$ source                  : chr "ott3.3draft1"
+> >   .. .. .. .. .. ..$ synonyms                :List of 12
+> >   .. .. .. .. .. .. ..$ : chr "Amphibia"
+> >   .. .. .. .. .. .. ..$ : chr "Amphibina"
+> >   .. .. .. .. .. .. ..$ : chr "Arborcinea"
+> >   .. .. .. .. .. .. ..$ : chr "Brachyspira"
+> >   .. .. .. .. .. .. ..$ : chr "Cerinasota"
+> >   .. .. .. .. .. .. ..$ : chr "Cochlohydra"
+> >   .. .. .. .. .. .. ..$ : chr "Luccinea"
+> >   .. .. .. .. .. .. ..$ : chr "Lucena"
+> >   .. .. .. .. .. .. ..$ : chr "Succinaea"
+> >   .. .. .. .. .. .. ..$ : chr "Succinastrum"
+> >   .. .. .. .. .. .. ..$ : chr "Tapada"
+> >   .. .. .. .. .. .. ..$ : chr "Truella"
+> >   .. .. .. .. .. ..$ tax_sources             :List of 7
+> >   .. .. .. .. .. .. ..$ : chr "worms:181586"
+> >   .. .. .. .. .. .. ..$ : chr "ncbi:145426"
+> >   .. .. .. .. .. .. ..$ : chr "gbif:2297197"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1393632"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1348813"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1133222"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1202351"
+> >   .. .. .. .. .. ..$ unique_name             : chr "Succinea"
+> >   .. .. .. ..$ :List of 7
+> >   .. .. .. .. ..$ is_approximate_match: logi TRUE
+> >   .. .. .. .. ..$ is_synonym          : logi FALSE
+> >   .. .. .. .. ..$ matched_name        : chr "Amphibia"
+> >   .. .. .. .. ..$ nomenclature_code   : chr "ICZN"
+> >   .. .. .. .. ..$ score               : num 0.75
+> >   .. .. .. .. ..$ search_string       : chr "amphibians"
+> >   .. .. .. .. ..$ taxon               :List of 10
+> >   .. .. .. .. .. ..$ flags                   : list()
+> >   .. .. .. .. .. ..$ is_suppressed           : logi FALSE
+> >   .. .. .. .. .. ..$ is_suppressed_from_synth: logi FALSE
+> >   .. .. .. .. .. ..$ name                    : chr "Amphibia"
+> >   .. .. .. .. .. ..$ ott_id                  : int 544595
+> >   .. .. .. .. .. ..$ rank                    : chr "class"
+> >   .. .. .. .. .. ..$ source                  : chr "ott3.3draft1"
+> >   .. .. .. .. .. ..$ synonyms                :List of 1
+> >   .. .. .. .. .. .. ..$ : chr "Lissamphibia"
+> >   .. .. .. .. .. ..$ tax_sources             :List of 4
+> >   .. .. .. .. .. .. ..$ : chr "ncbi:8292"
+> >   .. .. .. .. .. .. ..$ : chr "worms:178701"
+> >   .. .. .. .. .. .. ..$ : chr "gbif:131"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1131"
+> >   .. .. .. .. .. ..$ unique_name             : chr "Amphibia"
+> >   .. .. .. ..$ :List of 7
+> >   .. .. .. .. ..$ is_approximate_match: logi TRUE
+> >   .. .. .. .. ..$ is_synonym          : logi FALSE
+> >   .. .. .. .. ..$ matched_name        : chr "Amphibia"
+> >   .. .. .. .. ..$ nomenclature_code   : chr "ICN"
+> >   .. .. .. .. ..$ score               : num 0.75
+> >   .. .. .. .. ..$ search_string       : chr "amphibians"
+> >   .. .. .. .. ..$ taxon               :List of 10
+> >   .. .. .. .. .. ..$ flags                   :List of 1
+> >   .. .. .. .. .. .. ..$ : chr "sibling_higher"
+> >   .. .. .. .. .. ..$ is_suppressed           : logi FALSE
+> >   .. .. .. .. .. ..$ is_suppressed_from_synth: logi FALSE
+> >   .. .. .. .. .. ..$ name                    : chr "Bostrychia"
+> >   .. .. .. .. .. ..$ ott_id                  : int 782484
+> >   .. .. .. .. .. ..$ rank                    : chr "genus"
+> >   .. .. .. .. .. ..$ source                  : chr "ott3.3draft1"
+> >   .. .. .. .. .. ..$ synonyms                :List of 1
+> >   .. .. .. .. .. .. ..$ : chr "Amphibia"
+> >   .. .. .. .. .. ..$ tax_sources             :List of 5
+> >   .. .. .. .. .. .. ..$ : chr "silva:AF203893/#6"
+> >   .. .. .. .. .. .. ..$ : chr "ncbi:103711"
+> >   .. .. .. .. .. .. ..$ : chr "worms:143904"
+> >   .. .. .. .. .. .. ..$ : chr "gbif:2661216"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1282403"
+> >   .. .. .. .. .. ..$ unique_name             : chr "Bostrychia (genus in kingdom Archaeplastida)"
+> >   .. .. .. ..$ :List of 7
+> >   .. .. .. .. ..$ is_approximate_match: logi TRUE
+> >   .. .. .. .. ..$ is_synonym          : logi FALSE
+> >   .. .. .. .. ..$ matched_name        : chr "Amphibia"
+> >   .. .. .. .. ..$ nomenclature_code   : chr "ICZN"
+> >   .. .. .. .. ..$ score               : num 0.75
+> >   .. .. .. .. ..$ search_string       : chr "amphibians"
+> >   .. .. .. .. ..$ taxon               :List of 10
+> >   .. .. .. .. .. ..$ flags                   : list()
+> >   .. .. .. .. .. ..$ is_suppressed           : logi FALSE
+> >   .. .. .. .. .. ..$ is_suppressed_from_synth: logi FALSE
+> >   .. .. .. .. .. ..$ name                    : chr "Egadroma"
+> >   .. .. .. .. .. ..$ ott_id                  : int 732965
+> >   .. .. .. .. .. ..$ rank                    : chr "genus"
+> >   .. .. .. .. .. ..$ source                  : chr "ott3.3draft1"
+> >   .. .. .. .. .. ..$ synonyms                :List of 1
+> >   .. .. .. .. .. .. ..$ : chr "Amphibia"
+> >   .. .. .. .. .. ..$ tax_sources             :List of 2
+> >   .. .. .. .. .. .. ..$ : chr "ncbi:247376"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1307131"
+> >   .. .. .. .. .. ..$ unique_name             : chr "Egadroma"
+> >   .. .. .. ..$ :List of 7
+> >   .. .. .. .. ..$ is_approximate_match: logi TRUE
+> >   .. .. .. .. ..$ is_synonym          : logi FALSE
+> >   .. .. .. .. ..$ matched_name        : chr "Amphibia"
+> >   .. .. .. .. ..$ nomenclature_code   : chr "ICZN"
+> >   .. .. .. .. ..$ score               : num 0.75
+> >   .. .. .. .. ..$ search_string       : chr "amphibians"
+> >   .. .. .. .. ..$ taxon               :List of 10
+> >   .. .. .. .. .. ..$ flags                   : list()
+> >   .. .. .. .. .. ..$ is_suppressed           : logi FALSE
+> >   .. .. .. .. .. ..$ is_suppressed_from_synth: logi FALSE
+> >   .. .. .. .. .. ..$ name                    : chr "Stenolophus"
+> >   .. .. .. .. .. ..$ ott_id                  : int 561664
+> >   .. .. .. .. .. ..$ rank                    : chr "genus"
+> >   .. .. .. .. .. ..$ source                  : chr "ott3.3draft1"
+> >   .. .. .. .. .. ..$ synonyms                :List of 6
+> >   .. .. .. .. .. .. ..$ : chr "Agonoderos"
+> >   .. .. .. .. .. .. ..$ : chr "Agonoderus"
+> >   .. .. .. .. .. .. ..$ : chr "Amphibia"
+> >   .. .. .. .. .. .. ..$ : chr "Astenolophus"
+> >   .. .. .. .. .. .. ..$ : chr "Egadroma"
+> >   .. .. .. .. .. .. ..$ : chr "Stenelophus"
+> >   .. .. .. .. .. ..$ tax_sources             :List of 3
+> >   .. .. .. .. .. .. ..$ : chr "ncbi:177549"
+> >   .. .. .. .. .. .. ..$ : chr "gbif:8401238"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1330562"
+> >   .. .. .. .. .. ..$ unique_name             : chr "Stenolophus"
+> >   .. .. .. ..$ :List of 7
+> >   .. .. .. .. ..$ is_approximate_match: logi TRUE
+> >   .. .. .. .. ..$ is_synonym          : logi FALSE
+> >   .. .. .. .. ..$ matched_name        : chr "Amphibia"
+> >   .. .. .. .. ..$ nomenclature_code   : chr "ICZN"
+> >   .. .. .. .. ..$ score               : num 0.75
+> >   .. .. .. .. ..$ search_string       : chr "amphibians"
+> >   .. .. .. .. ..$ taxon               :List of 10
+> >   .. .. .. .. .. ..$ flags                   : list()
+> >   .. .. .. .. .. ..$ is_suppressed           : logi FALSE
+> >   .. .. .. .. .. ..$ is_suppressed_from_synth: logi FALSE
+> >   .. .. .. .. .. ..$ name                    : chr "Succinea"
+> >   .. .. .. .. .. ..$ ott_id                  : int 978937
+> >   .. .. .. .. .. ..$ rank                    : chr "genus"
+> >   .. .. .. .. .. ..$ source                  : chr "ott3.3draft1"
+> >   .. .. .. .. .. ..$ synonyms                :List of 12
+> >   .. .. .. .. .. .. ..$ : chr "Amphibia"
+> >   .. .. .. .. .. .. ..$ : chr "Amphibina"
+> >   .. .. .. .. .. .. ..$ : chr "Arborcinea"
+> >   .. .. .. .. .. .. ..$ : chr "Brachyspira"
+> >   .. .. .. .. .. .. ..$ : chr "Cerinasota"
+> >   .. .. .. .. .. .. ..$ : chr "Cochlohydra"
+> >   .. .. .. .. .. .. ..$ : chr "Luccinea"
+> >   .. .. .. .. .. .. ..$ : chr "Lucena"
+> >   .. .. .. .. .. .. ..$ : chr "Succinaea"
+> >   .. .. .. .. .. .. ..$ : chr "Succinastrum"
+> >   .. .. .. .. .. .. ..$ : chr "Tapada"
+> >   .. .. .. .. .. .. ..$ : chr "Truella"
+> >   .. .. .. .. .. ..$ tax_sources             :List of 7
+> >   .. .. .. .. .. .. ..$ : chr "worms:181586"
+> >   .. .. .. .. .. .. ..$ : chr "ncbi:145426"
+> >   .. .. .. .. .. .. ..$ : chr "gbif:2297197"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1393632"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1348813"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1133222"
+> >   .. .. .. .. .. .. ..$ : chr "irmng:1202351"
+> >   .. .. .. .. .. ..$ unique_name             : chr "Succinea"
+> >   .. .. ..$ name   : chr "amphibians"
+> >   ..$ taxonomy                    :List of 5
+> >   .. ..$ author : chr "open tree of life project"
+> >   .. ..$ name   : chr "ott"
+> >   .. ..$ source : chr "ott3.3draft1"
+> >   .. ..$ version: chr "3.3"
+> >   .. ..$ weburl : chr "https://tree.opentreeoflife.org/about/taxonomy-version/ott3.3"
+> >   ..$ unambiguous_names           : list()
+> >   ..$ unmatched_names             : list()
+> >  $ match_id          : int 2
+> >  $ has_original_match: logi TRUE
+> >  $ json_coords       :'data.frame':	1 obs. of  4 variables:
+> >   ..$ search_string     : chr "amphibians"
+> >   ..$ original_order    : num 1
+> >   ..$ match_id          : int 2
+> >   ..$ has_original_match: logi TRUE
+> > ~~~
+> > {: .output}
 > >
-> > The structure of the "attributes" data is complicated and extracting it requires some hacking.
-> >
-> > The function `synonyms()` in the package `rotl` will extract the synonyms from the attributes of a 'match_names' object.
+> > There are many hidden attributes on our 'match_names' object. The function `synonyms()` in the package `rotl` can extract the synonyms from the attributes of a 'match_names' object.
 > >
 > >
 > > 
@@ -182,7 +431,7 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 > > ~~~
 > > {: .output}
 > >
-> > Neat!
+> > That's neat!
 > >
 > {: .solution}
 {: .testimonial}
@@ -237,15 +486,29 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > >
 > > 
 > > ~~~
-> > resolved_amph <- rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
-> > resolved_aves <- rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
+> > rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
+> > rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   search_string unique_name approximate_match ott_id is_synonym flags
+> > 1    amphibians    Amphibia              TRUE 544595      FALSE      
+> >   number_matches
+> > 1              6
+> >   search_string unique_name approximate_match ott_id is_synonym flags
+> > 1         avess        Aves              TRUE  81461      FALSE      
+> >   number_matches
+> > 1              1
+> > ~~~
+> > {: .output}
 > >
 > > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 > >
 > >
-> > Let's try ut using `sapply`:
+> > Let's try it using `sapply`:
 > >
 > > 
 > > ~~~
@@ -288,20 +551,6 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > ~~~
 > > resolved_names <- t(resolved_names)
 > > resolved_names <- as.data.frame(resolved_names)
-> > class(resolved_names)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "data.frame"
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
 > > resolved_names
 > > ~~~
 > > {: .language-r}
@@ -323,10 +572,24 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > avess                    1
 > > ~~~
 > > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > class(resolved_names)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "data.frame"
+> > ~~~
+> > {: .output}
 > >
 > > Our object is now a data frame, but it is not a 'match_names' object
-> > As we mentioned above, classes are ysed by functions to recognise data structure of objects. To be able to use this object with other functions from the `rotl` pacakge, we will have to add 'match_names' to our object class attribute:
-> > 
+> > As we mentioned above, classes are used by functions to recognise suitable data structure of objects. To use this object with other functions from the `rotl` pacakge, we will have to add 'match_names' to the class of our object:
+> >
 > > 
 > > ~~~
 > > class(resolved_names) <- c("match_names", "data.frame")
@@ -340,7 +603,7 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > [1] "match_names" "data.frame" 
 > > ~~~
 > > {: .output}
-> > 
+> >
 > > Changing the class attribute does not change the actual structure of the object:
 > > 
 > > ~~~
@@ -591,6 +854,7 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > 
 > > ~~~
 > > rownames(resolved_names) <- resolved_names$unique_name
+> > resolved_names
 > > ~~~
 > > {: .language-r}
 > >
@@ -599,8 +863,20 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > 
 > > ~~~
 > > rownames(resolved_names) <- c("amphs", "dogs", "cats", "flippers", "birds")
+> > resolved_names
+> > >  >
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error: <text>:3:1: unexpected '>'
+> > 2: resolved_names
+> > 3: >
+> >    ^
+> > ~~~
+> > {: .error}
 > >
 > > This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).
 > >
@@ -616,8 +892,8 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > 
 > > 
 > > ~~~
-> > $delphinidae
-> > [1] 698406
+> > $<NA>
+> > NULL
 > > ~~~
 > > {: .output}
 > > Or, you can use the column name as column index:
@@ -630,8 +906,8 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > 
 > > 
 > > ~~~
-> > $delphinidae
-> > [1] 698406
+> > $<NA>
+> > NULL
 > > ~~~
 > > {: .output}
 > > In both cases, you will get the OTT id of the Delphinidae. Cool!

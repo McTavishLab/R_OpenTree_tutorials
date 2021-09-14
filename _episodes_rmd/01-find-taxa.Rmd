@@ -104,32 +104,43 @@ Now we know what kind of data is retrieved by the `tnrs_match_names()` function.
 > > ## Pro tip 1.1: Looking at "hidden" elements of a data object
 > >
 > > The 'match_names' object has more data that is not exposed on the screen and is not part of the main data structure. This "hidden" data is stored in the attributes of the object.
-> > All objects that are not one of the 4 basic types (character, numeric, boolean or ) have at least one attribute, the class. Attributes can be accesed with the function `attributes()`.
+> > All objects have at least one attribute, the class. If an object has more attributes, these can be accesed with the function `attributes()`.
 > >
-> > Try to look at the attributes of a basic object, such as a character vector:
+> > Let's explore the attributes and class of a basic object, such as a character vector. It certainly has a class:
+> >
+> > ```{r, eval = TRUE}
+> > class(c("Hello!", "my", "name", "is", "Luna!"))
+> > ```
+> > But what about other attributes:
 > >
 > > ```{r, eval = TRUE}
 > > attributes(c("Hello!", "my", "name", "is", "Luna!"))
 > > ```
 > >
-> > As you can see, basic type objects have no hidden attributes.
+> > As you can see, some objects have no hidden attributes.
 > >
-> > Let's look at the attributes of our 'match_names' object:
+> > Let's look for hidden attributes on our 'match_names' object:
 > >
-> > ```{r, eval = TRUE}
-> > names(attributes(resolved_name))
+> > ```{r, eval = FALSE}
+> > attributes(resolved_name)
 > > ```
 > >
-> > The structure of the "attributes" data is complicated and extracting it requires some hacking.
+> > The structure of the "attributes" data is complicated and extracting it requires some exploring.
 > >
-> > The function `synonyms()` in the package `rotl` will extract the synonyms from the attributes of a 'match_names' object.
+> > ```{r, eval = TRUE}
+> > class(attributes(resolved_name))
+> > names(attributes(resolved_name))
+> > str(attributes(resolved_name))
+> > ```
+> >
+> > There are many hidden attributes on our 'match_names' object. The function `synonyms()` in the package `rotl` can extract the synonyms from the attributes of a 'match_names' object.
 > >
 > >
 > > ```{r, eval = TRUE}
 > > rotl::synonyms(resolved_name)
 > > ```
 > >
-> > Neat!
+> > That's neat!
 > >
 > {: .solution}
 {: .testimonial}
@@ -174,14 +185,14 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > As you already know, running `tnrs_match_names` using one name at a time, works as expected:
 > >
 > > ```{r, eval = TRUE, results = "hold"}
-> > resolved_amph <- rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
-> > resolved_aves <- rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
+> > rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
+> > rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
 > > ```
 > >
 > > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 > >
 > >
-> > Let's try ut using `sapply`:
+> > Let's try it using `sapply`:
 > >
 > > ```{r, eval = TRUE}
 > > resolved_names <- sapply(my_taxa, rotl::tnrs_match_names)
@@ -194,18 +205,18 @@ Finally,we are going to learn how to extract specific pieces of data from a `mat
 > > ```{r, eval = TRUE}
 > > resolved_names <- t(resolved_names)
 > > resolved_names <- as.data.frame(resolved_names)
-> > class(resolved_names)
 > > resolved_names
+> > class(resolved_names)
 > > ```
 > >
 > > Our object is now a data frame, but it is not a 'match_names' object
-> > As we mentioned above, classes are ysed by functions to recognise data structure of objects. To be able to use this object with other functions from the `rotl` pacakge, we will have to add 'match_names' to our object class attribute:
-> > 
+> > As we mentioned above, classes are used by functions to recognise suitable data structure of objects. To use this object with other functions from the `rotl` pacakge, we will have to add 'match_names' to the class of our object:
+> >
 > > ```{r, eval = TRUE}
 > > class(resolved_names) <- c("match_names", "data.frame")
 > > class(resolved_names)
 > > ```
-> > 
+> >
 > > Changing the class attribute does not change the actual structure of the object:
 > > ```{r, eval = TRUE}
 > > resolved_names
@@ -258,14 +269,14 @@ To extract data from the other columns there are no specialized functions, so yo
 > >
 > > Get the OTT ids as a list, with the function `ott_id()`:
 > >
-> > ```{r}
+> > ```{r, eval = TRUE}
 > > my_ott_id <- rotl::ott_id(resolved_names) # rotl:::ott_id.match_names(resolved_names) is the same.
 > > my_ott_id
 > > ```
 > >
 > > Or, get the OTT ids as a vector:
 > >
-> > ```{r}
+> > ```{r, eval = TRUE}
 > > my_ott_id <- resolved_names$ott_id # or resolved_names[, "ott_id"]
 > > my_ott_id
 > > ```
@@ -304,12 +315,16 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > >
 > > ```{r, eval = FALSE}
 > > rownames(resolved_names) <- resolved_names$unique_name
+> > resolved_names
+> >
 > > ```
 > >
 > > Or simply call them something short that makes sense to you and is easy to remember:
 > >
 > > ```{r}
 > > rownames(resolved_names) <- c("amphs", "dogs", "cats", "flippers", "birds")
+> > resolved_names
+>  >
 > > ```
 > >
 > > This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).
