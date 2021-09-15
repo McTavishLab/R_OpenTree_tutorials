@@ -165,7 +165,7 @@ In this case, you will have to create a character vector with your taxon names a
 >
 > ```{r, eval = TRUE}
 > my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "avess")
-> resolved_names <- rotl::tnrs_match_names(names = my_taxa, do_approximate_matching = TRUE)
+> resolved_names <- rotl::tnrs_match_names(names = my_taxa, context_name = "All life")
 > ```
 >
 {: .challenge}
@@ -174,7 +174,7 @@ In this case, you will have to create a character vector with your taxon names a
 
 You should get a matched named for all the taxa in this example. If you do not get a match for all your taxa, and you get an unexpected warning message, it means that the `tnrs_match_names` function might not be working as expected. Please refer to Pro tip 1.2 below for alternative ways to get OTT ids for multiple taxa at a time using `tnrs_match_names`.
 
-Finally,we are going to learn how to extract specific pieces of data from a `match_names` object to use in other functions and workflows.
+Finally, we are going to learn how to extract specific pieces of data from a `match_names` object to use in other functions and workflows.
 
 <br/>
 
