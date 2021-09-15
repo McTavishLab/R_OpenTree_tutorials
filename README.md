@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/406901925.svg)](https://zenodo.org/badge/latestdoi/406901925)
+
 # Using the Open Tree of Life for your Research -- with R!
 
 This repository contains the lesson website for the lesson ["Using the Open Tree of Life for your Research with R!"](https://mctavishlab.github.io/R_OpenTree_tutorials/)
