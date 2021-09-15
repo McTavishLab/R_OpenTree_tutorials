@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "0. Package versions"
+title: "Package versions"
 teaching: 5
 exercises: 5
 questions:

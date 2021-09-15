@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "1. Finding your taxa in the Open Tree of Life Taxonomy"
+title: "Finding your taxa in the Open Tree of Life Taxonomy"
 teaching: 5
 exercises: 5
 questions:

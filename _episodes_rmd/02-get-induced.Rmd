@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "2. Getting a piece of the Synthetic Open Tree of Life"
+title: "Getting a piece of the Synthetic Open Tree of Life"
 teaching: 5
 exercises: 5
 questions:
