@@ -24,6 +24,8 @@ repository: <USERNAME>/<PROJECT>
 # Email address, no mailto:
 email: "sanchez.reyes.luna@gmail.com"
 
+last_update: September 15, 2021
+
 # Sites.
 amy_site: "https://amy.carpentries.org/workshops"
 carpentries_github: "https://github.com/carpentries"
