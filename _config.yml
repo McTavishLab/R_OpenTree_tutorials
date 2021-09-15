@@ -27,21 +27,6 @@ email: "sanchez.reyes.luna@gmail.com"
 last_update: September 15, 2021
 
 # Sites.
-amy_site: "https://amy.carpentries.org/workshops"
-carpentries_github: "https://github.com/carpentries"
-carpentries_pages: "https://carpentries.github.io"
-carpentries_site: "https://carpentries.org/"
-dc_site: "https://datacarpentry.org"
-example_repo: "https://github.com/carpentries/lesson-example"
-example_site: "https://carpentries.github.io/lesson-example"
-lc_site: "https://librarycarpentry.org/"
-swc_github: "https://github.com/swcarpentry"
-swc_pages: "https://swcarpentry.github.io"
-swc_site: "https://software-carpentry.org"
-template_repo: "https://github.com/carpentries/styles"
-training_site: "https://carpentries.github.io/instructor-training"
-workshop_repo: "https://github.com/carpentries/workshop-template"
-workshop_site: "https://carpentries.github.io/workshop-template"
 cc_by_human: "https://creativecommons.org/licenses/by/4.0/"
 
 # Surveys.
