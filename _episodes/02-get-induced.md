@@ -18,21 +18,6 @@ keypoints:
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
 
-~~~
-## 
-## Attaching package: 'datelifeplot'
-~~~
-{: .output}
-
-
-
-~~~
-## The following objects are masked from 'package:datelife':
-## 
-##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
-##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
-~~~
-{: .output}
 <br/>
 <br/>
 

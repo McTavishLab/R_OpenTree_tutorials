@@ -15,7 +15,7 @@ keypoints:
 - "Portions of the synthetic OpenTree can be extracted from a single OTT id or from a bunch of OTT ids"
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
-```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 source("../bin/chunk-options.R")
 tol <- rotl::tol_about()
 ```

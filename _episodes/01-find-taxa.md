@@ -21,21 +21,6 @@ keypoints:
 - "You can not go from a common name to OTT id using the Open Tree of Life tools."
 ---
 
-~~~
-## 
-## Attaching package: 'datelifeplot'
-~~~
-{: .output}
-
-
-
-~~~
-## The following objects are masked from 'package:datelife':
-## 
-##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
-##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
-~~~
-{: .output}
 <br/>
 <br/>
 

@@ -15,21 +15,6 @@ keypoints:
 - "Package version is key for science reproducibility, and you can document it using the function packageVersion()."
 ---
 
-~~~
-## 
-## Attaching package: 'datelifeplot'
-~~~
-{: .output}
-
-
-
-~~~
-## The following objects are masked from 'package:datelife':
-## 
-##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
-##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
-~~~
-{: .output}
 <br/>
 <br/>
 
@@ -152,16 +137,25 @@ other attached packages:
 [7] remotes_2.4.0          
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7        compiler_4.1.0    prettyunits_1.1.1 tools_4.1.0      
- [5] progress_1.2.2    digest_0.6.27     lubridate_1.7.10  jsonlite_1.7.2   
- [9] evaluate_0.14     lifecycle_1.0.0   nlme_3.1-152      lattice_0.20-44  
-[13] pkgconfig_2.0.3   rlang_0.4.11      curl_4.3.2        yaml_2.2.1       
-[17] parallel_4.1.0    xfun_0.24         stringr_1.4.0     httr_1.4.2       
-[21] generics_0.1.0    vctrs_0.3.8       hms_1.1.0         grid_4.1.0       
-[25] glue_1.4.2        R6_2.5.1          rentrez_1.2.3     XML_3.99-0.7     
-[29] rmarkdown_2.9     purrr_0.3.4       magrittr_2.0.1    htmltools_0.5.1.1
-[33] ellipsis_0.3.2    assertthat_0.2.1  stringi_1.7.4     rncl_0.8.4       
-[37] rotl_3.0.11       crayon_1.4.1     
+ [1] phangorn_2.7.0          progress_1.2.2          xfun_0.24              
+ [4] purrr_0.3.4             lattice_0.20-44         phytools_0.7-80        
+ [7] vctrs_0.3.8             generics_0.1.0          expm_0.999-6           
+[10] htmltools_0.5.1.1       yaml_2.2.1              XML_3.99-0.7           
+[13] rlang_0.4.11            glue_1.4.2              rentrez_1.2.3          
+[16] lifecycle_1.0.0         stringr_1.4.0           combinat_0.0-8         
+[19] codetools_0.2-18        coda_0.19-4             evaluate_0.14          
+[22] parallel_4.1.0          curl_4.3.2              Rcpp_1.0.7             
+[25] plotrix_3.8-1           clusterGeneration_1.3.7 scatterplot3d_0.3-41   
+[28] jsonlite_1.7.2          tmvnsim_1.0-2           fastmatch_1.1-0        
+[31] mnormt_2.0.2            hms_1.1.0               digest_0.6.27          
+[34] rncl_0.8.4              stringi_1.7.4           numDeriv_2016.8-1.1    
+[37] grid_4.1.0              quadprog_1.5-8          tools_4.1.0            
+[40] magrittr_2.0.1          maps_3.3.0              crayon_1.4.1           
+[43] pkgconfig_2.0.3         ellipsis_0.3.2          MASS_7.3-54            
+[46] Matrix_1.3-3            prettyunits_1.1.1       lubridate_1.7.10       
+[49] assertthat_0.2.1        rmarkdown_2.9           httr_1.4.2             
+[52] R6_2.5.1                rotl_3.0.11             igraph_1.2.6           
+[55] nlme_3.1-152            compiler_4.1.0         
 ~~~
 {: .output}
 <!--

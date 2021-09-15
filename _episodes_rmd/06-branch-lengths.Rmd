@@ -14,7 +14,7 @@ keypoints:
 - "chronograms are stored in the `opentree_chronograms` object."
 - "source chronograms are retrieved at the species level only (for now)."
 ---
-```{r, eval = TRUE, echo = FALSE, warning = FALSE, results = 'hide'}
+```{r, eval = TRUE, echo = FALSE, warning = FALSE, results = 'hide', message = FALSE}
 source("../bin/chunk-options.R")
 all_properties <- rotl::studies_properties()
 ```

@@ -13,7 +13,7 @@ keypoints:
 - "It is not possible to get a subtre from an OTT id that is not in the synthetic tree."
 - "OTT ids and node ids allow us to interact with the synthetic OpenTree."
 ---
-```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 source("../bin/chunk-options.R")
 ```
 

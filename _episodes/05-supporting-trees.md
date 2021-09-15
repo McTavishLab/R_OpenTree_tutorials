@@ -13,21 +13,6 @@ keypoints:
 - "Supporting trees usually contain more taxa than the ones we are interested in."
 ---
 
-~~~
-## 
-## Attaching package: 'datelifeplot'
-~~~
-{: .output}
-
-
-
-~~~
-## The following objects are masked from 'package:datelife':
-## 
-##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
-##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
-~~~
-{: .output}
 
 <br/>
 <br/>

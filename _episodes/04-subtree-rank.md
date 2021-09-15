@@ -6,28 +6,13 @@ title: "Getting an induced subtree of all taxa within a taxonomic rank"
 teaching: 5
 exercises: 5
 questions:
-- "How do I get all taxa from a certain rank?"
+- "How do I get all taxa from a certain taxonomic rank?"
 objectives:
-- "Get an induced subtree from all taxa of a certain taxonomic rank."
+- "Get an induced subtree from all taxa of a given taxonomic rank."
 keypoints:
 - "It is possible to get all types of subsets from the synthetic tree, as long as you can get the OTT ids!"
 ---
 
-~~~
-## 
-## Attaching package: 'datelifeplot'
-~~~
-{: .output}
-
-
-
-~~~
-## The following objects are masked from 'package:datelife':
-## 
-##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
-##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
-~~~
-{: .output}
 <br/>
 <br/>
 

@@ -10,7 +10,7 @@ objectives:
 keypoints:
 - "Supporting trees usually contain more taxa than the ones we are interested in."
 ---
-```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 source("../bin/chunk-options.R")
 ```
 
