@@ -31,6 +31,7 @@ ot_link: "https://tree.opentreeoflife.org"
 # Sites.
 cc_by_human: "https://creativecommons.org/licenses/by/4.0/"
 
+workshop_repo: "https://github.com/carpentries/workshop-template"
 
 # Start time in minutes (0 to be clock-independent, 540 to show a start at 09:00 am).
 start_time: 0
