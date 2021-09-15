@@ -63,7 +63,7 @@ Super cool!
 
 <br/>
 
-We have seen up to now how to get a portion of the synthetic OTOL. How do I inspect the source phylogenetic trees that support the subtrees?
+We have seen up to now how to get a portion of the synthetic OpenTree. How do I inspect the source phylogenetic trees that support the subtrees?
 
 <br/>
 

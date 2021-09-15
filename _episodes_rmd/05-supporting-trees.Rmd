@@ -6,7 +6,7 @@ exercises: 5
 questions:
 - "What are the original studies supporting relationships in my synthetic subtree?"
 objectives:
-- "Get supporting trees for certain regions of the synthetic Open Tree of Life."
+- "Get supporting trees for certain regions of the synthetic OpenTree."
 keypoints:
 - "Supporting trees usually contain more taxa than the ones we are interested in."
 ---
@@ -18,7 +18,7 @@ source("../bin/chunk-options.R")
 <br/>
 <br/>
 
-To get the source trees supporting a node from our synthetic tree we will need two functions.
+To get the source trees supporting a node from our OpenTree synthetic subtree we will need two functions.
 The function `source_list`() gets the study and tree ids (and other info) from source studies (not the trees). It is applied to a 'tol_node' object.
 
 We already have one that we generated with `tol_node_info()`, do you remember how we called it?
@@ -108,6 +108,6 @@ Note that the supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.
 
-Moreover, the tip labels have different taxon names in the source trees and the synthetic subtrees. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with TNRS before trying to subset, and that takes some time and often visual inspection.
+Moreover, the tip labels have different taxon names in the source trees and the OpenTree synthetic subtrees. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with TNRS before trying to subset, and that takes some time and often visual inspection.
 
 <br/>

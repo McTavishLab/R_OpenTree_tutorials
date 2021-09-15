@@ -8,19 +8,16 @@ exercises: 5
 questions:
 - "What are the original studies supporting relationships in my synthetic subtree?"
 objectives:
-- "Get supporting trees for certain regions of the synthetic Open Tree of Life."
+- "Get supporting trees for certain regions of the synthetic OpenTree."
 keypoints:
 - "Supporting trees usually contain more taxa than the ones we are interested in."
 ---
 
-```
-## Error in library("emo"): there is no package called 'emo'
-```
 
 <br/>
 <br/>
 
-To get the source trees supporting a node from our synthetic tree we will need two functions.
+To get the source trees supporting a node from our OpenTree synthetic subtree we will need two functions.
 The function `source_list`() gets the study and tree ids (and other info) from source studies (not the trees). It is applied to a 'tol_node' object.
 
 We already have one that we generated with `tol_node_info()`, do you remember how we called it?
@@ -30,31 +27,39 @@ We already have one that we generated with `tol_node_info()`, do you remember ho
 > Look at its class and the information it contains.
 >
 > 
-> ```r
+> ~~~
 > canis_node_studies <- rotl::source_list(canis_node_info)
-> ```
-> 
-> ```
-> ## Error in rotl::source_list(canis_node_info): object 'canis_node_info' not found
-> ```
+> ~~~
+> {: .language-r}
 >
 > 
-> ```r
+> ~~~
 > class(canis_node_studies)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in eval(expr, envir, enclos): object 'canis_node_studies' not found
-> ```
+> 
+> 
+> ~~~
+> [1] "data.frame"
+> ~~~
+> {: .output}
 >
 > 
-> ```r
+> ~~~
 > str(canis_node_studies)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in str(canis_node_studies): object 'canis_node_studies' not found
-> ```
+> 
+> 
+> ~~~
+> 'data.frame':	5 obs. of  3 variables:
+>  $ study_id: chr  "ot_278" "ot_328" "pg_1428" "pg_2647" ...
+>  $ tree_id : chr  "tree1" "tree1" "tree2855" "tree6169" ...
+>  $ git_sha : chr  "" "" "" "" ...
+> ~~~
+> {: .output}
 >
 {: .challenge}
 
@@ -62,14 +67,34 @@ Now that we have the ids, we can use the function `get_study_tree()`, which will
 This function takes one _study id_ and _tree id_ at a time, like this:
 
 
-```r
+~~~
 x <- 1
 rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_node_studies$tree_id[x], tip_label="ott_taxon_name", deduplicate = TRUE)
-```
+~~~
+{: .language-r}
 
-```
-## Error in .get_study_tree(study_id = study_id, tree_id = tree_id, format = file_format, : object 'canis_node_studies' not found
-```
+
+
+~~~
+Warning: Some tip labels were duplicated and have been modified: Leptocyon,
+Leptocyon, Leptocyon, Leptocyon, Leptocyon, Leptocyon, Leptocyon, Canidae,
+Canidae, Urocyon, Urocyon, Urocyon, Cerdocyon, Canis, Canis, Canis, Canis,
+Canis, Canis, Canis, Canis, Canis, Canidae, Cynarctoides
+~~~
+{: .warning}
+
+
+
+~~~
+
+Phylogenetic tree with 142 tips and 141 internal nodes.
+
+Tip labels:
+  Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
+
+Rooted; includes branch lengths.
+~~~
+{: .output}
 
 > ## Hands on! Get all supporting trees.
 >
@@ -82,45 +107,157 @@ rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_
 > > With a 'for' loop.
 > >
 > > 
-> > ```r
+> > ~~~
 > > canis_source_trees <- vector(mode = "list") # generate an empty list
 > > for (i in seq(nrow(canis_node_studies))){
 > >   source_tree <- rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE)
 > >   canis_source_trees <- c(canis_source_trees, list(source_tree))
 > > }
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in nrow(canis_node_studies): object 'canis_node_studies' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Warning: Some tip labels were duplicated and have been modified: Leptocyon,
+> > Leptocyon, Leptocyon, Leptocyon, Leptocyon, Leptocyon, Leptocyon, Canidae,
+> > Canidae, Urocyon, Urocyon, Urocyon, Cerdocyon, Canis, Canis, Canis, Canis,
+> > Canis, Canis, Canis, Canis, Canis, Canidae, Cynarctoides
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > canis_source_trees
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## list()
-> > ```
+> > 
+> > 
+> > ~~~
+> > [[1]]
+> > 
+> > Phylogenetic tree with 142 tips and 141 internal nodes.
+> > 
+> > Tip labels:
+> >   Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
+> > 
+> > Rooted; includes branch lengths.
+> > 
+> > [[2]]
+> > 
+> > Phylogenetic tree with 294 tips and 272 internal nodes.
+> > 
+> > Tip labels:
+> >   Homo_sapiens, Rattus_norvegicus, Mus_musculus, Artibeus_jamaicensis, Mystacina_tuberculata, Tadarida_brasiliensis, ...
+> > 
+> > Rooted; includes branch lengths.
+> > 
+> > [[3]]
+> > 
+> > Phylogenetic tree with 169 tips and 168 internal nodes.
+> > 
+> > Tip labels:
+> >   Xenopus_laevis, Anolis_carolinensis, Gallus_gallus, Taeniopygia_guttata, Tachyglossus_aculeatus, Ornithorhynchus_anatinus, ...
+> > 
+> > Rooted; includes branch lengths.
+> > 
+> > [[4]]
+> > 
+> > Phylogenetic tree with 86 tips and 85 internal nodes.
+> > 
+> > Tip labels:
+> >   *tip_#1_not_mapped_to_OTT._Original_label_-_Morganucodon_oehleri, *tip_#2_not_mapped_to_OTT._Original_label_-_Morganucodon_watsoni, *tip_#3_not_mapped_to_OTT._Original_label_-_Haldanodon_exspectatus, Eomaia_scansoria, Amblysomus_hottentotus, Echinops_telfairi, ...
+> > 
+> > Rooted; no branch lengths.
+> > 
+> > [[5]]
+> > 
+> > Phylogenetic tree with 78 tips and 77 internal nodes.
+> > 
+> > Tip labels:
+> >   Ornithorhynchus, Manis, Ailuropoda, Canis, Felis, Panthera, ...
+> > 
+> > Rooted; no branch lengths.
+> > ~~~
+> > {: .output}
 > >
 > > With an `apply()` function.
 > >
 > > 
-> > ```r
+> > ~~~
 > > canis_source_trees <- sapply(seq(nrow(canis_node_studies)), function(i)
 > >   rotl::get_study_tree(study_id = canis_node_studies$study_id[i], tree_id = canis_node_studies$tree_id[i], tip_label="ott_taxon_name", deduplicate = TRUE))
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in nrow(canis_node_studies): object 'canis_node_studies' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Warning: Some tip labels were duplicated and have been modified: Leptocyon,
+> > Leptocyon, Leptocyon, Leptocyon, Leptocyon, Leptocyon, Leptocyon, Canidae,
+> > Canidae, Urocyon, Urocyon, Urocyon, Cerdocyon, Canis, Canis, Canis, Canis,
+> > Canis, Canis, Canis, Canis, Canis, Canidae, Cynarctoides
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > canis_source_trees
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## list()
-> > ```
+> > 
+> > 
+> > ~~~
+> > [[1]]
+> > 
+> > Phylogenetic tree with 142 tips and 141 internal nodes.
+> > 
+> > Tip labels:
+> >   Prohesperocyon_wilsoni, Ectopocynus_antiquus, Ectopocynus_intermedius, Ectopocynus_simplicidens, Hesperocyon, Hesperocyon_gregarius, ...
+> > 
+> > Rooted; includes branch lengths.
+> > 
+> > [[2]]
+> > 
+> > Phylogenetic tree with 294 tips and 272 internal nodes.
+> > 
+> > Tip labels:
+> >   Homo_sapiens, Rattus_norvegicus, Mus_musculus, Artibeus_jamaicensis, Mystacina_tuberculata, Tadarida_brasiliensis, ...
+> > 
+> > Rooted; includes branch lengths.
+> > 
+> > [[3]]
+> > 
+> > Phylogenetic tree with 169 tips and 168 internal nodes.
+> > 
+> > Tip labels:
+> >   Xenopus_laevis, Anolis_carolinensis, Gallus_gallus, Taeniopygia_guttata, Tachyglossus_aculeatus, Ornithorhynchus_anatinus, ...
+> > 
+> > Rooted; includes branch lengths.
+> > 
+> > [[4]]
+> > 
+> > Phylogenetic tree with 86 tips and 85 internal nodes.
+> > 
+> > Tip labels:
+> >   *tip_#1_not_mapped_to_OTT._Original_label_-_Morganucodon_oehleri, *tip_#2_not_mapped_to_OTT._Original_label_-_Morganucodon_watsoni, *tip_#3_not_mapped_to_OTT._Original_label_-_Haldanodon_exspectatus, Eomaia_scansoria, Amblysomus_hottentotus, Echinops_telfairi, ...
+> > 
+> > Rooted; no branch lengths.
+> > 
+> > [[5]]
+> > 
+> > Phylogenetic tree with 78 tips and 77 internal nodes.
+> > 
+> > Tip labels:
+> >   Ornithorhynchus, Manis, Ailuropoda, Canis, Felis, Panthera, ...
+> > 
+> > Rooted; no branch lengths.
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -129,39 +266,72 @@ The object `canis_node_studies` contains a lot of information. You can get it us
 A key piece of information are the citations from the supporting studies. We can get these for each source trees with the function `get_study_meta()`. Let's do it. First we need the study meta:
 
 
-```r
+~~~
 canis_node_studies_meta <- lapply(seq(nrow(canis_node_studies)), function(i)
   rotl::get_study_meta(study_id = canis_node_studies$study_id[i]))
-```
-
-```
-## Error in nrow(canis_node_studies): object 'canis_node_studies' not found
-```
+~~~
+{: .language-r}
 
 Now we can get the citations:
 
 
-```r
+~~~
 canis_node_studies_citations <- sapply(seq(length(canis_node_studies_meta)), function (i) canis_node_studies_meta[[i]]$nexml$`^ot:studyPublicationReference`)
-```
-
-```
-## Error in seq(length(canis_node_studies_meta)): object 'canis_node_studies_meta' not found
-```
+~~~
+{: .language-r}
 
 Finally, let's plot the supporting trees along with their citations.
 
-```r
+~~~
 for (i in seq(length(canis_source_trees))){
   print(paste("The supporting tree below has", length(canis_source_trees[[i]]$tip.label), "tips."))
   print(paste("Citation is:", canis_node_studies_citations[i]))
   ape::plot.phylo(canis_source_trees[[i]])
 }
-```
+~~~
+{: .language-r}
 
-```
-## Error in canis_source_trees[[i]]: subscript out of bounds
-```
+
+
+~~~
+[1] "The supporting tree below has 142 tips."
+[1] "Citation is: Tedford, Richard H.; Wang, Xiaoming; Taylor, Beryl E. (2009). Phylogenetic systematics of the North American fossil Caninae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 325. http://hdl.handle.net/2246/5999\n\nWang, Xiaoming; Tedford, Richard H.; Taylor, Beryl E. (1999). Phylogenetic systematics of the Borophaginae (Carnivora, Canidae). Bulletin of the American Museum of Natural History, no. 243. http://hdl.handle.net/2246/1588\n\nWang, Xiaoming (1994). Phylogenetic systematics of the Hesperocyoninae (Carnivora, Canidae). Bulletin of the  American Museum of Natural History, no. 221. http://hdl.handle.net/2246/829\n"
+~~~
+{: .output}
+
+<img src="../fig/rmd-canis-support-trees-1.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "The supporting tree below has 294 tips."
+[1] "Citation is: Nyakatura, Katrin, Olaf RP Bininda-Emonds. 2012. Updating the evolutionary history of Carnivora (Mammalia): a new species-level supertree complete with divergence time estimates. BMC Biology 10 (1): 12"
+~~~
+{: .output}
+
+<img src="../fig/rmd-canis-support-trees-2.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "The supporting tree below has 169 tips."
+[1] "Citation is: Meredith, R.W., Janecka J., Gatesy J., Ryder O.A., Fisher C., Teeling E., Goodbla A., Eizirik E., Simao T., Stadler T., Rabosky D., Honeycutt R., Flynn J., Ingram C., Steiner C., Williams T., Robinson T., Herrick A., Westerman M., Ayoub N., Springer M., & Murphy W. 2011. Impacts of the Cretaceous Terrestrial Revolution and KPg Extinction on Mammal Diversification. Science 334 (6055): 521-524."
+~~~
+{: .output}
+
+<img src="../fig/rmd-canis-support-trees-3.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "The supporting tree below has 86 tips."
+[1] "Citation is: O'Leary, M. A., J. I. Bloch, J. J. Flynn, T. J. Gaudin, A. Giallombardo, N. P. Giannini, S. L. Goldberg, B. P. Kraatz, Z.-X. Luo, J. Meng, X. Ni, M. J. Novacek, F. A. Perini, Z. S. Randall, G. W. Rougier, E. J. Sargis, M. T. Silcox, N. B. Simmons, M. Spaulding, P. M. Velazco, M. Weksler, J. R. Wible, A. L. Cirranello. 2013. The placental mammal ancestor and the post-K-Pg radiation of placentals. Science 339 (6120): 662-667."
+~~~
+{: .output}
+
+<img src="../fig/rmd-canis-support-trees-4.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
+
+~~~
+[1] "The supporting tree below has 78 tips."
+[1] "Citation is: Lartillot, Nicolas, Frédéric Delsuc. 2012. Joint reconstruction of divergence times and life-history evolution in placental mammals using a phylogenetic covariance model. Evolution 66 (6): 1773-1787."
+~~~
+{: .output}
+
+<img src="../fig/rmd-canis-support-trees-5.png" title="plot of chunk canis-support-trees" alt="plot of chunk canis-support-trees" width="612" style="display: block; margin: auto;" />
 
 <br/>
 
@@ -169,6 +339,6 @@ Note that the supporting trees for a node can be larger than the subtree itself.
 
 You will have to drop the unwanted taxa from the supporting studies if you just want the parts that belong to the subtree.
 
-Moreover, the tip labels have different taxon names in the source trees and the synthetic subtrees. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with TNRS before trying to subset, and that takes some time and often visual inspection.
+Moreover, the tip labels have different taxon names in the source trees and the OpenTree synthetic subtrees. I you go to the browser, you can access original tips and matched tips, but R drops that info. We would have to standardize them with TNRS before trying to subset, and that takes some time and often visual inspection.
 
 <br/>

@@ -11,8 +11,8 @@ objectives:
 - "Get an induced subtree"
 - "Get a subtree"
 keypoints:
-- "OTT ids and node ids allow us to interact with the synthetic OTOL."
-- "Portions of the synthetic OTOL can be extracted from a single OTT id or from a bunch of OTT ids"
+- "OTT ids and node ids allow us to interact with the synthetic OpenTree."
+- "Portions of the synthetic OpenTree can be extracted from a single OTT id or from a bunch of OTT ids"
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
 ```{r, eval = TRUE, echo = FALSE}
@@ -25,23 +25,23 @@ tol <- rotl::tol_about()
 <br/>
 <br/>
 
-The **synthetic Open Tree of Life** (synthetic OTOL from now on) summarizes information from `r tol$num_source_trees`
-trees from `r tol$num_source_studies` peer-reviewed and published studies, that have been uploaded to the OTOL database through a [curator system](https://tree.opentreeoflife.org/curator).
+The synthetic Open Tree of Life (**synthetic OpenTree** from now on) summarizes information from **`r tol$num_source_trees`**
+trees from **`r tol$num_source_studies`** peer-reviewed and published studies, that have been uploaded to the OpenTree database (the Phylesystem) through a [curator system](https://tree.opentreeoflife.org/curator).
 
-Functions from the `rotl` package that interact with the synthetic OTOL start with "tol_".
+Functions from the `rotl` package that interact with the synthetic OpenTree start with `tol_`.
 
-To access general information about the current synthetic OTOL, we can use the function `tol_about()`. This function requires no argument.
+To access general information about the current synthetic OpenTree, we can use the function `tol_about()`. This function requires no argument.
 
 ```{r, eval = TRUE}
 rotl::tol_about()
 ```
 This is nice!
 
-As you can note, the current synthetic OTOL was created not too long ago, on `r tol$date_created`.
+As you can note, the current synthetic OpenTree was created not too long ago, on `r tol$date_created`.
 
-This is also telling us that there are currently more than 2 million tips on the synthetic OTOL.
+This is also telling us that there are currently more than **2 million tips** on the synthetic OpenTree.
 
-It is indeed a large tree. So, **_what if we just want a small piece of the whole synthetic OTOL?_**
+It is indeed a large tree. So, **_what if we just want a small piece of the whole synthetic OpenTree?_**
 
 Well, now that we have some interesting taxon OTT ids, we can easily do this.
 
@@ -58,7 +58,7 @@ my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
 
 > ## Note: What does this warning mean?
 >
-> This warning has to do with the way the synthetic OTOL is generated.
+> This warning has to do with the way the synthetic OpenTree is generated.
 > You can look at the [overview of the synthesis algorithm](https://docs.google.com/presentation/d/1RwoNTUK3LKgBupBNOc1TNsIpucuMUddlYW6rC56We10/edit?usp=sharing) for more information.
 >
 >
@@ -94,7 +94,7 @@ Well, it did not actually disappear, it was replaced by the label "`r my_tree$ti
 
 We will explain why this happens in the [next section](../03-broken-taxa/index.html).
 
-Now, **_what if you want a piece of the synthetic OTOL containing all descendants of your taxa of interest?_**
+Now, **_what if you want a piece of the synthetic OpenTree containing all descendants of your taxa of interest?_**
 
 ### Getting a subtree of one taxon
 
@@ -114,7 +114,7 @@ amphibia_ott_id <- rotl::tnrs_match_names("amphibians")$ott_id
 
 <br/>
 
-Now, extract the subtree from the synthetic OTOL using `tol_subtree()`.
+Now, extract the subtree from the synthetic OpenTree using `tol_subtree()`.
 ```{r, eval = TRUE, results= 'hide', warning= FALSE}
 amphibia_subtree <- rotl::tol_subtree(ott_id = resolved_names["Amphibia",]$ott_id)
 ```

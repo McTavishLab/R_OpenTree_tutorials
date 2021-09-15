@@ -14,13 +14,10 @@ keypoints:
 - "Source chronograms have a wide range of variation in age estimates."
 ---
 
-```
-## Error in library("emo"): there is no package called 'emo'
-```
-
-```
-## Error in loadNamespace(name): there is no package called 'datelife'
-```
+~~~
+## Error in get("opentree_chronograms"): object 'opentree_chronograms' not found
+~~~
+{: .error}
 
 <br/>
 <br/>
@@ -33,26 +30,42 @@ We have implemented two ways of summarizing information from several chronograms
 The fastest one is using the median of node ages for each node with available information, and then evenly distributing ages across nodes.
 
 
-```r
+~~~
 canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_median")
-```
+~~~
+{: .language-r}
 
-```
-## Error in loadNamespace(name): there is no package called 'datelife'
-```
+
+
+~~~
+Warning in utils::data("opentree_chronograms"): data set 'opentree_chronograms'
+not found
+~~~
+{: .warning}
+
+
+
+~~~
+Error in get("opentree_chronograms"): object 'opentree_chronograms' not found
+~~~
+{: .error}
 
 <br/>
 <br/>
 
 Check that we actually went from a list of matrices to a tree with branch lengths:
 
-```r
+~~~
 canis_phylo_median
-```
+~~~
+{: .language-r}
 
-```
-## Error in eval(expr, envir, enclos): object 'canis_phylo_median' not found
-```
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'canis_phylo_median' not found
+~~~
+{: .error}
 
 <br/>
 <br/>
@@ -60,78 +73,126 @@ canis_phylo_median
 Good. Now we can plot our chronogram!
 
 
-```r
+~~~
 ape::plot.phylo(canis_phylo_median, cex = 1.2)
-```
+~~~
+{: .language-r}
 
-```
-## Error in ape::plot.phylo(canis_phylo_median, cex = 1.2): object 'canis_phylo_median' not found
-```
 
-```r
+
+~~~
+Error in ape::plot.phylo(canis_phylo_median, cex = 1.2): object 'canis_phylo_median' not found
+~~~
+{: .error}
+
+
+
+~~~
 # Add the time axis:
 ape::axisPhylo()
-```
+~~~
+{: .language-r}
 
-```
-## Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-```
 
-```r
+
+~~~
+Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
+~~~
+{: .error}
+
+
+
+~~~
 # And a little hack to add the axis name:
 graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo",envir = .PlotPhyloEnv)$xx) * 0.5)
-```
+~~~
+{: .language-r}
 
-```
-## Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object '.PlotPhyloEnv' not found
-```
+
+
+~~~
+Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
+~~~
+{: .error}
 
 > ## Challenge! Get the other type of summary chronogram
 >
-> Hint: Explore options from the argument **summary_format** in the function `summarize_datelife_result()`
+> **Hint**: Explore options from the argument **summary_format** in the function `summarize_datelife_result()`
 >
 > >
 > > ## Solution
 > > 
-> > ```r
+> > ~~~
 > > canis_phylo_sdm <-  datelife::summarize_datelife_result(canis_dr, summary_format = "phylo_sdm")
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in loadNamespace(name): there is no package called 'datelife'
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Warning in utils::data("opentree_chronograms"): data set 'opentree_chronograms'
+> > not found
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in get("opentree_chronograms"): object 'opentree_chronograms' not found
+> > ~~~
+> > {: .error}
+> > 
+> > ~~~
 > > canis_phylo_sdm
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in eval(expr, envir, enclos): object 'canis_phylo_sdm' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'canis_phylo_sdm' not found
+> > ~~~
+> > {: .error}
+> > 
+> > ~~~
 > > ape::plot.phylo(canis_phylo_sdm, cex = 1.2)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in ape::plot.phylo(canis_phylo_sdm, cex = 1.2): object 'canis_phylo_sdm' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in ape::plot.phylo(canis_phylo_sdm, cex = 1.2): object 'canis_phylo_sdm' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > ape::axisPhylo()
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo",envir = .PlotPhyloEnv)$xx) * 0.5)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object '.PlotPhyloEnv' not found
-> > ```
+> > 
+> > 
+> > ~~~
+> > Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
+> > ~~~
+> > {: .error}
 > >
 > > As you can note, the SDM sumary chronogram is slightly older than the median summary chronogram!
 > {: .solution}

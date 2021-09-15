@@ -27,13 +27,13 @@ all_properties <- rotl::studies_properties()
 <br/>
 <br/>
 
-What if I want to search the OTOL database (phylesystem) for studies and trees matching some criteria?
+What if I want to search the OpenTree database (Phylesystem) for studies and trees matching some criteria?
 
 The `rotl` package has functions that allow getting a list of studies or source trees matching specific criteria.
 
 You will recognise these functions because they start with the word `studies_`.
 
-Now, what kind of properties can we search for in the OTOL database?
+Now, what kind of properties can we search for in the OpenTree database?
 The function `studies_properties()` gets for us two lists, one for studies and another one for tree properties available for search.
 
 Take a look at them:

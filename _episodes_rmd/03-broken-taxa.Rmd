@@ -10,7 +10,7 @@ objectives:
 - "Understand outputs from those functions"
 keypoints:
 - "It is not possible to get a subtre from an OTT id that is not in the synthetic tree."
-- "OTT ids and node ids allow us to interact with the synthetic OTOL."
+- "OTT ids and node ids allow us to interact with the synthetic OpenTree."
 ---
 ```{r, eval = TRUE, echo = FALSE}
 source("../bin/chunk-options.R")
@@ -22,9 +22,9 @@ rownames(resolved_names) <- resolved_names$unique_name
 <br/>
 <br/>
 
-We say that a taxon is "broken" when its OTT id is not assigned to a node in the synthetic tree.
-As mentioned before, this happens when the OTT id belongs to a taxon that is not monophyletic in the synthetic tree.
-This is the reason why we get an error when we try to get a synthetic subtree including that OTT id: it is **not** in the tree.
+We say that a taxon is _"broken"_ when its OTT id is not assigned to any node in the OpenTree synthetic tree.
+As mentioned before, this happens when the OTT id belongs to a taxon that is not monophyletic in the current version of the synthetic OpenTree.
+This is the reason why we get an error when we try to get an OpenTree synthetic subtree including the OTT id of the genus _Canis_ --it is **not monophyletic** in the tree.
 
 
 There is a way to find out that a group is "broken" before trying to get the subtree and getting an error.
@@ -32,7 +32,7 @@ There is a way to find out that a group is "broken" before trying to get the sub
 rotl::is_in_tree(resolved_names["Canis",]$ott_id)
 ```
 
-Indeed, our _Canis_ is **not** in the synthetic OTOL. To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
+Indeed, our _Canis_ is **not** in the synthetic OpenTree. To extract a subtree of a "broken" taxon, we have some options. But we will focus on one.
 
 ### Getting the MRCA of a taxon
 

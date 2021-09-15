@@ -61,7 +61,7 @@ graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo
 
 > ## Challenge! Get the other type of summary chronogram
 >
-> Hint: Explore options from the argument **summary_format** in the function `summarize_datelife_result()`
+> **Hint**: Explore options from the argument **summary_format** in the function `summarize_datelife_result()`
 >
 > >
 > > ## Solution
