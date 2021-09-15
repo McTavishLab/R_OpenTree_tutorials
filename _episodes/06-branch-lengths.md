@@ -2054,20 +2054,22 @@ Input taxa completely absent from source chronograms:
 ### Plot your results
 
 To plot the resulting tree, you can use the `plot.phylo()` function from `ape`.
-You can also use the function `plot_phylo_all()`, that adds the study citation as title and a geostratigraphic axis.
+You can also use `datelifeplot` functions, such as `plot_phylo_all()`, that adds the study citation as title, as well as a geochronostratigraphic axis for a time reference.
 
 
 ~~~
-datelife::plot_phylo_all(trees = canis_phylo_all)
+datelifeplot::plot_phylo_all(trees = canis_phylo_all)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error: 'plot_phylo_all' is not an exported object from 'namespace:datelife'
+Error in `[.getAnywhere`(gts, , 1:maid): unused argument (1:maid)
 ~~~
 {: .error}
+
+<img src="../fig/rmd-datelife-plots-1.png" title="plot of chunk datelife-plots" alt="plot of chunk datelife-plots" width="612" style="display: block; margin: auto;" />
 
 <br/>
 <br/>

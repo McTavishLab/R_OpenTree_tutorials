@@ -16,11 +16,6 @@ keypoints:
 ---
 ```{r, eval = TRUE, echo = FALSE, warning = FALSE, results = 'hide'}
 source("../bin/chunk-options.R")
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
-resolved_names <- rotl::tnrs_match_names(my_taxa)
-rownames(resolved_names) <- resolved_names$unique_name
-canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
-library(datelife)
 all_properties <- rotl::studies_properties()
 ```
 
@@ -122,10 +117,10 @@ canis_phylo_all <-  datelife::summarize_datelife_result(canis_dr, summary_format
 ### Plot your results
 
 To plot the resulting tree, you can use the `plot.phylo()` function from `ape`.
-You can also use the function `plot_phylo_all()`, that adds the study citation as title and a geostratigraphic axis.
+You can also use `datelifeplot` functions, such as `plot_phylo_all()`, that adds the study citation as title, as well as a geochronostratigraphic axis for a time reference.
 
 ```{r datelife-plots, eval = TRUE, warning = FALSE, message = FALSE}
-datelife::plot_phylo_all(trees = canis_phylo_all)
+datelifeplot::plot_phylo_all(trees = canis_phylo_all)
 ```
 
 <br/>

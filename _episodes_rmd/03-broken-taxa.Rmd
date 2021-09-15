@@ -4,19 +4,17 @@ title: 'Dealing with "broken" and "invalid" taxa'
 teaching: 5
 exercises: 5
 questions:
-- "How do I detect a broken taxon?"
+- "What is a broken taxon?"
+- "How do I detect it?"
 objectives:
-- "Use the function is_in_tree()"
-- "Understand outputs from those functions"
+- "Get to know the functions that interact with nodes in the synthetic OpenTree."
+- "Understand outputs from those functions."
 keypoints:
 - "It is not possible to get a subtre from an OTT id that is not in the synthetic tree."
 - "OTT ids and node ids allow us to interact with the synthetic OpenTree."
 ---
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
-resolved_names <- rotl::tnrs_match_names(my_taxa)
-rownames(resolved_names) <- resolved_names$unique_name
 ```
 
 <br/>
@@ -61,7 +59,7 @@ str(canis_node_info)
 ```
 
 This is telling us that `tol_node_info()` extracted 8 different pieces of information from my node.
-Right now we are only interested in the node ir. Where do you think it is?
+Right now we are only interested in the node id. Where do you think we can find it?
 
 <br/>
 
@@ -92,7 +90,7 @@ Right now we are only interested in the node ir. Where do you think it is?
 {: .testimonial}
 
 
-The _node_ that contains _Canis_ is "`r canis_node_info$node_id`".
+The node that contains _Canis_ is **`r canis_node_info$node_id`**.
 
 <br/>
 

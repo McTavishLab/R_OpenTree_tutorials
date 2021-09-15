@@ -12,7 +12,6 @@ keypoints:
 ---
 ```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
-
 ```
 
 <br/>

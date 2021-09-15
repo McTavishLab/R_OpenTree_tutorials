@@ -6,92 +6,16 @@ title: 'Dealing with "broken" and "invalid" taxa'
 teaching: 5
 exercises: 5
 questions:
-- "How do I detect a broken taxon?"
+- "What is a broken taxon?"
+- "How do I detect it?"
 objectives:
-- "Use the function is_in_tree()"
-- "Understand outputs from those functions"
+- "Get to know the functions that interact with nodes in the synthetic OpenTree."
+- "Understand outputs from those functions."
 keypoints:
 - "It is not possible to get a subtre from an OTT id that is not in the synthetic tree."
 - "OTT ids and node ids allow us to interact with the synthetic OpenTree."
 ---
 
-~~~
-## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes
-## with labels: Rana clamitans ott515378, Rana sphenocephala ott61437, Rana
-## aurora ott771201, Glandirana ott407917, Pterorana ott3618410, Pelophylax
-## cf ott7070897, Hemimantis ott4133632, Microdiscopus ott4133623, Montorana
-## ott4133633, Chiromantis vittatus ott389176, Mercurana ott4133643, Beddomixalus
-## ott4133641, Buergeriinae ott223222, Maitsomantis ott678997, Boehmantis
-## ott484429, laevigata group ott189959, bernhardi group ott189958, Wakea
-## ott484449, Tsingymantis ott976861, Boophinae ott764200, Laliostoma ott1054409,
-## Ombrana ott4133654, Chrysopaa ott4133659, Alcalinae ott5926144, Liurananinae
-## ott5926192, Natalobatrachus ott532110, Nothophryne ott3618085, Cacosternum
-## nanum ott676305, Microbatrachella ott751405, Poyntonia ott475120, Anhydrophryne
-## ott113819, Ericabatrachus ott3618087, Phrynobatrachidae ott504589, Micrixalidae
-## ott1081209, Odontobatrachidae ott5536254, Lanzarana ott3618164, Trichobatrachus
-## ott780979, Pararthroleptis ott4133674, Hyperolius fusciventris ott85268,
-## Chlorolius ott3619081, Tachycnemis (genus in Deuterostomia) ott750024, Morerella
-## ott85260, Kassinula ott3619075, Opisthothylax ott645881, Chrysobatrachus
-## ott3619077, Callixalus ott3619073, Arlequinus ott3619083, Semnodactylus
-## ott62328, Tornierella ott4133669, Breviceps adspersus ott3618690, Spelaeophryne
-## ott660153, Probreviceps macrodactylus ott111206, Balebreviceps ott348136,
-## Hemisotidae ott165721, Oninia ott789802, Genyophryne ott21522, Siamophryne
-## ott7070469, Melanobatrachus ott701612, Kalophrynidae ott977735, Phrynella (genus
-## in Opisthokonta) ott401609, Mysticellus ott7070618, Dermatonotus ott186184,
-## Gastrophryne olivacea ott565409, Arcovomer ott844415, Adelastinae ott5800508,
-## Adelastes ott3618939, Dasypops ott513414, Relictivomer ott190096, Anilany
-## ott5926118, Madecassophryne ott3618941, Parhoplophryne ott3618937, Otophryninae
-## ott404351, Phrynomerinae ott630304, Caluella ott7666463, Corythomantis
-## ott442032, Argenteohyla ott578372, Argenteohyla siemersi ott100569, Nyctimantis
-## ott1087156, Itapotihyla ott257368, Hyla annectans ott655531, Anotheca ott59159,
-## Diaglena ott3620134, Acris crepitans ott59141, Quilticohyla ott7070260, Rheohyla
-## ott7070262, Nesorohyla ott7070190, Pachymedusa ott254792, Dryaderces ott7666055,
-## Didynamipus ott152264, Barbarophryne ott5800473, Churamiti ott104959, Bufotes
-## pewzowi ott1072351, Schismaderma ott506368, Sabahphrynus ott4133471, Strauchbufo
-## ott6158681, Epidalea ott334615, Anaxyrus americanus ott889326, Laurentophryne
-## ott3619734, Parapelophryne ott3619737, Pseudobufo ott3619739, Bufoides
-## ott3619731, Metaphryniscus ott3619751, Blythophryne ott5926045, Ghatophryne
-## ott7069948, Rentapia ott7069968, Silverstoneia nubicola ott638061, Hyloxalinae
-## ott1096759, Lithodytes ott315881, Scythrophrys ott462991, Rupirana ott3620326,
-## Phrynocerus ott3619498, Physalalemus ott6158772, Niedenia ott4133301,
-## Allophrynidae ott57740, Macrogenioglottus ott726713, Insuetophrynus ott44381,
-## Telmatobiinae ott777187, Hylorina ott440882, Chaltenobatrachus ott6158620,
-## Limnomedusa ott914517, Chacophrys ott431943, Caudiverbera ott1068325,
-## Atopophrynus ott3620196, Geobatrachus ott3620197, Ceuthomantinae ott277741,
-## Megistolotis ott276283, Adelotus ott276281, Assa (genus in Opisthokonta)
-## ott906692, Paracrinia ott989413, Metacrinia ott412471, Spicospina ott1039925,
-## Rheobatrachidae ott918183, Hadromophryne ott971912, Atympanophrys ott542885,
-## Vibrissaphora ott535112, Pelodytidae ott509554, Xenopodinae ott940173,
-## Pseudhymenochirus ott140873, Rhinophrynidae ott459016, Rhinophrynus ott459015,
-## Alytinae ott5334814, Discoglossus galganoi ott461369, Latonia ott4948216,
-## Leiopelmatidae ott611960, Ascaphidae ott1013114, Pelodryadidae ott3620482,
-## Ranoidea (genus in family Pelodryadidae) ott7666856, Iranodon ott7071233,
-## Ranodon ott834698, Satobius ott5800418, Pachyhynobius ott1021854, Ambystomatidae
-## ott984723, Dicamptodontidae ott60819, Laotriton ott4948201, Triturus marmoratus
-## ott1041767, Triturus carnifex ott1041783, Ommatotriton ophryticus ott645229,
-## Lissotriton helveticus ott9366, Lissotriton boscai ott830424, Tylototriton
-## verrucosus ott932561, Tylototriton wenxianensis ott981376, Pleurodeles waltl
-## ott566038, Lyciasalamandra fazilae ott1024882, Salamandrininae ott4948210,
-## Pingia ott4132654, Isthmura bellii ott46162, Isthmura sierraoccidentalis
-## ott98841, Parvimolge ott46159, Bradytriton ott798666, Nyctanolis ott224306,
-## Haideotriton ott133635, Eurycea multiplicata ott839995, Stereochilus (genus
-## in Opisthokonta) ott798664, Hemidactylium ott798658, Phaeognathus ott964128,
-## Karsenia ott893551, Ensatina ott64118, Hydromantes imperialis ott675243,
-## Atylodes (genus in Deuterostomia) ott693464, Hydromantoides ott4132648,
-## Amphiumidae ott566022, Rhyacotritonidae ott459010, Sirenoidea ott336754,
-## Chikilidae ott4948197, Praslinia ott80530, Sylvacaecilia ott3617918,
-## Atretochoana ott3617929, Potamotyphlus ott7667119, Bdellophis ott4132629
-~~~
-{: .warning}
-
-
-
-~~~
-## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
-## labels: Lycaon ott821959, Cuon alpinus ott313163, Eucyon ott3612566, Atelocynus
-## ott621180, Chrysocyon ott621163, Canis mesomelas ott666235
-~~~
-{: .warning}
 
 <br/>
 <br/>
@@ -111,7 +35,8 @@ rotl::is_in_tree(resolved_names["Canis",]$ott_id)
 
 
 ~~~
-[1] FALSE
+canis 
+FALSE 
 ~~~
 {: .output}
 
@@ -123,6 +48,19 @@ The function `tol_node_info()` gets for you all relevant information of the node
 
 ~~~
 canis_node_info <- rotl::tol_node_info(resolved_names["Canis",]$ott_id)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: Only atomic vectors of length 1 or data frames with 1 row can be unboxed.
+~~~
+{: .error}
+
+
+
+~~~
 canis_node_info
 ~~~
 {: .language-r}
@@ -210,7 +148,7 @@ List of 8
 {: .output}
 
 This is telling us that `tol_node_info()` extracted 8 different pieces of information from my node.
-Right now we are only interested in the node ir. Where do you think it is?
+Right now we are only interested in the node id. Where do you think we can find it?
 
 <br/>
 
@@ -243,7 +181,7 @@ Right now we are only interested in the node ir. Where do you think it is?
 {: .testimonial}
 
 
-The _node_ that contains _Canis_ is "mrcaott47497ott110766".
+The node that contains _Canis_ is **mrcaott47497ott110766**.
 
 <br/>
 
@@ -301,6 +239,13 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > ~~~
 > > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> > Error: Only atomic vectors of length 1 or data frames with 1 row can be unboxed.
+> > ~~~
+> > {: .error}
+> > 
 > > ~~~
 > > canis_taxonomy
 > > ~~~
@@ -309,97 +254,9 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > 
 > > 
 > > ~~~
-> > $tip_label
-> >  [1] "Canis_dirus_ott3612500"                         
-> >  [2] "Canis_anthus_ott5835572"                        
-> >  [3] "Canis_rufus_ott113383"                          
-> >  [4] "Canis_simensis_ott752755"                       
-> >  [5] "Canis_aureus_ott621168"                         
-> >  [6] "Canis_mesomelas_elongae_ott576165"              
-> >  [7] "Canis_adustus_ott621176"                        
-> >  [8] "unclassified_Canis_ott7655955"                  
-> >  [9] "Canis_latrans_ott247331"                        
-> > [10] "Canis_lupus_baileyi_ott67371"                   
-> > [11] "Canis_lupus_laniger_ott80830"                   
-> > [12] "Canis_lupus_orion_ott7067596"                   
-> > [13] "Canis_lupus_hodophilax_ott318630"               
-> > [14] "Canis_lupus_signatus_ott545727"                 
-> > [15] "Canis_lupus_arctos_ott5340002"                  
-> > [16] "Canis_lupus_mogollonensis_ott263524"            
-> > [17] "Canis_lupus_variabilis_ott5839539"              
-> > [18] "Canis_lupus_lupus_ott883675"                    
-> > [19] "Canis_lupus_campestris_ott4941916"              
-> > [20] "Canis_lupus_lycaon_ott948004"                   
-> > [21] "Canis_lupus_pallipes_ott47497"                  
-> > [22] "Canis_lupus_chanco_ott47500"                    
-> > [23] "Canis_lupus_x_Canis_lupus_familiaris_ott4941915"
-> > [24] "Canis_lupus_desertorum_ott234374"               
-> > [25] "Canis_lupus_familiaris_ott247333"               
-> > [26] "Canis_lupus_dingo_ott380529"                    
-> > [27] "Canis_lupus_labradorius_ott531973"              
-> > [28] "Canis_lupus_hattai_ott83897"                    
-> > [29] "Canis_lupus_lupaster_ott987895"                 
-> > [30] "Canis_himalayensis_ott346723"                   
-> > [31] "Canis_indica_ott346728"                         
-> > [32] "Canis_environmental_samples_ott4941917"         
-> > [33] "Canissp.KEB-2016ott5925604"                     
-> > [34] "Canis_sp._CANInt1_ott470950"                    
-> > [35] "'Canissp.Russia/33"                             
-> > [36] "500ott5338950'"                                 
-> > [37] "Canis_sp._ott247325"                            
-> > [38] "'Canissp.Belgium/36"                            
-> > [39] "000ott5338951'"                                 
-> > [40] "Canis_environmental_sample_ott4941918"          
-> > [41] "Canis_morenis_ott6145387"                       
-> > [42] "Canis_niger_ott6145388"                         
-> > [43] "Canis_palaeoplatensis_ott6145390"               
-> > [44] "Canis_osorum_ott6145389"                        
-> > [45] "Canis_thooides_ott6145392"                      
-> > [46] "Canis_antarcticus_ott6145381"                   
-> > [47] "Canis_proplatensis_ott6145391"                  
-> > [48] "Canis_feneus_ott6145384"                        
-> > [49] "Canis_geismarianus_ott6145385"                  
-> > [50] "Canis_ameghinoi_ott7655930"                     
-> > [51] "Canis_nehringi_ott7655947"                      
-> > [52] "Canis_palustris_ott7655949"                     
-> > [53] "Canis_lanka_ott7655942"                         
-> > [54] "Canis_pallipes_ott7655948"                      
-> > [55] "Canis_gezi_ott7655939"                          
-> > [56] "Canis_montanus_ott7655945"                      
-> > [57] "Canis_primaevus_ott7655951"                     
-> > [58] "Canis_chrysurus_ott7655935"                     
-> > [59] "Canis_dukhunensis_ott7655937"                   
-> > [60] "Canis_kokree_ott7655941"                        
-> > [61] "Canis_sladeni_ott7655952"                       
-> > [62] "Canis_himalaicus_ott7655940"                    
-> > [63] "Canis_chanco_ott7655934"                        
-> > [64] "Canis_curvipalatus_ott7655936"                  
-> > [65] "Canis_lateralis_ott7655943"                     
-> > [66] "Canis_argentinus_ott7655931"                    
-> > [67] "Canis_tarijensis_ott7655953"                    
-> > [68] "Canis_naria_ott7655946"                         
-> > [69] "Canis_peruanus_ott7655950"                      
-> > [70] "Canis_cautleyi_ott7655933"                      
-> > [71] "Canis_ursinus_ott7655954"                       
-> > [72] "Canis_armbrusteri_ott3612502"                   
-> > [73] "Canis_ferox_ott3612501"                         
-> > [74] "Canis_lepophagus_ott3612503"                    
-> > [75] "Canis_edwardii_ott3612509"                      
-> > [76] "Canis_apolloniensis_ott3612508"                 
-> > [77] "Canis_cedazoensis_ott3612507"                   
-> > [78] "Canis_primigenius_ott3612506"                   
-> > [79] "Canis_lydekkeri_ott7655944"                     
-> > [80] "Canis_arnensis_ott7655932"                      
-> > [81] "Canis_antarticus_ott6145382"                    
-> > [82] "Canis_dingo_ott6145383"                         
-> > [83] "Canis_etruscus_ott7655938"                      
-> > [84] "Canis_spelaeus_ott3612504"                      
-> > 
-> > $edge_label
-> > [1] "Canis_mesomelas_ott666235" "Canis_lupus_ott247341"    
-> > [3] "Canis_ott372706"          
+> > Error in eval(expr, envir, enclos): object 'canis_taxonomy' not found
 > > ~~~
-> > {: .output}
+> > {: .error}
 > > Now, extract the OTT ids.
 > > 
 > > ~~~
@@ -410,28 +267,9 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > 
 > > 
 > > ~~~
-> > After extracting ott ids, there are some non numeric elements:
+> > Error in datelife::extract_ott_ids(x = canis_taxonomy$tip_label): object 'canis_taxonomy' not found
 > > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > 	 Canissp.KEB-2016ott5925604
-> > 	 'Canissp.Russia/33
-> > 	 500ott5338950'
-> > 	 'Canissp.Belgium/36
-> > 	 000ott5338951'
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > NAs removed.
-> > ~~~
-> > {: .output}
+> > {: .error}
 > > Try to get an induced subtree of _Canis_ taxonomic children.
 > >
 > > 
@@ -443,9 +281,7 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > 
 > > 
 > > ~~~
-> > Error: HTTP failure: 400
-> > [/v3/tree_of_life/induced_subtree] Error: node_id 'ott3612504' was not found!list(ott247325 = "pruned_ott_id", ott3612504 = "pruned_ott_id", ott3612506 = "pruned_ott_id", ott3612508 = "pruned_ott_id", ott470950 = "pruned_ott_id", ott4941915 = "pruned_ott_id", ott4941917 = "pruned_ott_id", ott6145381 = "pruned_ott_id", ott6145384 = "pruned_ott_id", ott6145385 = "pruned_ott_id", ott6145387 = "pruned_ott_id", ott6145388 = "pruned_ott_id", ott6145389 = "pruned_ott_id", ott6145390 = "pruned_ott_id", ott6145391 = "pruned_ott_id", ott6145392 = "pruned_ott_id", ott7655932 = "pruned_ott_id", 
-> >     ott7655944 = "pruned_ott_id", ott7655945 = "pruned_ott_id", ott7655955 = "pruned_ott_id")
+> > Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'canis_taxonomy_ott_ids' not found
 > > ~~~
 > > {: .error}
 > > It is often not possible to get an induced subtree of all taxonomic children from a taxon,
@@ -455,9 +291,29 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > 
 > > ~~~
 > > canis_in_tree <- sapply(canis_taxonomy_ott_ids, rotl::is_in_tree) # logical vector
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in lapply(X = X, FUN = FUN, ...): object 'canis_taxonomy_ott_ids' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > canis_taxonomy_ott_ids_intree <- canis_taxonomy_ott_ids[canis_in_tree] # extract ott ids in tree
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'canis_taxonomy_ott_ids' not found
+> > ~~~
+> > {: .error}
 > >
 > > Now get the tree.
 > > 
@@ -465,6 +321,13 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > canis_taxonomy_subtree <- rotl::tol_induced_subtree(canis_taxonomy_ott_ids_intree)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in .tol_induced_subtree(ott_ids = ott_ids, node_ids = node_ids, : object 'canis_taxonomy_ott_ids_intree' not found
+> > ~~~
+> > {: .error}
 > > Plot it.
 > > 
 > > ~~~
@@ -472,7 +335,12 @@ Now, what if I want a subtree of certain taxonomic ranks withing my group? Go to
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in ape::plot.phylo(canis_taxonomy_subtree, cex = 1.2): object 'canis_taxonomy_subtree' not found
+> > ~~~
+> > {: .error}
 > >
 > > There! We have a synthetic subtree (derived from phylogenetic information) containing only the taxonomic children of _Canis_.
 > {: .solution}

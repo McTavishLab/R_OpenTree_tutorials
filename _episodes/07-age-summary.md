@@ -14,10 +14,6 @@ keypoints:
 - "Source chronograms have a wide range of variation in age estimates."
 ---
 
-~~~
-## Error in get("opentree_chronograms"): object 'opentree_chronograms' not found
-~~~
-{: .error}
 
 <br/>
 <br/>
@@ -38,15 +34,7 @@ canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_for
 
 
 ~~~
-Warning in utils::data("opentree_chronograms"): data set 'opentree_chronograms'
-not found
-~~~
-{: .warning}
-
-
-
-~~~
-Error in get("opentree_chronograms"): object 'opentree_chronograms' not found
+Error in `rownames<-`(`*tmp*`, value = paste0("Chronogram", sequence(nrow(taxon_matrix)))): attempt to set 'rownames' on an object with no dimensions
 ~~~
 {: .error}
 
@@ -130,15 +118,7 @@ Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo'
 > > 
 > > 
 > > ~~~
-> > Warning in utils::data("opentree_chronograms"): data set 'opentree_chronograms'
-> > not found
-> > ~~~
-> > {: .warning}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in get("opentree_chronograms"): object 'opentree_chronograms' not found
+> > Error in `rownames<-`(`*tmp*`, value = paste0("Chronogram", sequence(nrow(taxon_matrix)))): attempt to set 'rownames' on an object with no dimensions
 > > ~~~
 > > {: .error}
 > > 

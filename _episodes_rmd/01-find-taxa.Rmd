@@ -18,7 +18,7 @@ keypoints:
 - "You can go from a scientific name to an OTT id using TNRS matching."
 - "You can not go from a common name to OTT id using the Open Tree of Life tools."
 ---
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
 ```
 <br/>

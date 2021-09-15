@@ -7,6 +7,8 @@
 library("knitr")
 library("emo")
 library("ape")
+library("datelife")
+library("datelifeplot")
 
 fix_fig_path <- function(pth) file.path("..", pth)
 
