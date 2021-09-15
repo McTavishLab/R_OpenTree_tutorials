@@ -44,7 +44,7 @@ Let's explore the class of the output.
 ```{r, eval = TRUE, warning= FALSE, error = TRUE}
 class(canis_node_info)
 ```
-
+<br/>
 <br/>
 
 So we have an object of class 'list' and 'tol_node'. When we printed it, we got some

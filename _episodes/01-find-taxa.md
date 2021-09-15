@@ -21,6 +21,21 @@ keypoints:
 - "You can not go from a common name to OTT id using the Open Tree of Life tools."
 ---
 
+~~~
+## 
+## Attaching package: 'datelifeplot'
+~~~
+{: .output}
+
+
+
+~~~
+## The following objects are masked from 'package:datelife':
+## 
+##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
+##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
+~~~
+{: .output}
 <br/>
 <br/>
 
@@ -494,12 +509,12 @@ Finally, we are going to learn how to extract specific pieces of data from a `ma
 > >
 > > If you get a warning message saying that any of your taxon names "are not matched", it means that the `tnrs_match_names` function is not implementig TNRS for inputs with more than one name. This is an unexpected behaviour. See [this GitHub issue](https://github.com/ropensci/rotl/issues/134) for updates.
 > >
-> > As you already know, running `tnrs_match_names` using one name at a time, works as expected:
+> > As you already know, running `tnrs_match_names()` using one name at a time works well:
 > >
 > > 
 > > ~~~
-> > rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
-> > rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
+> > rotl::tnrs_match_names(names = "amphibians")
+> > rotl::tnrs_match_names(names = "avess")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -516,6 +531,20 @@ Finally, we are going to learn how to extract specific pieces of data from a `ma
 > > 1              1
 > > ~~~
 > > {: .output}
+> > While running it with multiple names without explicitly specifying a taxonomic context does not:
+> >
+> > 
+> > ~~~
+> > resolved_names <- rotl::tnrs_match_names(names = my_taxa)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: amphibians, avess are not matched
+> > ~~~
+> > {: .warning}
 > >
 > > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
 > >
@@ -876,19 +905,26 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > ~~~
 > > rownames(resolved_names) <- c("amphs", "dogs", "cats", "flippers", "birds")
 > > resolved_names
-> > >  >
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error: <text>:3:1: unexpected '>'
-> > 2: resolved_names
-> > 3: >
-> >    ^
+> >          search_string unique_name approximate_match ott_id is_synonym flags
+> > amphs       amphibians    Amphibia              TRUE 544595      FALSE      
+> > dogs             canis       Canis             FALSE 372706      FALSE      
+> > cats             felis       Felis             FALSE 563165      FALSE      
+> > flippers   delphinidae Delphinidae             FALSE 698406      FALSE      
+> > birds            avess        Aves              TRUE  81461      FALSE      
+> >          number_matches
+> > amphs                 6
+> > dogs                  2
+> > cats                  1
+> > flippers              1
+> > birds                 1
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).
 > >
@@ -904,8 +940,8 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > 
 > > 
 > > ~~~
-> > $<NA>
-> > NULL
+> > $delphinidae
+> > [1] 698406
 > > ~~~
 > > {: .output}
 > > Or, you can use the column name as column index:
@@ -918,8 +954,8 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > 
 > > 
 > > ~~~
-> > $<NA>
-> > NULL
+> > $delphinidae
+> > [1] 698406
 > > ~~~
 > > {: .output}
 > > In both cases, you will get the OTT id of the Delphinidae. Cool!

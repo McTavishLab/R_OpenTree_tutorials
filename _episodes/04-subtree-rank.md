@@ -13,7 +13,21 @@ keypoints:
 - "It is possible to get all types of subsets from the synthetic tree, as long as you can get the OTT ids!"
 ---
 
+~~~
+## 
+## Attaching package: 'datelifeplot'
+~~~
+{: .output}
 
+
+
+~~~
+## The following objects are masked from 'package:datelife':
+## 
+##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
+##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
+~~~
+{: .output}
 <br/>
 <br/>
 
@@ -27,13 +41,6 @@ Let's get all amphibian families.
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
 ~~~
 {: .language-r}
-
-
-
-~~~
-ott_ids is not a numeric vector; coercing to numeric.
-~~~
-{: .output}
 
 ~~~
 str(amphibia_families)

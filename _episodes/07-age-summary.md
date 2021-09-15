@@ -14,7 +14,6 @@ keypoints:
 - "Source chronograms have a wide range of variation in age estimates."
 ---
 
-
 <br/>
 <br/>
 
@@ -31,13 +30,6 @@ canis_phylo_median <-  datelife::summarize_datelife_result(canis_dr, summary_for
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in `rownames<-`(`*tmp*`, value = paste0("Chronogram", sequence(nrow(taxon_matrix)))): attempt to set 'rownames' on an object with no dimensions
-~~~
-{: .error}
-
 <br/>
 <br/>
 
@@ -51,9 +43,17 @@ canis_phylo_median
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'canis_phylo_median' not found
+
+Phylogenetic tree with 18 tips and 13 internal nodes.
+
+Tip labels:
+  Canis_rufus, Canis_simensis, Speothos_venaticus, Lycaon_pictus, Canis_latrans, Canis_aureus, ...
+Node labels:
+  n1, n2, n3, n4, n5, n6, ...
+
+Unrooted; includes branch lengths.
 ~~~
-{: .error}
+{: .output}
 
 <br/>
 <br/>
@@ -63,45 +63,14 @@ Good. Now we can plot our chronogram!
 
 ~~~
 ape::plot.phylo(canis_phylo_median, cex = 1.2)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in ape::plot.phylo(canis_phylo_median, cex = 1.2): object 'canis_phylo_median' not found
-~~~
-{: .error}
-
-
-
-~~~
 # Add the time axis:
 ape::axisPhylo()
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-~~~
-{: .error}
-
-
-
-~~~
 # And a little hack to add the axis name:
 graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo",envir = .PlotPhyloEnv)$xx) * 0.5)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot60-1.png" title="plot of chunk plot60" alt="plot of chunk plot60" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge! Get the other type of summary chronogram
 >
@@ -115,13 +84,6 @@ Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo'
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in `rownames<-`(`*tmp*`, value = paste0("Chronogram", sequence(nrow(taxon_matrix)))): attempt to set 'rownames' on an object with no dimensions
-> > ~~~
-> > {: .error}
-> > 
 > > ~~~
 > > canis_phylo_sdm
 > > ~~~
@@ -130,49 +92,26 @@ Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo'
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'canis_phylo_sdm' not found
+> > 
+> > Phylogenetic tree with 18 tips and 13 internal nodes.
+> > 
+> > Tip labels:
+> >   Canis_rufus, Canis_simensis, Speothos_venaticus, Lycaon_pictus, Canis_latrans, Canis_aureus, ...
+> > Node labels:
+> >   n1, n2, n3, n4, n5, n6, ...
+> > 
+> > Unrooted; includes branch lengths.
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > ~~~
 > > ape::plot.phylo(canis_phylo_sdm, cex = 1.2)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in ape::plot.phylo(canis_phylo_sdm, cex = 1.2): object 'canis_phylo_sdm' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > ape::axisPhylo()
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > graphics::mtext("Time (myrs)", side = 1, line = 2, at = max(get("last_plot.phylo",envir = .PlotPhyloEnv)$xx) * 0.5)
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in get("last_plot.phylo", envir = .PlotPhyloEnv): object 'last_plot.phylo' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-plot61-1.png" title="plot of chunk plot61" alt="plot of chunk plot61" width="612" style="display: block; margin: auto;" />
 > >
 > > As you can note, the SDM sumary chronogram is slightly older than the median summary chronogram!
 > {: .solution}

@@ -18,6 +18,7 @@ source("../bin/chunk-options.R")
 <br/>
 <br/>
 
+
 Scientific reproducibility is key for the advancement of Science.
 In this first episode, we will check that you have the same package versions that we will use throughout the tutorial.
 

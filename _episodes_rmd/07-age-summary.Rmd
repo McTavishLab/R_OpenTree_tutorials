@@ -13,9 +13,7 @@ keypoints:
 ---
 ```{r, eval = TRUE, echo = FALSE, message = FALSE, results = 'hide', warning = FALSE}
 source("../bin/chunk-options.R")
-canis_dr <- datelife::get_datelife_result(canis_node_subtree)
 ```
-
 <br/>
 <br/>
 

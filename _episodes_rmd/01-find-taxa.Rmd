@@ -183,11 +183,16 @@ Finally, we are going to learn how to extract specific pieces of data from a `ma
 > >
 > > If you get a warning message saying that any of your taxon names "are not matched", it means that the `tnrs_match_names` function is not implementig TNRS for inputs with more than one name. This is an unexpected behaviour. See [this GitHub issue](https://github.com/ropensci/rotl/issues/134) for updates.
 > >
-> > As you already know, running `tnrs_match_names` using one name at a time, works as expected:
+> > As you already know, running `tnrs_match_names()` using one name at a time works well:
 > >
 > > ```{r, eval = TRUE, results = "hold"}
-> > rotl::tnrs_match_names(names = "amphibians", do_approximate_matching = TRUE)
-> > rotl::tnrs_match_names(names = "avess", do_approximate_matching = TRUE)
+> > rotl::tnrs_match_names(names = "amphibians")
+> > rotl::tnrs_match_names(names = "avess")
+> > ```
+> > While running it with multiple names without explicitly specifying a taxonomic context does not:
+> >
+> > ```{r, eval = TRUE, results = "hold"}
+> > resolved_names <- rotl::tnrs_match_names(names = my_taxa)
 > > ```
 > >
 > > If we want to run the function for a multiple element character vector, we can use a loop or an `sapply`, which will run the function individually for each taxa within `my_taxa`, avoiding the unexpected behaviours observed above.
@@ -325,7 +330,6 @@ There we go! Now we know how to get OTT ids from a bunch of taxa of interest. Le
 > > ```{r}
 > > rownames(resolved_names) <- c("amphs", "dogs", "cats", "flippers", "birds")
 > > resolved_names
->  >
 > > ```
 > >
 > > This will facilitate accessing elements of the 'match_names' object by allowing to just use the row name as row index (instead of a number).

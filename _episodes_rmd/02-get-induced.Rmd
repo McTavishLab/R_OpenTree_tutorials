@@ -48,7 +48,8 @@ Well, now that we have some interesting taxon OTT ids, we can easily do this.
 The function `tol_induced_subtree()` allows us to get a tree of taxa from different taxonomic ranks.
 
 ```{r, eval = TRUE, results = 'hide'}
-my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
+resolved_names$ott_id
+my_tree <- rotl::tol_induced_subtree(ott_ids = resolved_names$ott_id)
 ```
 
 <br/>

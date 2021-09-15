@@ -15,8 +15,24 @@ keypoints:
 - "Package version is key for science reproducibility, and you can document it using the function packageVersion()."
 ---
 
+~~~
+## 
+## Attaching package: 'datelifeplot'
+~~~
+{: .output}
+
+
+
+~~~
+## The following objects are masked from 'package:datelife':
+## 
+##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
+##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
+~~~
+{: .output}
 <br/>
 <br/>
+
 
 Scientific reproducibility is key for the advancement of Science.
 In this first episode, we will check that you have the same package versions that we will use throughout the tutorial.
@@ -42,7 +58,7 @@ packageVersion("datelifeplot")
 [1] '5.5'
 [1] '2.4.2'
 [1] '1.7.4'
-[1] '0.3.3'
+[1] '0.3.2'
 [1] '0.1.0'
 ~~~
 {: .output}
@@ -76,7 +92,7 @@ $stringr
 [1] '1.4.0'
 
 $datelife
-[1] '0.3.3'
+[1] '0.3.2'
 
 $datelifeplot
 [1] '0.1.0'
@@ -131,7 +147,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] datelifeplot_0.1.0      datelife_0.3.3          ape_5.5                
+[1] datelifeplot_0.1.0      datelife_0.3.2          ape_5.5                
 [4] emo_0.0.0.9000          knitr_1.33              requirements_0.0.0.9000
 [7] remotes_2.4.0          
 

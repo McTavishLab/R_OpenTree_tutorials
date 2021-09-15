@@ -17,6 +17,21 @@ keypoints:
 - "source chronograms are retrieved at the species level only (for now)."
 ---
 
+~~~
+## 
+## Attaching package: 'datelifeplot'
+~~~
+{: .output}
+
+
+
+~~~
+## The following objects are masked from 'package:datelife':
+## 
+##     axisGeo, HPDbars, plot_densitree, plot_ltt_phyloall,
+##     plot_ltt_summary, plot_phylo, plot_phylo_all, wrap_string_to_plot
+~~~
+{: .output}
 
 <br/>
 <br/>
@@ -1546,7 +1561,7 @@ Go to [Instructor Notes](../guide/index.html###6.1) later for more information o
 {: .testimonial} -->
 
 
-### Search the opentree chronogram database from `datelife`
+### Search the OpenTree chronogram database using `datelife`
 
 In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
 
@@ -1592,26 +1607,12 @@ canis_dr <- datelife::get_datelife_result(canis_node_subtree)
 
 
 ~~~
-'input' is not a 'datelifeQuery' object.
-~~~
-{: .output}
-
-
-
-~~~
 Running 'make_datelife_query'...
-~~~
-{: .output}
-
-
-
-~~~
-'input' is not a 'datelifeQuery' object.
 ~~~
 {: .output}
 We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
 
-Lists are named by the study citation, so we have that information handy at all times.
+Lists are named with the study citation, so we have that information handy at all times.
 
 Let's explore the output.
 
@@ -2061,15 +2062,6 @@ You can also use `datelifeplot` functions, such as `plot_phylo_all()`, that adds
 datelifeplot::plot_phylo_all(trees = canis_phylo_all)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in `[.getAnywhere`(gts, , 1:maid): unused argument (1:maid)
-~~~
-{: .error}
-
-<img src="../fig/rmd-datelife-plots-1.png" title="plot of chunk datelife-plots" alt="plot of chunk datelife-plots" width="612" style="display: block; margin: auto;" />
 
 <br/>
 <br/>
