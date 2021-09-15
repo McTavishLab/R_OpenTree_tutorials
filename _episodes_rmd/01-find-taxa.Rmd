@@ -166,6 +166,7 @@ In this case, you will have to create a character vector with your taxon names a
 > ```{r, eval = TRUE}
 > my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "avess")
 > resolved_names <- rotl::tnrs_match_names(names = my_taxa, context_name = "All life")
+> resolved_names
 > ```
 >
 {: .challenge}

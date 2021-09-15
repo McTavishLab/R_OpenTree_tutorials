@@ -535,8 +535,27 @@ In this case, you will have to create a character vector with your taxon names a
 > ~~~
 > my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "avess")
 > resolved_names <- rotl::tnrs_match_names(names = my_taxa, context_name = "All life")
+> resolved_names
 > ~~~
 > {: .language-r}
+> 
+> 
+> 
+> ~~~
+>   search_string unique_name approximate_match ott_id is_synonym flags
+> 1    amphibians    Amphibia              TRUE 544595      FALSE      
+> 2         canis       Canis             FALSE 372706      FALSE      
+> 3         felis       Felis             FALSE 563165      FALSE      
+> 4   delphinidae Delphinidae             FALSE 698406      FALSE      
+> 5         avess        Aves              TRUE  81461      FALSE      
+>   number_matches
+> 1              6
+> 2              2
+> 3              1
+> 4              1
+> 5              1
+> ~~~
+> {: .output}
 >
 {: .challenge}
 
