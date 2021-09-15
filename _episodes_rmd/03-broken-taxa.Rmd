@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: '3. Dealing with "broken" and "invalid" taxa'
+title: 'Dealing with "broken" and "invalid" taxa'
 teaching: 5
 exercises: 5
 questions:

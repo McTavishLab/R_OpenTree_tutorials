@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "8. Using age data to date a tree."
+title: "Using age data to date a tree."
 teaching: 10
 exercises: 10
 questions:

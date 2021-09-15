@@ -8,10 +8,10 @@ held at the SSB standalone meeting, on Jan 3, 2020, Gainesville, Florida; and th
 
 ## Maintainer
 
-Current maintainer of this lesson is
+Current maintainers of this lesson are
 
 * Luna L. Sanchez Reyes
-
+* Emily Jane McTavish
 
 
 <!-- ## Authors
