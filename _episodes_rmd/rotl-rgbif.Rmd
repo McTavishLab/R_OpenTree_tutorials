@@ -1,0 +1,171 @@
+---
+title: "How to combine data from Open Tree of Life and GBIF"
+author: "Emily Jane McTavish"
+date: "`r Sys.Date()`"
+vignette: |
+  %\VignetteIndexEntry{How to get trees from OpenTree and combine them with GBIF location data.} %\VignetteEngine{knitr::rmarkdown} \usepackage[utf8]{inputenc}
+---
+For background complete the introductory tutorials on rgbif and on rotl to familiarize yourself.  
+https://ropensci.org/tutorials/rotl_tutorial/  
+https://ropensci.org/tutorials/rgbif_tutorial/  
+
+# Combining evolutionary and geographic information
+In order to examine geographic distributions of species, it is useful to tie together information about phylogenetic relationships, which we can get from Open Tree of Life, with information about where individuals of that species are found.
+
+```{r}
+install.packages(c("httr", "jsonlite", "rgbif", "rotl", "phytools", "viridis"))
+
+library(httr)
+library(jsonlite)
+library(rgbif)
+library(rotl)
+library(phytools)
+library(viridis)
+```
+
+
+# Choose some species
+Lets look for some fun species, 
+A polar bear, "Ursus maritimus", a hippo "Hippopotamus amphibius", a gorilla "Gorilla gorilla" and a wild boar "Sus scrofa".
+
+```{r}
+polarbear <-"Ursus maritimus"
+hippo <-"Hippopotamus amphibius"
+boar <-"Sus scrofa"
+gorilla <- "Gorilla gorilla"
+dolphin <- "Tursiops truncatus"
+
+spp <- c(polarbear, boar, gorilla, hippo,dolphin)
+```
+
+We can use Open Tree of Life to generate a tree for our species!  
+![](../assets/img/OpenTree-final-logo-copy.png)
+```{r}
+taxa <- rotl::tnrs_match_names(spp, context="Animals")
+tr <-  rotl::tol_induced_subtree(ott_id(taxa), label="name")
+plot(tr)
+```
+
+# Don't forget to cite the studies that went into building your tree!
+Pulling supporting studies isn't included in rotl yet (or I couldn't find it).
+So we will use an Open Tree API call directly.
+
+```{r}
+url_ot <- 'https://api.opentreeoflife.org/v3/tree_of_life/induced_subtree'
+body <- list(ott_ids=taxa$ott_id)
+r <- httr::POST(url_ot, body = body, encode = "json")#gets which studies support the subtree from  the open tree API
+for(studytree in httr::content(r)$supporting_studies){
+study <-  strsplit(studytree, '@')[[1]][1]
+meta <- get_study_meta(study) #pulls the metadata for each study
+pub <- get_publication(meta)  #grabs teh publication information
+cat(pub,"\n\n")
+}
+```
+# Lets combine the phylogenetic information from Open Tree with geographic information from GBIF
+
+
+We will use the Global Biodiversity Information Facility (GBIF) to search for records of these species, and arbitrarily chose the first record returned as the location for the species. (sometimes the first record has no lat-long info, and we need to find a better one)
+
+
+```{r}
+dat1 <- rgbif::occ_search(scientificName = polarbear, fields=c('name','decimalLatitude', 'decimalLongitude'), limit = 10)
+locsdat1 <- cbind(polarbear, dat1$data) #labels the lat long columns with the species name
+colnames(locsdat1)<-c("species","Long","Lat")
+
+dat2 <- rgbif::occ_search(scientificName = hippo, fields=c('name','decimalLatitude', 'decimalLongitude'), limit = 10)
+locsdat2 <- cbind(hippo, dat2$data)
+colnames(locsdat2)<-c("species","Long","Lat")
+
+dat3 <- rgbif::occ_search(scientificName = boar,  fields=c('name','decimalLatitude', 'decimalLongitude'), limit = 10)
+locsdat3 <- cbind(boar, dat3$data)
+colnames(locsdat3)<-c("species","Long","Lat")
+
+dat4 <- rgbif::occ_search(scientificName = gorilla, fields=c('name','decimalLatitude', 'decimalLongitude'), limit = 10)
+locsdat4 <- cbind(gorilla, dat4$data)
+colnames(locsdat4)<-c("species","Long","Lat")
+
+dat5 <- rgbif::occ_search(scientificName = dolphin, fields=c('name','decimalLatitude', 'decimalLongitude'), limit = 10)
+locsdat5 <- cbind(dolphin, dat5$data)
+colnames(locsdat5)<-c("species","Long","Lat")
+
+locs <- as.data.frame(rbind(locsdat1,locsdat2, locsdat3, locsdat4, locsdat5)) #Combine the data from each species
+locs
+```
+
+```{r}
+locs[,1] <- gsub(' ','_',locs[,1])#On the tree, names have underscores instead of spaces.
+#Sometimes the lat longs have spaces in the records. 
+#We use trimws to get rid of the whitespace, and as.numeric to record the the latitudes and longitudes as numbers instead of characters.
+locs[,2]<-as.numeric(trimws(as.character(locs[,2])))
+locs[,3]<-as.numeric(trimws(as.character(locs[,3])))
+latlong <- as.matrix(locs[,c(3,2)]) #flip the columns to lat, long instead of long,lat
+rownames(latlong) <- locs[,1]
+```
+Check that your species are all included and have the correct names (taxonomic name recognition sometimes updates them)
+```{r}
+latlong
+```
+
+
+# Now to join together the geographic information with the phylogenetic information!
+Trees from OpenTree don't automatically come with branch lengths - we need to infer some branch lengths for this tree in order to plot it. (in future we can use R-Datelife! datelife.org)
+
+```{r}
+tr_bl<-ape::compute.brlen(tr)
+```
+
+Combine the phylogeny and the mapped locations
+```{r, fig.height=4, fig.width=7}
+cols<-setNames(sample(viridis(n=ape::Ntip(tr_bl))),
+    tr_bl$tip.label)# This sets the colors to pretty colors
+tdobj<-phytools::phylo.to.map(tr_bl,latlong,plot = FALSE, direction="rightwards")
+plot(tdobj, colors=cols, direction="rightwards")
+#If there is an error with 'cols' try this instead:
+#plot(tdobj, direction="rightwards")
+```
+  
+# We can do a better job of name matching by actually using the cross taxonomy mappings already encoded in the Open Tree Taxonomy!
+
+Lets try some plants
+
+```{r}
+spp2 <- c("Mimulous guttatus","Arabidopsis thaliana", "Musa gracilis", "Carex capitata")
+taxa2 <- rotl::tnrs_match_names(spp2)
+tr2 <- rotl::tol_induced_subtree(ott_id(taxa2), label="name")
+tr_bl2<-ape::compute.brlen(tr2)
+taxa2[,"gbif"] <- NA
+locs = data.frame(matrix(vector(), nrow(taxa2), 2))
+i=1
+for(id in taxa2$ott_id){
+   tax_info <- rotl::taxonomy_taxon_info(id)
+   for(source in tax_info[[1]]$tax_sources){
+     if (grepl('gbif', source, fixed=TRUE)){
+            gbif_id <- strsplit(source,":")[[1]][2]
+            taxa2[i,]$gbif <-gbif_id
+            result <- rgbif::occ_search(taxonKey = gbif_id, fields=c('name','decimalLatitude', 'decimalLongitude'), limit = 5)
+            if (dim(result$data)[1] > 0) {
+                try(locs[i,1] <- as.data.frame(result$data)[2])
+                try(locs[i,2] <- as.data.frame(result$data)[1])
+            }
+     }}
+   i = i + 1}
+rownames(locs) <- gsub(' ','_',taxa2$unique_name) 
+colnames(locs) <- c("latitude","longitude")
+```
+
+One of our species got reconciled to a synonym! 
+```{r}
+plot(tr2)
+```
+Mimulous guttatus is a synonym of Erythranthe lutea 
+https://tree.opentreeoflife.org/taxonomy/browse?id=662909
+
+```{r}
+taxa2
+```
+Because we are mapping tips based on keys instead of names, the name replacement doesn't matter affect our mapping
+
+```{r}
+tdobj2<-phytools::phylo.to.map(tr_bl2,locs, plot = FALSE, direction="rightwards")
+plot(tdobj2, direction="rightwards")
+```
