@@ -15,11 +15,8 @@ keypoints:
 - "Portions of the synthetic OpenTree can be extracted from a single OTT id or from a bunch of OTT ids"
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 source("../bin/chunk-options.R")
-my_taxa <- c("amphibians", "canis", "felis", "delphinidae", "spheniscidae")
-resolved_names <- rotl::tnrs_match_names(my_taxa)
-rownames(resolved_names) <- resolved_names$unique_name
 tol <- rotl::tol_about()
 ```
 <br/>
@@ -51,7 +48,8 @@ Well, now that we have some interesting taxon OTT ids, we can easily do this.
 The function `tol_induced_subtree()` allows us to get a tree of taxa from different taxonomic ranks.
 
 ```{r, eval = TRUE, results = 'hide'}
-my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
+resolved_names$ott_id
+my_tree <- rotl::tol_induced_subtree(ott_ids = resolved_names$ott_id)
 ```
 
 <br/>

@@ -27,6 +27,8 @@ library(rotl)
 library(devtools)
 library(stringr)
 devtools::install_github("phylotastic/datelife")
+devtools::install_github("phylotastic/datelifeplot")
 library(datelife)
+library(datelifeplot)
 ```
 {% include links.md %}

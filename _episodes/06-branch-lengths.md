@@ -1546,7 +1546,7 @@ Go to [Instructor Notes](../guide/index.html###6.1) later for more information o
 {: .testimonial} -->
 
 
-### Search the opentree chronogram database from `datelife`
+### Search the OpenTree chronogram database using `datelife`
 
 In the package `datelife`, we have implemented a workflow that extracts all studies containing information from at least two taxa.
 
@@ -1592,26 +1592,12 @@ canis_dr <- datelife::get_datelife_result(canis_node_subtree)
 
 
 ~~~
-'input' is not a 'datelifeQuery' object.
-~~~
-{: .output}
-
-
-
-~~~
 Running 'make_datelife_query'...
-~~~
-{: .output}
-
-
-
-~~~
-'input' is not a 'datelifeQuery' object.
 ~~~
 {: .output}
 We have now a list of matrices storing time of lineage divergence data for all taxon pairs.
 
-Lists are named by the study citation, so we have that information handy at all times.
+Lists are named with the study citation, so we have that information handy at all times.
 
 Let's explore the output.
 
@@ -2054,20 +2040,13 @@ Input taxa completely absent from source chronograms:
 ### Plot your results
 
 To plot the resulting tree, you can use the `plot.phylo()` function from `ape`.
-You can also use the function `plot_phylo_all()`, that adds the study citation as title and a geostratigraphic axis.
+You can also use `datelifeplot` functions, such as `plot_phylo_all()`, that adds the study citation as title, as well as a geochronostratigraphic axis for a time reference.
 
 
 ~~~
-datelife::plot_phylo_all(trees = canis_phylo_all)
+datelifeplot::plot_phylo_all(trees = canis_phylo_all)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error: 'plot_phylo_all' is not an exported object from 'namespace:datelife'
-~~~
-{: .error}
 
 <br/>
 <br/>

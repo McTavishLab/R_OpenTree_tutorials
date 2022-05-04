@@ -68,8 +68,9 @@ This function takes one _study id_ and _tree id_ at a time, like this:
 
 
 ~~~
-x <- 1
-rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_node_studies$tree_id[x], tip_label="ott_taxon_name", deduplicate = TRUE)
+index <- 1
+
+rotl::get_study_tree(study_id = canis_node_studies$study_id[index], tree_id = canis_node_studies$tree_id[index], tip_label="ott_taxon_name", deduplicate = TRUE)
 ~~~
 {: .language-r}
 

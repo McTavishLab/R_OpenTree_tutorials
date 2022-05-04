@@ -10,9 +10,8 @@ objectives:
 keypoints:
 - "Supporting trees usually contain more taxa than the ones we are interested in."
 ---
-```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 source("../bin/chunk-options.R")
-
 ```
 
 <br/>
@@ -45,8 +44,9 @@ Now that we have the ids, we can use the function `get_study_tree()`, which will
 This function takes one _study id_ and _tree id_ at a time, like this:
 
 ```{r}
-x <- 1
-rotl::get_study_tree(study_id = canis_node_studies$study_id[x], tree_id = canis_node_studies$tree_id[x], tip_label="ott_taxon_name", deduplicate = TRUE)
+index <- 1
+
+rotl::get_study_tree(study_id = canis_node_studies$study_id[index], tree_id = canis_node_studies$tree_id[index], tip_label="ott_taxon_name", deduplicate = TRUE)
 ```
 
 > ## Hands on! Get all supporting trees.

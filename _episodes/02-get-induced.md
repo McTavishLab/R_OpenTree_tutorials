@@ -18,83 +18,6 @@ keypoints:
 - "It is not possible to get a subtree from an OTT id that is not in the synthetic tree."
 ---
 
-~~~
-## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes
-## with labels: Rana clamitans ott515378, Rana sphenocephala ott61437, Rana
-## aurora ott771201, Glandirana ott407917, Pterorana ott3618410, Pelophylax
-## cf ott7070897, Hemimantis ott4133632, Microdiscopus ott4133623, Montorana
-## ott4133633, Chiromantis vittatus ott389176, Mercurana ott4133643, Beddomixalus
-## ott4133641, Buergeriinae ott223222, Maitsomantis ott678997, Boehmantis
-## ott484429, laevigata group ott189959, bernhardi group ott189958, Wakea
-## ott484449, Tsingymantis ott976861, Boophinae ott764200, Laliostoma ott1054409,
-## Ombrana ott4133654, Chrysopaa ott4133659, Alcalinae ott5926144, Liurananinae
-## ott5926192, Natalobatrachus ott532110, Nothophryne ott3618085, Cacosternum
-## nanum ott676305, Microbatrachella ott751405, Poyntonia ott475120, Anhydrophryne
-## ott113819, Ericabatrachus ott3618087, Phrynobatrachidae ott504589, Micrixalidae
-## ott1081209, Odontobatrachidae ott5536254, Lanzarana ott3618164, Trichobatrachus
-## ott780979, Pararthroleptis ott4133674, Hyperolius fusciventris ott85268,
-## Chlorolius ott3619081, Tachycnemis (genus in Deuterostomia) ott750024, Morerella
-## ott85260, Kassinula ott3619075, Opisthothylax ott645881, Chrysobatrachus
-## ott3619077, Callixalus ott3619073, Arlequinus ott3619083, Semnodactylus
-## ott62328, Tornierella ott4133669, Breviceps adspersus ott3618690, Spelaeophryne
-## ott660153, Probreviceps macrodactylus ott111206, Balebreviceps ott348136,
-## Hemisotidae ott165721, Oninia ott789802, Genyophryne ott21522, Siamophryne
-## ott7070469, Melanobatrachus ott701612, Kalophrynidae ott977735, Phrynella (genus
-## in Opisthokonta) ott401609, Mysticellus ott7070618, Dermatonotus ott186184,
-## Gastrophryne olivacea ott565409, Arcovomer ott844415, Adelastinae ott5800508,
-## Adelastes ott3618939, Dasypops ott513414, Relictivomer ott190096, Anilany
-## ott5926118, Madecassophryne ott3618941, Parhoplophryne ott3618937, Otophryninae
-## ott404351, Phrynomerinae ott630304, Caluella ott7666463, Corythomantis
-## ott442032, Argenteohyla ott578372, Argenteohyla siemersi ott100569, Nyctimantis
-## ott1087156, Itapotihyla ott257368, Hyla annectans ott655531, Anotheca ott59159,
-## Diaglena ott3620134, Acris crepitans ott59141, Quilticohyla ott7070260, Rheohyla
-## ott7070262, Nesorohyla ott7070190, Pachymedusa ott254792, Dryaderces ott7666055,
-## Didynamipus ott152264, Barbarophryne ott5800473, Churamiti ott104959, Bufotes
-## pewzowi ott1072351, Schismaderma ott506368, Sabahphrynus ott4133471, Strauchbufo
-## ott6158681, Epidalea ott334615, Anaxyrus americanus ott889326, Laurentophryne
-## ott3619734, Parapelophryne ott3619737, Pseudobufo ott3619739, Bufoides
-## ott3619731, Metaphryniscus ott3619751, Blythophryne ott5926045, Ghatophryne
-## ott7069948, Rentapia ott7069968, Silverstoneia nubicola ott638061, Hyloxalinae
-## ott1096759, Lithodytes ott315881, Scythrophrys ott462991, Rupirana ott3620326,
-## Phrynocerus ott3619498, Physalalemus ott6158772, Niedenia ott4133301,
-## Allophrynidae ott57740, Macrogenioglottus ott726713, Insuetophrynus ott44381,
-## Telmatobiinae ott777187, Hylorina ott440882, Chaltenobatrachus ott6158620,
-## Limnomedusa ott914517, Chacophrys ott431943, Caudiverbera ott1068325,
-## Atopophrynus ott3620196, Geobatrachus ott3620197, Ceuthomantinae ott277741,
-## Megistolotis ott276283, Adelotus ott276281, Assa (genus in Opisthokonta)
-## ott906692, Paracrinia ott989413, Metacrinia ott412471, Spicospina ott1039925,
-## Rheobatrachidae ott918183, Hadromophryne ott971912, Atympanophrys ott542885,
-## Vibrissaphora ott535112, Pelodytidae ott509554, Xenopodinae ott940173,
-## Pseudhymenochirus ott140873, Rhinophrynidae ott459016, Rhinophrynus ott459015,
-## Alytinae ott5334814, Discoglossus galganoi ott461369, Latonia ott4948216,
-## Leiopelmatidae ott611960, Ascaphidae ott1013114, Pelodryadidae ott3620482,
-## Ranoidea (genus in family Pelodryadidae) ott7666856, Iranodon ott7071233,
-## Ranodon ott834698, Satobius ott5800418, Pachyhynobius ott1021854, Ambystomatidae
-## ott984723, Dicamptodontidae ott60819, Laotriton ott4948201, Triturus marmoratus
-## ott1041767, Triturus carnifex ott1041783, Ommatotriton ophryticus ott645229,
-## Lissotriton helveticus ott9366, Lissotriton boscai ott830424, Tylototriton
-## verrucosus ott932561, Tylototriton wenxianensis ott981376, Pleurodeles waltl
-## ott566038, Lyciasalamandra fazilae ott1024882, Salamandrininae ott4948210,
-## Pingia ott4132654, Isthmura bellii ott46162, Isthmura sierraoccidentalis
-## ott98841, Parvimolge ott46159, Bradytriton ott798666, Nyctanolis ott224306,
-## Haideotriton ott133635, Eurycea multiplicata ott839995, Stereochilus (genus
-## in Opisthokonta) ott798664, Hemidactylium ott798658, Phaeognathus ott964128,
-## Karsenia ott893551, Ensatina ott64118, Hydromantes imperialis ott675243,
-## Atylodes (genus in Deuterostomia) ott693464, Hydromantoides ott4132648,
-## Amphiumidae ott566022, Rhyacotritonidae ott459010, Sirenoidea ott336754,
-## Chikilidae ott4948197, Praslinia ott80530, Sylvacaecilia ott3617918,
-## Atretochoana ott3617929, Potamotyphlus ott7667119, Bdellophis ott4132629
-~~~
-{: .warning}
-
-
-
-~~~
-## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
-## labels: Lycaon ott821959, Cuon alpinus ott313163, Eucyon ott3612566, Atelocynus
-## ott621180, Chrysocyon ott621163, Canis mesomelas ott666235
-~~~
-{: .warning}
 <br/>
 <br/>
 
@@ -146,7 +69,8 @@ The function `tol_induced_subtree()` allows us to get a tree of taxa from differ
 
 
 ~~~
-my_tree <- rotl::tol_induced_subtree(resolved_names$ott_id)
+resolved_names$ott_id
+my_tree <- rotl::tol_induced_subtree(ott_ids = resolved_names$ott_id)
 ~~~
 {: .language-r}
 

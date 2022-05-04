@@ -6,13 +6,12 @@ title: "Getting an induced subtree of all taxa within a taxonomic rank"
 teaching: 5
 exercises: 5
 questions:
-- "How do I get all taxa from a certain rank?"
+- "How do I get all taxa from a certain taxonomic rank?"
 objectives:
-- "Get an induced subtree from all taxa of a certain taxonomic rank."
+- "Get an induced subtree from all taxa of a given taxonomic rank."
 keypoints:
 - "It is possible to get all types of subsets from the synthetic tree, as long as you can get the OTT ids!"
 ---
-
 
 <br/>
 <br/>
@@ -27,13 +26,6 @@ Let's get all amphibian families.
 amphibia_families <- datelife::get_ott_children(ott_ids = resolved_names["Amphibia",]$ott_id, ott_rank = "family")
 ~~~
 {: .language-r}
-
-
-
-~~~
-ott_ids is not a numeric vector; coercing to numeric.
-~~~
-{: .output}
 
 ~~~
 str(amphibia_families)

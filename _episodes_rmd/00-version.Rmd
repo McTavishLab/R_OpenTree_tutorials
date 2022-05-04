@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Package versions"
+title: "Package version"
 teaching: 5
 exercises: 5
 questions:
@@ -12,11 +12,12 @@ objectives:
 keypoints:
 - "Package version is key for science reproducibility, and you can document it using the function packageVersion()."
 ---
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 source("../bin/chunk-options.R")
 ```
 <br/>
 <br/>
+
 
 Scientific reproducibility is key for the advancement of Science.
 In this first episode, we will check that you have the same package versions that we will use throughout the tutorial.
@@ -30,6 +31,7 @@ packageVersion("ape")
 packageVersion("devtools")
 packageVersion("stringi")
 packageVersion("datelife")
+packageVersion("datelifeplot")
 ```
 
 <br/>
@@ -37,7 +39,7 @@ packageVersion("datelife")
 Alternatively, you can create a character vector of package names and use an `lapply` to get versions of all packages at once:
 
 ```{r, eval = TRUE}
-packages <- c("rotl", "ape", "devtools", "stringr", "datelife")
+packages <- c("rotl", "ape", "devtools", "stringr", "datelife", "datelifeplot")
 names(packages) <- packages
 
 lapply(packages, packageVersion)
@@ -45,7 +47,7 @@ lapply(packages, packageVersion)
 
 <br/>
 
-If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them anew, following instructions in the [setup of this tutorial](). 
+If you have older versions of the packages, you can update them with `install.packages`, as if you were to install them anew, following instructions in the [setup of this tutorial]().
 The function `update.packages` does not allow updating single packages. Instead, it will try to update all packages already installed.
 You can use it as follows:
 
@@ -74,7 +76,7 @@ TODO: In here, we will also show how you can make sure that you are being consis
 
 <br/>
 
-Now we are ready to fully dive in to our tutorial now!
+Now we are ready to fully dive in to our tutorial!
 
 <br/>
 
